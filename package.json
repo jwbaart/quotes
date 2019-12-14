@@ -10,7 +10,7 @@
     "e2e": "ng e2e"
   },
   "lint-staged": {
-    "src/**/*.{ts,html}": [
+    "src/**/*.{ts}": [
       "tslint --project tsconfig.json --fix",
       "pretty-quick",
       "git add"
