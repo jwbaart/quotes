@@ -7,7 +7,7 @@ export const environment = {
     projectId: 'quotes-553ed',
     storageBucket: 'quotes-553ed.appspot.com',
     messagingSenderId: '149174406899',
-    appId: '1:149174406899:web:628b1a056427ed4821b186',
-    measurementId: 'G-D2L7910Y1T'
+    appId: '1:149174406899:web:c215571c3960609a21b186',
+    measurementId: 'G-WPDZ44FLKS'
   }
 };
