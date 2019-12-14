@@ -9,9 +9,16 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "lint-staged": {
+    "src/**/*.{ts,html}": [
+      "tslint --project tsconfig.json -c tslint.commit.json --fix",
+      "pretty-quick",
+      "git add"
+    ]
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "lint-staged"
     }
   },
   "private": true,
