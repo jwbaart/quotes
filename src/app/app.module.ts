@@ -16,9 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { QuotesListComponent } from './quotes/quotes-list/quotes-list.component';
+import { QuotesComponent } from './quotes/quotes.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, NavigationComponent],
+  declarations: [AppComponent, LoginComponent, NavigationComponent, QuotesListComponent, QuotesComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
