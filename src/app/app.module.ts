@@ -19,9 +19,17 @@ import { MatListModule } from '@angular/material/list';
 import { QuotesListComponent } from './quotes/quotes-list/quotes-list.component';
 import { QuotesComponent } from './quotes/quotes.component';
 import { RegisterComponent } from './register/register.component';
+import { IntroComponent } from './intro/intro.component';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, QuotesListComponent, QuotesComponent, RegisterComponent],
+  declarations: [
+    AppComponent,
+    NavigationComponent,
+    QuotesListComponent,
+    QuotesComponent,
+    RegisterComponent,
+    IntroComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
