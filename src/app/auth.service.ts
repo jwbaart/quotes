@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
+import { auth } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  public currentUser: firebase.User = null;
   private _authState: Observable<firebase.User>;
-  private _currentUser: firebase.User = null;
 
   constructor(private afAuth: AngularFireAuth) {
     console.log('this.afAuth', this.afAuth);
@@ -17,13 +18,13 @@ export class AuthService {
       user => {
         console.log('user', user);
         if (user) {
-          this._currentUser = user;
+          this.currentUser = user;
           // this.openSnackBar('Successfully authenticated');
           console.log('AUTHSTATE USER', user);
           // this.router.navigate(['home']);
         } else {
           console.log('AUTHSTATE USER EMPTY', user);
-          this._currentUser = null;
+          this.currentUser = null;
         }
       },
       err => {
@@ -33,11 +34,15 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this._currentUser !== null;
+    return this.currentUser !== null;
   }
 
   isLoggedOut(): boolean {
-    return this._currentUser == null;
+    return this.currentUser == null;
+  }
+
+  login() {
+    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
   logout() {

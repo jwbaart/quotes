@@ -2,6 +2,14 @@
   <a mat-button [routerLink]="'/'">Home</a>
   <a mat-button [routerLink]="'/quotes'">Uitspraken</a>
   <span class="navigation__spacer"></span>
-  <a mat-button [routerLink]="'/login'" *ngIf="isLoggedOut()">Login</a>
-  <a mat-button [routerLink]="'/login'" *ngIf="isLoggedIn()">Logout</a>
+  <button mat-button *ngIf="isLoggedOut()" (click)="authService.login()">Login</button>
+  <button mat-raised-button *ngIf="isLoggedOut()" [routerLink]="'/register'">Register</button>
+  <button mat-button *ngIf="isLoggedIn()" (click)="authService.logout()">
+    <mat-card>
+      <mat-card-header>
+        <img mat-card-avatar *ngIf="authService.currentUser.photoURL" src="{{ authService.currentUser.photoURL }}" />
+        <mat-card-title> {{ authService.currentUser.displayName }} </mat-card-title>
+      </mat-card-header>
+    </mat-card>
+  </button>
 </mat-toolbar>
