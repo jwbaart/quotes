@@ -1,1 +1,6 @@
 <p>quotes works!</p>
+<ul>
+  <li class="text" *ngFor="let quote of quotesService.quotes | async">quote.name: {{ quote.name }}</li>
+</ul>
+
+<!-- <quote-table></quote-table> -->
