@@ -7,8 +7,8 @@ import { Quote } from '../quote';
   styleUrls: ['./quote-table.component.scss']
 })
 export class QuoteTableComponent implements OnInit {
-  @Input() quotes: Quote[];
-  displayedColumns: string[] = ['id', 'title', 'childr(en)'];
+  @Input() quotesData: Quote[];
+  displayedColumns: string[] = ['text', 'children'];
 
   constructor() {}
 

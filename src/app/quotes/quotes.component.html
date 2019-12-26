@@ -1,9 +1,1 @@
-<p>quotes works!</p>
-<ul>
-  <li class="text" *ngFor="let quote of quotesService.quotes | async">
-    <p>quote.text: {{ quote.text }}</p>
-    <p>quote.children: {{ quote.children }}</p>
-  </li>
-</ul>
-
-<!-- <quote-table></quote-table> -->
+<app-quote-table [quotesData]="quotesService.quotes | async"></app-quote-table>
