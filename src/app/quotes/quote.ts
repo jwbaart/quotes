@@ -5,6 +5,6 @@ export enum Child {
 
 export interface Quote {
   id: string;
-  story: string;
+  text: string;
   children: Child;
 }

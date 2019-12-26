@@ -1,1 +1,12 @@
-<app-quote-table [quotesData]="quotesService.quotes | async"></app-quote-table>
+<section class="app-quotes">
+  <app-quote-table [quotesData]="quotesService.quotes | async"></app-quote-table>
+
+  <a
+    mat-fab
+    color="primary"
+    aria-label="Add quote"
+    class="app-quotes__add-quote-button"
+    (click)="onAddQuoteButtonClick()"
+    ><mat-icon>add</mat-icon></a
+  >
+</section>
