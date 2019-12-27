@@ -16,7 +16,13 @@
       </div>
 
       <mat-form-field>
-        <input matInput [matDatepicker]="quoteDate" placeholder="Datum" [(ngModel)]="data.timestamp" name="quote-timestamp"/>
+        <input
+          matInput
+          [matDatepicker]="quoteDate"
+          placeholder="Datum"
+          [(ngModel)]="data.datestamp"
+          name="quote-datestamp"
+        />
         <mat-datepicker-toggle matSuffix [for]="quoteDate"></mat-datepicker-toggle>
         <mat-datepicker #quoteDate></mat-datepicker>
       </mat-form-field>

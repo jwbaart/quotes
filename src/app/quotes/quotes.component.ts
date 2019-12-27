@@ -23,7 +23,7 @@ export class QuotesComponent implements OnInit {
         ben: true,
         tom: false
       },
-      timestamp: new Date()
+      datestamp: new Date()
     };
     const addQuoteDialogRef = this.dialog.open(AddQuoteDialogComponent, addQuoteDialogConfig);
 

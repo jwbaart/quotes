@@ -12,7 +12,7 @@ export interface Quote {
   children: {
     [key in Child]: boolean;
   };
-  timestamp: Date;
+  datestamp: Date;
 }
 
 @Injectable({
