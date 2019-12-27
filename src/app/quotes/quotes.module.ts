@@ -12,12 +12,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
+import { QuoteCardComponent } from './quote-card/quote-card.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [QuotesComponent, QuoteTableComponent, AddQuoteDialogComponent],
+  declarations: [QuotesComponent, QuoteTableComponent, AddQuoteDialogComponent, QuoteCardComponent],
   imports: [
     CommonModule,
+    // TODO: Move to AppModule and available in quotes and other modules
+    FlexLayoutModule,
     FormsModule,
     MatNativeDateModule,
     MatTableModule,
@@ -27,7 +33,9 @@ import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.com
     MatFormFieldModule,
     MatInputModule,
     MatDatepickerModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatCardModule,
+    MatChipsModule
   ],
   entryComponents: [AddQuoteDialogComponent]
 })

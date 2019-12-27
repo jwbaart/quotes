@@ -1,0 +1,9 @@
+<mat-card class="app-quote-card">
+  <mat-card-content>
+    <p>{{ text }}</p>
+    <mat-chip-list>
+      <mat-chip *ngIf="children.ben" selectable="false">Ben</mat-chip>
+      <mat-chip *ngIf="children.tom" selectable="false">Tom</mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
+</mat-card>

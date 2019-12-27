@@ -118,7 +118,7 @@
   dependencies:
     tslib "^1.9.0"
 
-"@angular/cdk@~8.2.3":
+"@angular/cdk@^8.2.3":
   version "8.2.3"
   resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-8.2.3.tgz#16b96ffa935cbf5a646757ecaf2b19c434678f72"
   integrity sha512-ZwO5Sn720RA2YvBqud0JAHkZXjmjxM0yNzCO8RVtRE9i8Gl26Wk0j0nQeJkVm4zwv2QO8MwbKUKGTMt8evsokA==
@@ -194,6 +194,13 @@
   version "5.2.3"
   resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-5.2.3.tgz#a4be89ef7684f0af41a430ba41436f99e9178f68"
   integrity sha512-bDxjnsUkPmWi2Tmk6Jq/veUi+Ot1FX/Rr+tQYYHk7E2XD2F+et3Bz8UNvLMliMf9NRIUzmR7Br92ZBUBNvd2UA==
+
+"@angular/flex-layout@^8.0.0-beta.27":
+  version "8.0.0-beta.27"
+  resolved "https://registry.yarnpkg.com/@angular/flex-layout/-/flex-layout-8.0.0-beta.27.tgz#a697d5a90e6d04c06b02ee872f88f384d1723f7c"
+  integrity sha512-qmpvQPesU4ZQ56IscwgmVRpK2UnyV+gwvXUql7TMv0QV215hLcHczjGsrKkLfW2By5E7XEyDat9br72uVXcPMw==
+  dependencies:
+    tslib "^1.7.1"
 
 "@angular/forms@~8.2.14":
   version "8.2.14"

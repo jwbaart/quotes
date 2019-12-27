@@ -9,10 +9,11 @@ import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.com
   styleUrls: ['./quotes.component.scss']
 })
 export class QuotesComponent implements OnInit {
+  quotes: Quote[] = [];
   constructor(public quotesService: QuotesService, public dialog: MatDialog) {}
 
   ngOnInit() {
-    this.quotesService.quotes.subscribe(quotes => console.log('quotes', quotes));
+    this.quotesService.quotes.subscribe(quotes => (this.quotes = quotes));
   }
 
   onAddQuoteButtonClick() {
