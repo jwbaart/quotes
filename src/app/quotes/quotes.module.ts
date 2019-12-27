@@ -14,6 +14,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -35,7 +36,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatDatepickerModule,
     MatCheckboxModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    MatProgressSpinnerModule
   ],
   entryComponents: [AddQuoteDialogComponent]
 })
