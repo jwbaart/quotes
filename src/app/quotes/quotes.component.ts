@@ -14,7 +14,6 @@ export class QuotesComponent implements OnInit {
 
   ngOnInit() {
     this.quotesService.quotes.subscribe(quotes => console.log('quotes', quotes));
-    this.quotesService.users.subscribe(users => console.log('users', users));
   }
 
   onAddQuoteButtonClick() {
@@ -26,6 +25,7 @@ export class QuotesComponent implements OnInit {
     addQuoteDialogRef.afterClosed().subscribe(result => {
       this.newQuoteText = result;
       console.log('The dialog was closed', this.newQuoteText);
+      this.quotesService.add({ text: this.newQuoteText });
     });
   }
 }

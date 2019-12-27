@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 
 export enum Child {
   Ben = 'ben',
@@ -16,15 +16,16 @@ export interface Quote {
   providedIn: 'root'
 })
 export class QuotesService {
+  private _quotesCollection: AngularFirestoreCollection<any>;
   quotes: Observable<any[]>;
-  users: Observable<any[]>;
 
   constructor(db: AngularFirestore) {
+    this._quotesCollection = db.collection('quotes');
     this.quotes = db.collection('quotes').valueChanges();
-    this.users = db.collection('users').valueChanges();
   }
 
-  add() {
-    console.log('');
+  add(content) {
+    // this.db.collection('quotes').add(text);
+    this._quotesCollection.add(content);
   }
 }
