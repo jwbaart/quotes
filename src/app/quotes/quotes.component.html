@@ -4,10 +4,10 @@
       [text]="quote.text"
       [children]="quote.children"
       fxFlex="0 1 100%"
-      fxFlex.sm="0 1 50%"
-      fxFlex.md="0 1 calc(100%  /3)"
-      fxFlex.lg="0 1 25%"
-      fxFlex.xl="0 1 20%"
+      fxFlex.sm="50%"
+      fxFlex.md="calc(100%  /3)"
+      fxFlex.lg="25%"
+      fxFlex.xl="20%"
       *ngFor="let quote of quotes"
     ></app-quote-card>
   </div>
