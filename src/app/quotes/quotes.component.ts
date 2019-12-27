@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuotesService, Quote } from './quotes.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 
 @Component({
@@ -16,20 +16,21 @@ export class QuotesComponent implements OnInit {
   }
 
   onAddQuoteButtonClick() {
-    const addQuoteDialogRef = this.dialog.open(AddQuoteDialogComponent, {
-      width: '250px',
-      data: {
-        text: '',
-        children: {
-          ben: true,
-          tom: false
-        }
-      }
-    });
+    const addQuoteDialogConfig = new MatDialogConfig();
+    addQuoteDialogConfig.data = {
+      text: '',
+      children: {
+        ben: true,
+        tom: false
+      },
+      timestamp: new Date()
+    };
+    const addQuoteDialogRef = this.dialog.open(AddQuoteDialogComponent, addQuoteDialogConfig);
 
     addQuoteDialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
-      this.quotesService.add(result);
+      if (result) {
+        this.quotesService.add(result);
+      }
     });
   }
 }
