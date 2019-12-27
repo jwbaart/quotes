@@ -9,7 +9,9 @@ export enum Child {
 export interface Quote {
   id: string;
   text: string;
-  children: Child;
+  children: {
+    [key in Child]: boolean;
+  };
 }
 
 @Injectable({

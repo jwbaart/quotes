@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { QuotesService } from './quotes.service';
+import { QuotesService, Quote } from './quotes.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 
@@ -10,7 +10,6 @@ import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.com
 })
 export class QuotesComponent implements OnInit {
   constructor(public quotesService: QuotesService, public dialog: MatDialog) {}
-  newQuoteText = null;
 
   ngOnInit() {
     this.quotesService.quotes.subscribe(quotes => console.log('quotes', quotes));
@@ -19,13 +18,18 @@ export class QuotesComponent implements OnInit {
   onAddQuoteButtonClick() {
     const addQuoteDialogRef = this.dialog.open(AddQuoteDialogComponent, {
       width: '250px',
-      data: { text: this.newQuoteText }
+      data: {
+        text: '',
+        children: {
+          ben: true,
+          tom: false
+        }
+      }
     });
 
     addQuoteDialogRef.afterClosed().subscribe(result => {
-      this.newQuoteText = result;
-      console.log('The dialog was closed', this.newQuoteText);
-      this.quotesService.add({ text: this.newQuoteText });
+      console.log('The dialog was closed', result);
+      this.quotesService.add(result);
     });
   }
 }

@@ -1,11 +1,21 @@
-<h1 mat-dialog-title>Nieuwe quote</h1>
+<section class="app-add-quote-dialog">
+  <h1 mat-dialog-title>Nieuwe quote</h1>
 
-<form name="new-quote">
-  <mat-form-field>
-    <input matInput placeholder="Tekst" [(ngModel)]="data.text" name="quote-text" />
-  </mat-form-field>
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="data.text" cdkFocusInitial>Ok</button>
-  </div>
-</form>
+  <form name="new-quote">
+    <mat-form-field>
+      <input matInput placeholder="Tekst" [(ngModel)]="data.text" name="quote-text" />
+    </mat-form-field>
+    <div class="app-add-quote-dialog__checkbox-group">
+      <mat-checkbox [(ngModel)]="data.children.ben" name="quote-child-ben" class="app-add-quote-dialog__checkbox"
+        >Ben</mat-checkbox
+      >
+      <mat-checkbox [(ngModel)]="data.children.tom" name="quote-child-tom" class="app-add-quote-dialog__checkbox"
+        >Tom</mat-checkbox
+      >
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    </div>
+  </form>
+</section>
