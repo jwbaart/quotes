@@ -13,4 +13,8 @@ export class QuotesService {
     this.quotes = db.collection('quotes').valueChanges();
     this.users = db.collection('users').valueChanges();
   }
+
+  add() {
+    console.log('');
+  }
 }

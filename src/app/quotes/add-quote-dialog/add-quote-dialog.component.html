@@ -1,1 +1,11 @@
-<p>add-quote-dialog works!</p>
+<h1 mat-dialog-title>Nieuwe quote</h1>
+
+<form name="new-quote">
+  <mat-form-field>
+    <input matInput placeholder="Tekst" [(ngModel)]="data.text" name="quote-text" />
+  </mat-form-field>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data.text" cdkFocusInitial>Ok</button>
+  </div>
+</form>
