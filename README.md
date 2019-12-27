@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ba558947-1bd1-4893-854e-5fa5102e27ef/deploy-status)](https://app.netlify.com/sites/peaceful-engelbart-78fa2d/deploys)
+
 # Quotes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.20.
