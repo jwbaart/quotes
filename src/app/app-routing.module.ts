@@ -10,7 +10,7 @@ const routes: Routes = [
     redirectTo: 'intro',
     pathMatch: 'full'
   },
-  { path: 'register', component: RegisterComponent },
+  // { path: 'register', component: RegisterComponent },
   { path: 'quotes', component: QuotesComponent },
   { path: 'intro', component: IntroComponent }
 ];
