@@ -2,7 +2,8 @@ export const environment = {
   production: true,
   firebase: {
     apiKey: 'AIzaSyBVoDoVIUuedEiX-BhiHk80UyZFeFv81Eo',
-    authDomain: 'quotes-553ed.firebaseapp.com',
+    // authDomain: 'quotes-553ed.firebaseapp.com',
+    authDomain: 'auth.uitspraken.jwbaart.dev',
     databaseURL: 'https://quotes-553ed.firebaseio.com',
     projectId: 'quotes-553ed',
     storageBucket: 'quotes-553ed.appspot.com',
