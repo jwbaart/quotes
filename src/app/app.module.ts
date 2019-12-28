@@ -14,6 +14,8 @@ import { MaterialModule } from './material-module';
 import { IntroComponent } from './intro/intro.component';
 import { QuotesModule } from './quotes/quotes.module';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { HttpClientModule } from '@angular/common/http';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, IntroComponent],
@@ -26,7 +28,9 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
     MaterialModule,
     BrowserAnimationsModule,
     QuotesModule,
-    LayoutModule
+    LayoutModule,
+    HttpClientModule,
+    InlineSVGModule.forRoot()
   ],
   providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
