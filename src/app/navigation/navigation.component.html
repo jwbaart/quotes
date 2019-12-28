@@ -2,7 +2,7 @@
   <div class="app-navigation__quotes-icon" aria-label="Quotes icon" [inlineSVG]="'/assets/quotes.svg'"></div>
 
   <span class="app-navigation__spacer"></span>
-  
+
   <button mat-button *ngIf="isLoggedOut()" (click)="authService.login()">Login</button>
   <button mat-button *ngIf="isLoggedIn()" (click)="authService.logout()">
     <mat-card>

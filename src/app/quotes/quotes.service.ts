@@ -28,7 +28,6 @@ export class QuotesService {
   }
 
   add(content) {
-    // this.db.collection('quotes').add(text);
     this._quotesCollection.add(content);
   }
 }
