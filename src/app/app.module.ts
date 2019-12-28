@@ -16,12 +16,14 @@ import { QuotesModule } from './quotes/quotes.module';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { HttpClientModule } from '@angular/common/http';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, IntroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase, 'quotes'),
     AngularFirestoreModule,
     AngularFireAuthModule,

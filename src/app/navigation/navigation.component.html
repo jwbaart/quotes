@@ -3,13 +3,15 @@
 
   <span class="app-navigation__spacer"></span>
 
-  <button mat-button *ngIf="isLoggedOut()" (click)="authService.login()">Login</button>
-  <button mat-button *ngIf="isLoggedIn()" (click)="authService.logout()">
-    <mat-card>
-      <mat-card-header>
-        <img mat-card-avatar *ngIf="authService.currentUser.photoURL" src="{{ authService.currentUser.photoURL }}" />
-        <mat-card-title> {{ authService.currentUser.displayName }} </mat-card-title>
-      </mat-card-header>
-    </mat-card>
+  <button mat-raised-button *ngIf="isLoggedOut()" (click)="authService.login()">Login</button>
+  <button mat-raised-button *ngIf="isLoggedIn()" (click)="authService.logout()" title="Logout">
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <img
+        class="app-navigation__avatar"
+        *ngIf="authService.currentUser.photoURL"
+        src="{{ authService.currentUser.photoURL }}"
+      />
+      <p class="mat-body">{{ authService.currentUser.displayName }}</p>
+    </div>
   </button>
 </mat-toolbar>
