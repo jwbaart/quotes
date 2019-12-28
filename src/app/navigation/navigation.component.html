@@ -1,9 +1,6 @@
-<mat-toolbar color="primary" role="heading">
-  <a mat-button [routerLink]="'/'" *ngIf="isLoggedOut()">Home</a>
-  <a mat-button [routerLink]="'/quotes'" *ngIf="isLoggedIn()">Uitspraken</a>
-  <span class="navigation__spacer"></span>
+<mat-toolbar color="primary" role="heading" class="app-navigation">
+  <span class="app-navigation__spacer"></span>
   <button mat-button *ngIf="isLoggedOut()" (click)="authService.login()">Login</button>
-  <!-- <button mat-raised-button *ngIf="isLoggedOut()" [routerLink]="'/register'">Register</button> -->
   <button mat-button *ngIf="isLoggedIn()" (click)="authService.logout()">
     <mat-card>
       <mat-card-header>

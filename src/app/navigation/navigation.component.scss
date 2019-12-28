@@ -1,4 +1,8 @@
-.navigation {
+@import '~@angular/material/theming';
+
+.app-navigation {
+  @include mat-elevation(2);
+
   &__spacer {
     flex: 1 1 auto;
   }
