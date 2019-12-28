@@ -11,13 +11,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './material-module';
-import { RegisterComponent } from './register/register.component';
 import { IntroComponent } from './intro/intro.component';
 import { QuotesModule } from './quotes/quotes.module';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, RegisterComponent, IntroComponent],
+  declarations: [AppComponent, NavigationComponent, IntroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
