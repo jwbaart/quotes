@@ -4,5 +4,10 @@
   command = "yarn build"
 [context.production]
   command = "yarn build --prod"
-  
+
 [context.dev]
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
