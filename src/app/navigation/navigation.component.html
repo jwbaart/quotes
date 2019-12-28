@@ -3,8 +3,10 @@
 
   <span class="app-navigation__spacer"></span>
 
-  <button mat-raised-button *ngIf="isLoggedOut()" (click)="authService.login()">Login</button>
-  <button mat-raised-button *ngIf="isLoggedIn()" (click)="authService.logout()" title="Logout">
+  <button mat-raised-button *ngIf="isLoggedOut()" (click)="authService.login()">
+    Login
+  </button>
+  <button mat-raised-button *ngIf="isLoggedIn()" (click)="authService.logout()" matTooltip="Logout" aria-label="Logout">
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <img
         class="app-navigation__avatar"
