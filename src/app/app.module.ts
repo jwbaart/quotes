@@ -14,6 +14,7 @@ import { MaterialModule } from './material-module';
 import { RegisterComponent } from './register/register.component';
 import { IntroComponent } from './intro/intro.component';
 import { QuotesModule } from './quotes/quotes.module';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, RegisterComponent, IntroComponent],
@@ -28,7 +29,7 @@ import { QuotesModule } from './quotes/quotes.module';
     QuotesModule,
     LayoutModule
   ],
-  providers: [],
+  providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
