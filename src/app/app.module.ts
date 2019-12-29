@@ -13,10 +13,10 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './material-module';
 import { IntroComponent } from './intro/intro.component';
 import { QuotesModule } from './quotes/quotes.module';
-import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { HttpClientModule } from '@angular/common/http';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, IntroComponent],
@@ -32,9 +32,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     QuotesModule,
     LayoutModule,
     HttpClientModule,
-    InlineSVGModule.forRoot()
+    InlineSVGModule.forRoot(),
+    CoreModule
   ],
-  providers: [AngularFireAuthGuard],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
