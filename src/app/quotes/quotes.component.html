@@ -1,5 +1,5 @@
 <section class="app-quotes">
-  <mat-spinner *ngIf="!quotes.length" class="app-quotes__spinner"></mat-spinner>
+  <mat-spinner *ngIf="isQuotesLoading" class="app-quotes__spinner"></mat-spinner>
   <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="2rem grid">
     <app-quote-card
       *ngFor="let quote of quotes"

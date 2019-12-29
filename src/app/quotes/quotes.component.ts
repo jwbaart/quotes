@@ -4,6 +4,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-quotes',
@@ -12,12 +13,22 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
+  isQuotesLoading = true;
   private _ngUnsubscribe: Subject<void> = new Subject();
 
-  constructor(public quotesService: QuotesService, public dialog: MatDialog) {}
+  constructor(public quotesService: QuotesService, public dialog: MatDialog, private _snackBar: MatSnackBar) {}
 
   ngOnInit() {
-    this.quotesService.quotes.pipe(takeUntil(this._ngUnsubscribe)).subscribe(quotes => (this.quotes = quotes));
+    this.quotesService.quotes.pipe(takeUntil(this._ngUnsubscribe)).subscribe(
+      quotes => {
+        this.quotes = quotes;
+        this.isQuotesLoading = false;
+      },
+      () => {
+        this._snackBar.open('Je account is nog niet geactiveerd', '', { duration: 3000 });
+        this.isQuotesLoading = false;
+      }
+    );
   }
 
   ngOnDestroy() {
