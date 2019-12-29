@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '@app/shared';
 import { FormsModule } from '@angular/forms';
 import { QuotesComponent } from './quotes.component';
 import { QuoteTableComponent } from './quote-table/quote-table.component';
@@ -18,14 +19,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [QuotesComponent, QuoteTableComponent, AddQuoteDialogComponent, QuoteCardComponent],
   imports: [
     CommonModule,
-    // TODO: Move to AppModule and available in quotes and other modules
-    FlexLayoutModule,
+    SharedModule,
     FormsModule,
     MatNativeDateModule,
     MatTableModule,

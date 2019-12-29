@@ -15,15 +15,14 @@ import { IntroComponent } from './intro/intro.component';
 import { QuotesModule } from './quotes/quotes.module';
 import { HttpClientModule } from '@angular/common/http';
 import { InlineSVGModule } from 'ng-inline-svg';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, IntroComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase, 'quotes'),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -33,7 +32,8 @@ import { CoreModule } from './core/core.module';
     LayoutModule,
     HttpClientModule,
     InlineSVGModule.forRoot(),
-    CoreModule
+    CoreModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
