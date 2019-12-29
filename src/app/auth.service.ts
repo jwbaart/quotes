@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { auth } from 'firebase';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthService {
   public currentUser: firebase.User = null;
   private _authState: Observable<firebase.User>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) {
+  constructor(private afAuth: AngularFireAuth, private router: Router, private _snackBar: MatSnackBar) {
     console.log('this.afAuth', this.afAuth);
     this._authState = this.afAuth.authState;
 
@@ -20,16 +21,13 @@ export class AuthService {
         console.log('user', user);
         if (user) {
           this.currentUser = user;
-          // this.openSnackBar('Successfully authenticated');
-          console.log('AUTHSTATE USER', user);
-          // this.router.navigate(['home']);
         } else {
-          console.log('AUTHSTATE USER EMPTY', user);
           this.currentUser = null;
         }
       },
       err => {
         // this.openSnackBar(`${err.status} ${err.statusText} (${err.error.message})`, 'Please try again')
+        this._snackBar.open('Login mislukt.');
       }
     );
   }
@@ -43,11 +41,22 @@ export class AuthService {
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(response => this.router.navigate(['quotes']));
+    this.afAuth.auth
+      .signInWithPopup(new auth.GoogleAuthProvider())
+      .then(response => {
+        this.router.navigate(['quotes']);
+        this._snackBar.open('Je bent ingelogd', '', { duration: 3000 });
+      })
+      .catch(error => this._snackBar.open('Fout tijdens het inloggen: ' + error, '', { duration: 3000 }));
   }
 
   logout() {
-    this.afAuth.auth.signOut().then(response => this.router.navigate(['home']));
-    // .catch(error => this.openSnackBar('Error signing out: ' + error));
+    this.afAuth.auth
+      .signOut()
+      .then(response => {
+        this.router.navigate(['home']);
+        this._snackBar.open('Je bent uitgelogd', '', { duration: 3000 });
+      })
+      .catch(error => this._snackBar.open('Fout tijdens het uitloggen: ' + error, '', { duration: 3000 }));
   }
 }
