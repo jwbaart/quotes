@@ -19,9 +19,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
+import { QuoteFormComponent } from './quote-form/quote-form.component';
 
 @NgModule({
-  declarations: [QuotesComponent, QuoteTableComponent, AddQuoteDialogComponent, QuoteCardComponent],
+  declarations: [QuotesComponent, QuoteTableComponent, AddQuoteDialogComponent, QuoteCardComponent, QuoteFormComponent],
   imports: [
     CommonModule,
     SharedModule,

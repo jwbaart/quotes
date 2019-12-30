@@ -1,0 +1,36 @@
+<form #quoteForm="ngForm" (ngSubmit)="onSubmitClick(quote)" class="app-quote-form">
+  <mat-form-field>
+    <textarea
+      matInput
+      placeholder="Tekst"
+      [(ngModel)]="formQuote.text"
+      name="quote-text-2"
+      rows="3"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <div class="app-quote-form__checkbox-group">
+    <mat-checkbox [(ngModel)]="formQuote.children.ben" name="quote-child-ben" class="app-quote-form__checkbox"
+      >Ben</mat-checkbox
+    >
+    <mat-checkbox [(ngModel)]="formQuote.children.tom" name="quote-child-tom" class="app-quote-form__checkbox"
+      >Tom</mat-checkbox
+    >
+  </div>
+
+  <mat-form-field>
+    <input
+      matInput
+      [matDatepicker]="quoteDate"
+      placeholder="Datum"
+      [(ngModel)]="formQuote.datestamp"
+      name="quote-datestamp"
+      required
+    />
+    <mat-datepicker-toggle matSuffix [for]="quoteDate"></mat-datepicker-toggle>
+    <mat-datepicker #quoteDate></mat-datepicker>
+  </mat-form-field>
+
+  <button mat-button type="submit">Ok</button>
+</form>

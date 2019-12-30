@@ -1,0 +1,11 @@
+.app-quote-form {
+  &__checkbox-group {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    margin: 1rem 0;
+  }
+  &__checkbox {
+    margin: 0 1rem 0 0;
+  }
+}
