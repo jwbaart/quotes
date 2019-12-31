@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Child } from '../quotes.service';
 
 @Component({
@@ -11,7 +11,13 @@ export class QuoteCardComponent implements OnInit {
   @Input() children: {
     [key in Child]: boolean;
   };
+  @Output() editQuote = new EventEmitter<any>();
+
   constructor() {}
 
   ngOnInit() {}
+
+  onQuoteEditClick() {
+    this.editQuote.emit();
+  }
 }

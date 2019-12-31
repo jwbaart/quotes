@@ -1,4 +1,10 @@
 <mat-card class="app-quote-card">
+  <mat-card-header>
+    <span class="app-quote-card__spacer"></span>
+    <button mat-icon-button aria-label="Edit quote" (click)="onQuoteEditClick()">
+      <mat-icon>edit</mat-icon>
+    </button>
+  </mat-card-header>
   <mat-card-content>
     <p>{{ text }}</p>
     <mat-chip-list>
