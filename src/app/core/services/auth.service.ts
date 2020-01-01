@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { auth } from 'firebase';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from './snackbar.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class AuthService {
   public currentUser: firebase.User = null;
   private _authState: Observable<firebase.User>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private afAuth: AngularFireAuth, private router: Router, private _snackbarService: SnackbarService) {
     console.log('this.afAuth', this.afAuth);
     this._authState = this.afAuth.authState;
 
@@ -27,7 +27,7 @@ export class AuthService {
       },
       err => {
         // this.openSnackBar(`${err.status} ${err.statusText} (${err.error.message})`, 'Please try again')
-        this._snackBar.open('Login mislukt.');
+        this._snackbarService.open('Login mislukt.');
       }
     );
   }
@@ -45,9 +45,9 @@ export class AuthService {
       .signInWithPopup(new auth.GoogleAuthProvider())
       .then(response => {
         this.router.navigate(['quotes']);
-        this._snackBar.open('Je bent ingelogd', '', { duration: 3000 });
+        this._snackbarService.open('Je bent ingelogd');
       })
-      .catch(error => this._snackBar.open('Fout tijdens het inloggen: ' + error, '', { duration: 3000 }));
+      .catch(error => this._snackbarService.open('Fout tijdens het inloggen: ' + error));
   }
 
   logout() {
@@ -55,8 +55,8 @@ export class AuthService {
       .signOut()
       .then(response => {
         this.router.navigate(['home']);
-        this._snackBar.open('Je bent uitgelogd', '', { duration: 3000 });
+        this._snackbarService.open('Je bent uitgelogd');
       })
-      .catch(error => this._snackBar.open('Fout tijdens het uitloggen: ' + error, '', { duration: 3000 }));
+      .catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
   }
 }

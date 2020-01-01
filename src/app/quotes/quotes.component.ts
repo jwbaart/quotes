@@ -4,8 +4,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
+import { SnackbarService } from '@app/core/services/snackbar.service';
 
 @Component({
   selector: 'app-quotes',
@@ -17,7 +17,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   isQuotesLoading = true;
   private _ngUnsubscribe: Subject<void> = new Subject();
 
-  constructor(public quotesService: QuotesService, public dialog: MatDialog, private _snackBar: MatSnackBar) {}
+  constructor(public quotesService: QuotesService, public dialog: MatDialog, private _snackBar: SnackbarService) {}
 
   ngOnInit() {
     this.quotesService.quotes.pipe(takeUntil(this._ngUnsubscribe)).subscribe(
@@ -26,7 +26,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
         this.isQuotesLoading = false;
       },
       () => {
-        this._snackBar.open('Je account is nog niet geactiveerd', '', { duration: 3000 });
+        this._snackBar.open('Je account is nog niet geactiveerd');
         this.isQuotesLoading = false;
       }
     );
