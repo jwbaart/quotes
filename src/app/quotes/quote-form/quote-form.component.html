@@ -1,4 +1,8 @@
 <form #quoteForm="ngForm" (ngSubmit)="onSubmitClick(formQuote)" class="app-quote-form">
+  <mat-form-field>
+    <input matInput placeholder="Titel" [(ngModel)]="formQuote.title" name="quote-title" />
+  </mat-form-field>
+
   <mat-form-field class="app-quote-form__full-width">
     <textarea
       matInput

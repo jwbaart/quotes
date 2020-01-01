@@ -10,6 +10,7 @@ export enum Child {
 }
 export interface Quote {
   id?: string;
+  title?: string;
   text: string;
   children: {
     [key in Child]: boolean;
