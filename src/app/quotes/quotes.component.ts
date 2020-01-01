@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuotesService, Quote } from './quotes.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { SnackbarService } from '@app/core/services/snackbar.service';
+import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
 
 @Component({
   selector: 'app-quotes',
@@ -38,28 +38,16 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   onAddQuoteButtonClick() {
-    const addQuoteDialogConfig = new MatDialogConfig();
-    addQuoteDialogConfig.data = {
-      text: '',
-      children: {
-        ben: true,
-        tom: false
-      },
-      datestamp: new Date()
-    };
-    const addQuoteDialogRef = this.dialog.open(AddQuoteDialogComponent, addQuoteDialogConfig);
-
-    addQuoteDialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.quotesService.add(result);
-      }
-    });
+    const quoteAddDialogConfig = new MatDialogConfig();
+    quoteAddDialogConfig.width = '80vw';
+    this.dialog.open(QuoteAddDialogComponent, quoteAddDialogConfig);
   }
 
   onEditQuote(quote: Quote) {
     const quoteEditDialogConfig = new MatDialogConfig();
     quoteEditDialogConfig.data = { quote };
-    const quoteEdit = this.dialog.open(QuoteEditDialogComponent, quoteEditDialogConfig);
+    quoteEditDialogConfig.width = '80vw';
+    this.dialog.open(QuoteEditDialogComponent, quoteEditDialogConfig);
   }
 
   onDeleteQuote(quote: Quote) {

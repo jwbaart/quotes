@@ -9,7 +9,7 @@ export enum Child {
   Tom = 'tom'
 }
 export interface Quote {
-  id: string;
+  id?: string;
   text: string;
   children: {
     [key in Child]: boolean;
@@ -43,6 +43,7 @@ export class QuotesService {
   }
 
   add(quote: Quote) {
+    console.log('add quote', quote);
     this._quotesCollection.add(quote);
   }
 

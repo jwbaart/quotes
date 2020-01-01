@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddQuoteDialogComponent } from './add-quote-dialog.component';
+import { QuoteAddDialogComponent } from './quote-add-dialog.component';
 
-describe('AddQuoteDialogComponent', () => {
-  let component: AddQuoteDialogComponent;
-  let fixture: ComponentFixture<AddQuoteDialogComponent>;
+describe('QuoteAddDialogComponent', () => {
+  let component: QuoteAddDialogComponent;
+  let fixture: ComponentFixture<QuoteAddDialogComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [AddQuoteDialogComponent]
+      declarations: [QuoteAddDialogComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddQuoteDialogComponent);
+    fixture = TestBed.createComponent(QuoteAddDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

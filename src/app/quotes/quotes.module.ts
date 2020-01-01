@@ -17,19 +17,19 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
 import { QuoteFormComponent } from './quote-form/quote-form.component';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
+import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
 
 @NgModule({
   declarations: [
     QuotesComponent,
     QuoteTableComponent,
-    AddQuoteDialogComponent,
     QuoteCardComponent,
     QuoteFormComponent,
-    QuoteEditDialogComponent
+    QuoteEditDialogComponent,
+    QuoteAddDialogComponent
   ],
   imports: [
     CommonModule,
@@ -49,6 +49,6 @@ import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.
     MatProgressSpinnerModule,
     MatSnackBarModule
   ],
-  entryComponents: [AddQuoteDialogComponent, QuoteEditDialogComponent]
+  entryComponents: [QuoteEditDialogComponent, QuoteAddDialogComponent]
 })
 export class QuotesModule {}
