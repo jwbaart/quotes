@@ -43,4 +43,8 @@ export class QuotesService {
   add(content) {
     this._quotesCollection.add(content);
   }
+
+  update(quote) {
+    console.log('change quote', quote);
+  }
 }

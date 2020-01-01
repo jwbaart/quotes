@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Quote } from '../quotes.service';
+import { Quote, QuotesService } from '../quotes.service';
 
 @Component({
   selector: 'app-quote-edit-dialog',
@@ -10,10 +10,14 @@ import { Quote } from '../quotes.service';
 export class QuoteEditDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<QuoteEditDialogComponent>,
+    private _quoteService: QuotesService,
     @Inject(MAT_DIALOG_DATA) public data: { quote: Quote }
   ) {}
 
-  ngOnInit() {
-    console.log('data', this.data);
+  ngOnInit() {}
+
+  onQuoteFormSubmit(quote: Quote) {
+    this._quoteService.update(quote);
+    this.dialogRef.close();
   }
 }

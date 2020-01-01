@@ -1,1 +1,4 @@
-<p>quote-edit-dialog works!</p>
+<h2 mat-dialog-title>Werk uitspraak bij</h2>
+<mat-dialog-content>
+  <app-quote-form [quote]="data.quote" (submittedQuote)="onQuoteFormSubmit($event)">Laden...</app-quote-form>
+</mat-dialog-content>
