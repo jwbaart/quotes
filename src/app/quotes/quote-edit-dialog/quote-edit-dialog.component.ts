@@ -17,6 +17,7 @@ export class QuoteEditDialogComponent implements OnInit {
   ngOnInit() {}
 
   onQuoteFormSubmit(quote: Quote) {
+    // TODO: only if quote has changed
     this._quoteService.update(quote);
     this.dialogRef.close();
   }

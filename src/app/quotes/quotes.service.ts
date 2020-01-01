@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
+import { SnackbarService } from '@app/core/services/snackbar.service';
 
 export enum Child {
   Ben = 'ben',
@@ -21,9 +22,10 @@ export interface Quote {
 })
 export class QuotesService {
   private _quotesCollection: AngularFirestoreCollection<any>;
+
   quotes: Observable<any[]>;
 
-  constructor(db: AngularFirestore) {
+  constructor(private db: AngularFirestore, private snackbarService: SnackbarService) {
     this._quotesCollection = db.collection('quotes');
 
     this.quotes = db
@@ -40,11 +42,19 @@ export class QuotesService {
       );
   }
 
-  add(content) {
-    this._quotesCollection.add(content);
+  add(quote: Quote) {
+    this._quotesCollection.add(quote);
   }
 
-  update(quote) {
-    console.log('change quote', quote);
+  update(quote: Quote) {
+    const quoteDoc: AngularFirestoreDocument<Quote> = this._quotesCollection.doc(quote.id);
+
+    quoteDoc
+      .update(quote)
+      .then(result => {
+        this.snackbarService.open('Uitspraak bijgewerkt');
+        // TODO: update successfull but no changes visible
+      })
+      .catch(() => this.snackbarService.open('Uitspraak bijwerken is mislukt, probeer het opnieuw'));
   }
 }
