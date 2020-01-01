@@ -13,12 +13,10 @@ export class AuthService {
   private _authState: Observable<firebase.User>;
 
   constructor(private afAuth: AngularFireAuth, private router: Router, private _snackbarService: SnackbarService) {
-    console.log('this.afAuth', this.afAuth);
     this._authState = this.afAuth.authState;
 
     this._authState.subscribe(
       user => {
-        console.log('user', user);
         if (user) {
           this.currentUser = user;
         } else {

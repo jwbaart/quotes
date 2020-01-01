@@ -23,7 +23,7 @@ export interface Quote {
 export class QuotesService {
   private _quotesCollection: AngularFirestoreCollection<any>;
 
-  quotes: Observable<any[]>;
+  quotes: Observable<Quote[]>;
 
   constructor(private db: AngularFirestore, private snackbarService: SnackbarService) {
     this._quotesCollection = db.collection('quotes');
@@ -34,7 +34,7 @@ export class QuotesService {
       .pipe(
         map(actions => {
           return actions.map(a => {
-            const quote = a.payload.doc.data() as Quote;
+            const quote: Quote = a.payload.doc.data() as Quote;
             const id = a.payload.doc.id;
             return { id, ...quote };
           });
@@ -43,7 +43,6 @@ export class QuotesService {
   }
 
   add(quote: Quote) {
-    console.log('add quote', quote);
     this._quotesCollection.add(quote);
   }
 
@@ -53,13 +52,11 @@ export class QuotesService {
     // TODO: Use snackbar with undo button
     quoteDoc
       .update(quote)
-      // TODO: update successfull but no changes visible
-      .then(result => this.snackbarService.open('Uitspraak bijgewerkt'))
+      .then(() => this.snackbarService.open('Uitspraak bijgewerkt'))
       .catch(() => this.snackbarService.open('Uitspraak bijwerken is mislukt, probeer het opnieuw'));
   }
 
   delete(quote) {
-    console.log('delete');
     const quoteDoc: AngularFirestoreDocument<Quote> = this._quotesCollection.doc(quote.id);
 
     // TODO: Use snackbar with undo button
