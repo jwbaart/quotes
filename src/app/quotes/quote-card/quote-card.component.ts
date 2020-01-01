@@ -12,6 +12,7 @@ export class QuoteCardComponent implements OnInit {
     [key in Child]: boolean;
   };
   @Output() editQuote = new EventEmitter<any>();
+  @Output() deleteQuote = new EventEmitter<any>();
 
   constructor() {}
 
@@ -19,5 +20,9 @@ export class QuoteCardComponent implements OnInit {
 
   onQuoteEditClick() {
     this.editQuote.emit();
+  }
+
+  onQuoteDeleteClick() {
+    this.deleteQuote.emit();
   }
 }

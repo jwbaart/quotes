@@ -61,4 +61,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
     quoteEditDialogConfig.data = { quote };
     const quoteEdit = this.dialog.open(QuoteEditDialogComponent, quoteEditDialogConfig);
   }
+
+  onDeleteQuote(quote: Quote) {
+    this.quotesService.delete(quote);
+  }
 }

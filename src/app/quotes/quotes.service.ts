@@ -49,12 +49,22 @@ export class QuotesService {
   update(quote: Quote) {
     const quoteDoc: AngularFirestoreDocument<Quote> = this._quotesCollection.doc(quote.id);
 
+    // TODO: Use snackbar with undo button
     quoteDoc
       .update(quote)
-      .then(result => {
-        this.snackbarService.open('Uitspraak bijgewerkt');
-        // TODO: update successfull but no changes visible
-      })
+      // TODO: update successfull but no changes visible
+      .then(result => this.snackbarService.open('Uitspraak bijgewerkt'))
       .catch(() => this.snackbarService.open('Uitspraak bijwerken is mislukt, probeer het opnieuw'));
+  }
+
+  delete(quote) {
+    console.log('delete');
+    const quoteDoc: AngularFirestoreDocument<Quote> = this._quotesCollection.doc(quote.id);
+
+    // TODO: Use snackbar with undo button
+    quoteDoc
+      .delete()
+      .then(result => this.snackbarService.open('Uitspraak verwijdert'))
+      .catch(() => this.snackbarService.open('Uitspraak verwijderen is mislukt, probeer het opnieuw'));
   }
 }
