@@ -8,4 +8,11 @@
   &__checkbox {
     margin: 0 1rem 0 0;
   }
+
+  &__full-width {
+    width: 100%;
+    .mat-form-field-infix {
+      width: 100%;
+    }
+  }
 }

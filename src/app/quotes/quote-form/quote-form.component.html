@@ -1,12 +1,13 @@
 <form #quoteForm="ngForm" (ngSubmit)="onSubmitClick(quote)" class="app-quote-form">
-  <mat-form-field>
+  <mat-form-field class="app-quote-form__full-width">
     <textarea
       matInput
       placeholder="Tekst"
       [(ngModel)]="formQuote.text"
-      name="quote-text-2"
-      rows="3"
+      name="quote-text"
       required
+      class="app-quote-form__text"
+      cdkTextareaAutosize
     ></textarea>
   </mat-form-field>
 
@@ -32,5 +33,7 @@
     <mat-datepicker #quoteDate></mat-datepicker>
   </mat-form-field>
 
-  <button mat-button type="submit">Ok</button>
+  <div>
+    <button mat-raised-button color="primary">Ok</button>
+  </div>
 </form>
