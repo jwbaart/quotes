@@ -3,10 +3,9 @@
   <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
     <app-quote-card
       *ngFor="let quote of quotes"
-      [text]="quote.text"
-      [children]="quote.children"
-      (editQuote)="onEditQuote(quote)"
-      (deleteQuote)="onDeleteQuote(quote)"
+      [quote]="quote"
+      (editQuote)="onEditQuote($event)"
+      (deleteQuote)="onDeleteQuote($event)"
       fxFlex="0 1 100%"
       fxFlex.sm="50%"
       fxFlex.md="calc(100%  /3)"

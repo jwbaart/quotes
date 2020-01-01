@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Child } from '../quotes.service';
+import { Child, Quote } from '../quotes.service';
 
 @Component({
   selector: 'app-quote-card',
@@ -7,10 +7,8 @@ import { Child } from '../quotes.service';
   styleUrls: ['./quote-card.component.scss']
 })
 export class QuoteCardComponent implements OnInit {
-  @Input() text: string;
-  @Input() children: {
-    [key in Child]: boolean;
-  };
+  @Input() quote: Quote;
+
   @Output() editQuote = new EventEmitter<any>();
   @Output() deleteQuote = new EventEmitter<any>();
 
@@ -19,10 +17,10 @@ export class QuoteCardComponent implements OnInit {
   ngOnInit() {}
 
   onQuoteEditClick() {
-    this.editQuote.emit();
+    this.editQuote.emit(this.quote);
   }
 
   onQuoteDeleteClick() {
-    this.deleteQuote.emit();
+    this.deleteQuote.emit(this.quote);
   }
 }
