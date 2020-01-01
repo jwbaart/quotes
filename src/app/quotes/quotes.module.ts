@@ -17,10 +17,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
 import { QuoteFormComponent } from './quote-form/quote-form.component';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
+import { QuoteCardHighlightComponent } from './quote-card-highlight/quote-card-highlight.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.com
     QuoteCardComponent,
     QuoteFormComponent,
     QuoteEditDialogComponent,
-    QuoteAddDialogComponent
+    QuoteAddDialogComponent,
+    QuoteCardHighlightComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.com
     MatCardModule,
     MatChipsModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   entryComponents: [QuoteEditDialogComponent, QuoteAddDialogComponent]
 })

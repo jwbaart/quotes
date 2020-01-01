@@ -1,17 +1,27 @@
 <section class="app-quotes">
   <mat-spinner *ngIf="isQuotesLoading" class="app-quotes__spinner"></mat-spinner>
   <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
-    <app-quote-card
-      *ngFor="let quote of quotes"
-      [quote]="quote"
-      (editQuote)="onEditQuote($event)"
-      (deleteQuote)="onDeleteQuote($event)"
+    <section
+      *ngFor="let quote of quotes; let odd = odd; let even = even"
       fxFlex="0 1 100%"
       fxFlex.sm="50%"
       fxFlex.md="calc(100%  /3)"
       fxFlex.lg="25%"
       fxFlex.xl="20%"
-    ></app-quote-card>
+    >
+      <app-quote-card
+        *ngIf="odd"
+        [quote]="quote"
+        (editQuote)="onEditQuote($event)"
+        (deleteQuote)="onDeleteQuote($event)"
+      ></app-quote-card>
+      <app-quote-card-highlight
+        *ngIf="even"
+        [quote]="quote"
+        (editQuote)="onEditQuote($event)"
+        (deleteQuote)="onDeleteQuote($event)"
+      ></app-quote-card-highlight>
+    </section>
   </div>
 
   <a
