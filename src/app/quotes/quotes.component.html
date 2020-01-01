@@ -5,6 +5,7 @@
       *ngFor="let quote of quotes"
       [text]="quote.text"
       [children]="quote.children"
+      (editQuote)="onEditQuote()"
       fxFlex="0 1 100%"
       fxFlex.sm="50%"
       fxFlex.md="calc(100%  /3)"

@@ -54,4 +54,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  onEditQuote() {
+    console.log('onEditQuote');
+  }
 }
