@@ -5,6 +5,7 @@ import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.com
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 
 @Component({
   selector: 'app-quotes',
@@ -55,7 +56,9 @@ export class QuotesComponent implements OnInit, OnDestroy {
     });
   }
 
-  onEditQuote() {
-    console.log('onEditQuote');
+  onEditQuote(quote: Quote) {
+    const quoteEditDialogConfig = new MatDialogConfig();
+    quoteEditDialogConfig.data = { quote };
+    const quoteEdit = this.dialog.open(QuoteEditDialogComponent, quoteEditDialogConfig);
   }
 }

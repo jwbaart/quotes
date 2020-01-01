@@ -20,9 +20,17 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AddQuoteDialogComponent } from './add-quote-dialog/add-quote-dialog.component';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
 import { QuoteFormComponent } from './quote-form/quote-form.component';
+import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 
 @NgModule({
-  declarations: [QuotesComponent, QuoteTableComponent, AddQuoteDialogComponent, QuoteCardComponent, QuoteFormComponent],
+  declarations: [
+    QuotesComponent,
+    QuoteTableComponent,
+    AddQuoteDialogComponent,
+    QuoteCardComponent,
+    QuoteFormComponent,
+    QuoteEditDialogComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -41,6 +49,6 @@ import { QuoteFormComponent } from './quote-form/quote-form.component';
     MatProgressSpinnerModule,
     MatSnackBarModule
   ],
-  entryComponents: [AddQuoteDialogComponent]
+  entryComponents: [AddQuoteDialogComponent, QuoteEditDialogComponent]
 })
 export class QuotesModule {}
