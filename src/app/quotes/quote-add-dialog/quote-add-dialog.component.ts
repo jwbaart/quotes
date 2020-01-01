@@ -17,9 +17,9 @@ export class QuoteAddDialogComponent implements OnInit {
 
   ngOnInit() {
     this.newQuote = {
-      text: 'new',
+      text: '',
       children: {
-        ben: true,
+        ben: false,
         tom: false
       },
       datestamp: new Date()
