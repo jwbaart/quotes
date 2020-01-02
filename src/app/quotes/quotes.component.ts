@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuotesService, Quote } from './quotes.service';
+import { ChildrenService, Child } from './children.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -15,12 +16,20 @@ import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.com
 export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
   isQuotesLoading = true;
-  private _ngUnsubscribe: Subject<void> = new Subject();
+  private _ngUnsubscribeQuotes: Subject<void> = new Subject();
 
-  constructor(public quotesService: QuotesService, public dialog: MatDialog, private _snackBar: SnackbarService) {}
+  children: Child[] = [];
+  isChildrenLoading = true;
+
+  constructor(
+    public quotesService: QuotesService,
+    public dialog: MatDialog,
+    private _snackBar: SnackbarService,
+    private _childrenService: ChildrenService
+  ) {}
 
   ngOnInit() {
-    this.quotesService.quotes.pipe(takeUntil(this._ngUnsubscribe)).subscribe(
+    this.quotesService.quotes.pipe(takeUntil(this._ngUnsubscribeQuotes)).subscribe(
       quotes => {
         this.quotes = quotes;
         this.isQuotesLoading = false;
@@ -30,11 +39,22 @@ export class QuotesComponent implements OnInit, OnDestroy {
         this.isQuotesLoading = false;
       }
     );
+
+    this._childrenService.children.pipe(takeUntil(this._ngUnsubscribeQuotes)).subscribe(
+      children => {
+        this.children = children;
+        this.isChildrenLoading = false;
+      },
+      () => {
+        this._snackBar.open('Je account is nog niet geactiveerd');
+        this.isChildrenLoading = false;
+      }
+    );
   }
 
   ngOnDestroy() {
-    this._ngUnsubscribe.next();
-    this._ngUnsubscribe.complete();
+    this._ngUnsubscribeQuotes.next();
+    this._ngUnsubscribeQuotes.complete();
   }
 
   onAddQuoteButtonClick() {

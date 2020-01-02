@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Child, Quote } from '../quotes.service';
+import { Quote } from '../quotes.service';
 
 @Component({
   selector: 'app-quote-card',

@@ -3,17 +3,14 @@ import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { map } from 'rxjs/operators';
 import { SnackbarService } from '@app/core/services/snackbar.service';
+import { ChildId } from './children.service';
 
-export enum Child {
-  Ben = 'ben',
-  Tom = 'tom'
-}
 export interface Quote {
   id?: string;
   title?: string;
   text: string;
   children: {
-    [key in Child]: boolean;
+    [key in ChildId]: boolean;
   };
   datestamp: Date;
 }
@@ -22,25 +19,22 @@ export interface Quote {
   providedIn: 'root'
 })
 export class QuotesService {
-  private _quotesCollection: AngularFirestoreCollection<any>;
+  private _quotesCollection: AngularFirestoreCollection<Quote>;
 
   quotes: Observable<Quote[]>;
 
   constructor(private db: AngularFirestore, private snackbarService: SnackbarService) {
-    this._quotesCollection = db.collection('quotes');
+    this._quotesCollection = db.collection('quotes', ref => ref.orderBy('datestamp', 'desc'));
 
-    this.quotes = db
-      .collection('quotes', ref => ref.orderBy('datestamp', 'desc'))
-      .snapshotChanges()
-      .pipe(
-        map(actions => {
-          return actions.map(a => {
-            const quote: Quote = a.payload.doc.data() as Quote;
-            const id = a.payload.doc.id;
-            return { id, ...quote };
-          });
-        })
-      );
+    this.quotes = this._quotesCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const quote: Quote = a.payload.doc.data() as Quote;
+          const id = a.payload.doc.id;
+          return { id, ...quote };
+        });
+      })
+    );
   }
 
   add(quote: Quote) {
