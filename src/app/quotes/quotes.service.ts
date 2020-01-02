@@ -30,7 +30,7 @@ export class QuotesService {
     this._quotesCollection = db.collection('quotes');
 
     this.quotes = db
-      .collection('quotes')
+      .collection('quotes', ref => ref.orderBy('datestamp', 'desc'))
       .snapshotChanges()
       .pipe(
         map(actions => {
