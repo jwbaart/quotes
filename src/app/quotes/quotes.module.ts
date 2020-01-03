@@ -18,6 +18,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDividerModule } from '@angular/material/divider';
 import { QuoteCardComponent } from './quote-card/quote-card.component';
 import { QuoteFormComponent } from './quote-form/quote-form.component';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
@@ -51,7 +52,8 @@ import { QuoteCardHighlightComponent } from './quote-card-highlight/quote-card-h
     MatChipsModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDividerModule
   ],
   entryComponents: [QuoteEditDialogComponent, QuoteAddDialogComponent]
 })

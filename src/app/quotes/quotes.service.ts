@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { ChildId } from './children.service';
+import { MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
 
 export interface Quote {
   id?: string;
@@ -43,12 +44,28 @@ export class QuotesService {
 
   update(quote: Quote) {
     const quoteDoc: AngularFirestoreDocument<Quote> = this._quotesCollection.doc(quote.id);
+    let quotePrev: Quote;
 
-    // TODO: Use snackbar with undo button
+    // TODO: How to chain?
+    const _update = () =>
+      quoteDoc
+        .update(quote)
+        .then(() => {
+          const dialogRef: MatSnackBarRef<SimpleSnackBar> = this.snackbarService.open('Uitspraak bijgewerkt', 'Undo');
+          dialogRef
+            .onAction()
+            .pipe(take(1))
+            .subscribe(() => quoteDoc.update(quotePrev).then(() => this.snackbarService.open('Ongedaan gemaakt!')));
+        })
+        .catch(() => this.snackbarService.open('Uitspraak bijwerken is mislukt, probeer het opnieuw'));
+
     quoteDoc
-      .update(quote)
-      .then(() => this.snackbarService.open('Uitspraak bijgewerkt'))
-      .catch(() => this.snackbarService.open('Uitspraak bijwerken is mislukt, probeer het opnieuw'));
+      .get()
+      .pipe(take(1))
+      .subscribe(doc => {
+        quotePrev = doc.data() as Quote;
+        _update();
+      });
   }
 
   delete(quote) {

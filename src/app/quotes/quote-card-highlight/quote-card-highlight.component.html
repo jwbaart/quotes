@@ -6,7 +6,8 @@
   <mat-card-content>
     <p>{{ quote.text }}</p>
   </mat-card-content>
-  <mat-card-actions fxLayout>
+  <mat-divider></mat-divider>
+  <mat-card-actions fxLayout fxLayoutAlign="flex-start, center">
     <button mat-icon-button aria-label="Edit quote" (click)="onQuoteEditClick()" matTooltip="Wijzig">
       <mat-icon>edit</mat-icon>
     </button>
