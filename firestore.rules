@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      function isSignedIn() {
+        return request.auth.uid != null;
+      }
+      function isJwbaart() {
+      	return request.auth.uid == 'CTsh5nq3UGfyeQni5R2X5hme5FH2';
+      }
+      
+      function isStijnBaart() {
+      return request.auth.uid == '2F6Af4F9HZcHhTVUJpviRIBfhLt1';
+      }
+      
+      // allow read, write: if false;
+        allow read, write: if (isJwbaart() || isStijnBaart());
+      }
+
+      // Alterntatively, for role-based access, assign specific roles to users
+      // match /quotes/{document} {
+       // allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Reader"
+       // allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Writer" 
+      // }
+  }
+}
