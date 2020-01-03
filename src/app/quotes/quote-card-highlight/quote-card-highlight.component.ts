@@ -24,6 +24,6 @@ export class QuoteCardHighlightComponent extends QuoteCardComponent implements O
   setFormattedDate(datestamp) {
     const dateToString = formatWithOptions({ locale: nl }, 'dd/MM/yyyy');
 
-    // this.formattedDate = [datestamp.toDate()].map(dateToString);
+    this.formattedDate = [datestamp].map(dateToString);
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { firestore } from 'firebase';
 import { map, take } from 'rxjs/operators';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { ChildId } from './children.service';
@@ -16,11 +17,24 @@ export interface Quote {
   datestamp: Date;
 }
 
+// TODO: createdAt property?
+// TODO: updatedAt property?
+// TODO: revision property?
+// TODO: props addition in cloud function so can't be locally changed?
+export interface QuoteFirebase {
+  title?: string;
+  text: string;
+  children: {
+    [key in ChildId]: boolean;
+  };
+  datestamp: firestore.Timestamp | Date; // TODO: dateToTimestamp functionality so we can remove Date type
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class QuotesService {
-  private _quotesCollection: AngularFirestoreCollection<Quote>;
+  private _quotesCollection: AngularFirestoreCollection<QuoteFirebase>;
 
   quotes: Observable<Quote[]>;
 
@@ -30,15 +44,17 @@ export class QuotesService {
     this.quotes = this._quotesCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
-          const quote: Quote = a.payload.doc.data() as Quote;
+          const firebaseQuote: QuoteFirebase = a.payload.doc.data() as QuoteFirebase;
+          const datestamp = (firebaseQuote.datestamp as firestore.Timestamp).toDate();
           const id = a.payload.doc.id;
-          return { id, ...quote };
+          return { id, ...firebaseQuote, datestamp } as Quote;
         });
       })
     );
   }
 
   add(quote: Quote) {
+    delete quote.id;
     this._quotesCollection.add(quote);
   }
 

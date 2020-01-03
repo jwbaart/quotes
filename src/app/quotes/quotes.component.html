@@ -9,14 +9,7 @@
       fxFlex.lg="25%"
       fxFlex.xl="20%"
     >
-      <app-quote-card
-        *ngIf="odd"
-        [quote]="quote"
-        (editQuote)="onEditQuote($event)"
-        (deleteQuote)="onDeleteQuote($event)"
-      ></app-quote-card>
       <app-quote-card-highlight
-        *ngIf="even"
         [quote]="quote"
         (editQuote)="onEditQuote($event)"
         (deleteQuote)="onDeleteQuote($event)"
