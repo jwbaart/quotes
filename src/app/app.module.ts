@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +17,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { InlineSVGModule } from 'ng-inline-svg';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
+import { registerLocaleData } from '@angular/common';
+import localeNl from '@angular/common/locales/nl';
+
+registerLocaleData(localeNl, 'nl');
 
 @NgModule({
   declarations: [AppComponent, NavigationComponent, IntroComponent],
@@ -35,7 +39,7 @@ import { SharedModule } from './shared/shared.module';
     CoreModule,
     SharedModule
   ],
-  providers: [],
+  providers: [{ provide: LOCALE_ID, useValue: 'nl' }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
