@@ -5,15 +5,14 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: 'AIzaSyBVoDoVIUuedEiX-BhiHk80UyZFeFv81Eo',
-    // authDomain: 'quotes-553ed.firebaseapp.com',
-    authDomain: 'auth.uitspraken.jwbaart.dev',
-    databaseURL: 'https://quotes-553ed.firebaseio.com',
-    projectId: 'quotes-553ed',
-    storageBucket: 'quotes-553ed.appspot.com',
-    messagingSenderId: '149174406899',
-    appId: '1:149174406899:web:273300325264d6cb21b186',
-    measurementId: 'G-0JX3GJB9N1'
+    apiKey: 'AIzaSyA0ylyVvI-yy2yh4t91bWV8gld-77ZocrM',
+    authDomain: 'quotes-dev-802a5.firebaseapp.com',
+    // authDomain: 'auth.uitspraken.jwbaart.dev',
+    databaseURL: 'https://quotes-dev-802a5.firebaseio.com',
+    projectId: 'quotes-dev-802a5',
+    storageBucket: 'quotes-dev-802a5.appspot.com',
+    messagingSenderId: '814898657900',
+    appId: '1:814898657900:web:3c7c9d3a0e7fe771ad7649'
   }
 };
 
