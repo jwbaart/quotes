@@ -36,7 +36,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
       },
       error => {
         console.log(error);
-        this._snackBar.open('Je account is nog niet geactiveerd, quotes');
+        this._snackBar.open('Je account is nog niet geactiveerd: ');
         this.isQuotesLoading = false;
       }
     );
@@ -47,7 +47,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
         this.isChildrenLoading = false;
       },
       () => {
-        this._snackBar.open('Je account is nog niet geactiveerd, children');
+        this._snackBar.open('Je account is nog niet geactiveerd');
         this.isChildrenLoading = false;
       }
     );

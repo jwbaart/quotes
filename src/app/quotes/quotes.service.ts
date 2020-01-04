@@ -27,7 +27,7 @@ export interface QuoteFirebase {
   children: {
     [key in ChildId]: boolean;
   };
-  datestamp: firestore.Timestamp | Date; // TODO: dateToTimestamp functionality so we can remove Date type
+  datestamp: firestore.Timestamp;
 }
 
 @Injectable({
@@ -45,7 +45,8 @@ export class QuotesService {
       map(actions => {
         return actions.map(a => {
           const firebaseQuote: QuoteFirebase = a.payload.doc.data() as QuoteFirebase;
-          const datestamp = (firebaseQuote.datestamp as firestore.Timestamp).toDate();
+          // convert firebase Timestamp to JS date
+          const datestamp = firebaseQuote.datestamp.toDate();
           const id = a.payload.doc.id;
           return { id, ...firebaseQuote, datestamp } as Quote;
         });
@@ -54,8 +55,14 @@ export class QuotesService {
   }
 
   add(quote: Quote) {
-    delete quote.id;
-    this._quotesCollection.add(quote);
+    const quoteFirebase: QuoteFirebase = {
+      title: quote.title || '',
+      text: quote.text,
+      // Convert JS date to firestore timestamp
+      datestamp: firestore.Timestamp.fromDate(quote.datestamp),
+      children: quote.children
+    };
+    this._quotesCollection.add(quoteFirebase);
   }
 
   update(quote: Quote) {
