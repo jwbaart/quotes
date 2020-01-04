@@ -36,7 +36,6 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
-    "date-fns": "^2.8.1",
     "firebase": "^7.5.2",
     "hammerjs": "^2.0.8",
     "ng-inline-svg": "^9.1.0",

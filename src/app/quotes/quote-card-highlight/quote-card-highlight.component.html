@@ -1,7 +1,7 @@
 <mat-card class="app-quote-card--highlight app-quote-card--ben">
   <mat-card-header>
     <mat-card-title>{{ quote.title }}</mat-card-title>
-    <mat-card-subtitle *ngIf="quote.datestamp">{{ formattedDate }}</mat-card-subtitle>
+    <mat-card-subtitle *ngIf="quote.datestamp">{{ quote.datestamp | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <p>{{ quote.text }}</p>
