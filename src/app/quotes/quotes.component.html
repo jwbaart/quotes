@@ -1,6 +1,6 @@
 <section class="app-quotes">
   <mat-spinner *ngIf="isQuotesLoading" class="app-quotes__spinner"></mat-spinner>
-  <div fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
+  <div *ngIf="quotes.length" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
     <section
       *ngFor="let quote of quotes; let odd = odd; let even = even"
       fxFlex="0 1 100%"
@@ -15,6 +15,11 @@
         (deleteQuote)="onDeleteQuote($event)"
       ></app-quote-card-highlight>
     </section>
+  </div>
+  <div *ngIf="!quotes.length" fxLayout="column" fxLayoutAlign="center center">
+    <div class="app-quotes__quotes-icon" aria-label="Quotes icon" [inlineSVG]="'/assets/quotes.svg'"></div>
+
+    <p>Er zijn nog geen uitspraken toegevoegd. Voeg er rechtsonder een toe!</p>
   </div>
 
   <a

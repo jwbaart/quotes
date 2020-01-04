@@ -14,7 +14,6 @@ import { MaterialModule } from './material-module';
 import { IntroComponent } from './intro/intro.component';
 import { QuotesModule } from './quotes/quotes.module';
 import { HttpClientModule } from '@angular/common/http';
-import { InlineSVGModule } from 'ng-inline-svg';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { registerLocaleData } from '@angular/common';
@@ -35,7 +34,6 @@ registerLocaleData(localeNl, 'nl');
     QuotesModule,
     LayoutModule,
     HttpClientModule,
-    InlineSVGModule.forRoot(),
     CoreModule,
     SharedModule
   ],
