@@ -48,3 +48,4 @@ firebase-debug.log
 serviceAccount.json
 cypress/config.json
 cypress.env.json
+cypress/videos/
