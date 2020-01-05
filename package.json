@@ -7,12 +7,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "lint": "ng lint",
     "build:testConfig": "cypress-firebase createTestEnvFile",
-    "test": "npm run build:testConfig cypress run",
-    "test:open": "npm run build:testConfig cypress open",
-    "test:stage": "npm run test -- --env envName=stage",
-    "test:open:stage": "npm run test:open -- --env envName=stage"
+    "lint": "ng lint",
+    "test": "yarn build:testConfig && cypress run",
+    "test:open": "yarn build:testConfig && cypress open",
+    "test:stage": "yarn test -- --env envName=stage",
+    "test:open:stage": "yarn test:open -- --env envName=stage"
   },
   "lint-staged": {
     "src/**/*.{ts}": [
