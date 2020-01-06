@@ -1,4 +1,4 @@
-name: Test Build
+name: E2E
 
 # on: [pull_request]
 on:
