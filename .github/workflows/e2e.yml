@@ -36,6 +36,7 @@ jobs:
         with:
           # we have already installed all dependencies above
           install: false
+          start: yarn start
           group: 'E2E Tests'
         env:
           # pass the Dashboard record key as an environment variable
