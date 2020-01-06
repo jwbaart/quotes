@@ -1,4 +1,4 @@
-name: Test Build
+name: E2E
 
 # on: [pull_request]
 on:
@@ -36,6 +36,7 @@ jobs:
         with:
           # we have already installed all dependencies above
           install: false
+          start: yarn start
           group: 'E2E Tests'
         env:
           # pass the Dashboard record key as an environment variable
