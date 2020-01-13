@@ -7,7 +7,7 @@ context('smoketest', () => {
     });
     it('should load intro component', () => {
       cy.visit('/');
-      cy.get('app-intro').should('exist');
+      cy.get('[data-cy=intro]').should('exist');
     });
   });
 });
