@@ -16,13 +16,13 @@ jobs:
         with:
           node-version: "12.x"
       - run: yarn install
-      - run: yarn build
+      - run: yarn ng build --prod
       - uses: netlify/actions/cli@master
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
-          args: deploy --dir=dist --prod
+          args: deploy --dir=dist/quotes --prod
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
 
 #     steps:
