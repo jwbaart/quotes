@@ -1,7 +1,7 @@
 context('add', () => {
   beforeEach(() => {
-    cy.visit('/');
     cy.login();
+    cy.visit('/');
   });
   
   describe('quote page', () => {
