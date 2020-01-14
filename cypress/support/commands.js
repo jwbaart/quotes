@@ -15,6 +15,6 @@ const fbConfig = {
   appId: '1:814898657900:web:3c7c9d3a0e7fe771ad7649'
 };
 
-firebase.initializeApp(fbConfig);
+window.fbInstance = firebase.initializeApp(fbConfig);
 
 attachCustomCommands({ Cypress, cy, firebase });
