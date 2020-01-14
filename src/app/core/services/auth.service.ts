@@ -19,12 +19,15 @@ export class AuthService {
       user => {
         if (user) {
           this.currentUser = user;
+          this.router.navigate(['quotes']);
+          this._snackbarService.open('Je bent ingelogd');
         } else {
           this.currentUser = null;
+          this.router.navigate(['home']);
+          this._snackbarService.open('Je bent uitgelogd');
         }
       },
       err => {
-        // this.openSnackBar(`${err.status} ${err.statusText} (${err.error.message})`, 'Please try again')
         this._snackbarService.open('Login mislukt.');
       }
     );
@@ -41,20 +44,10 @@ export class AuthService {
   login() {
     this.afAuth.auth
       .signInWithPopup(new auth.GoogleAuthProvider())
-      .then(response => {
-        this.router.navigate(['quotes']);
-        this._snackbarService.open('Je bent ingelogd');
-      })
       .catch(error => this._snackbarService.open('Fout tijdens het inloggen: ' + error));
   }
 
   logout() {
-    this.afAuth.auth
-      .signOut()
-      .then(response => {
-        this.router.navigate(['home']);
-        this._snackbarService.open('Je bent uitgelogd');
-      })
-      .catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
+    this.afAuth.auth.signOut().catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
   }
 }
