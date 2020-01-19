@@ -17,14 +17,20 @@ export class AuthService {
 
     this._authState.subscribe(
       user => {
+        const isPreviousUser = !!this.currentUser;
+
         if (user) {
+          if (!isPreviousUser) {
+            this._snackbarService.open('Je bent ingelogd');
+          }
           this.currentUser = user;
           this.router.navigate(['quotes']);
-          this._snackbarService.open('Je bent ingelogd');
         } else {
+          if (isPreviousUser) {
+            this._snackbarService.open('Je bent uitgelogd');
+          }
           this.currentUser = null;
           this.router.navigate(['home']);
-          this._snackbarService.open('Je bent uitgelogd');
         }
       },
       err => {
