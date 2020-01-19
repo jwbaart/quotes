@@ -45,3 +45,8 @@ testem.log
 .DS_Store
 Thumbs.db
 firebase-debug.log
+serviceAccount.json
+cypress/config.json
+cypress.env.json
+cypress/videos/
+cypress/screenshots/

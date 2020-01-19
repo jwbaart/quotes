@@ -3,12 +3,16 @@
   "version": "0.0.0",
   "scripts": {
     "firebase": "firebase",
+    "cypress": "cypress",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "build:testConfig": "cypress-firebase createTestEnvFile",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "test": "yarn build:testConfig && cypress run",
+    "test:open": "yarn build:testConfig && cypress open",
+    "test:stage": "yarn test -- --env envName=stage",
+    "test:open:stage": "yarn test:open -- --env envName=stage"
   },
   "lint-staged": {
     "src/**/*.{ts}": [
@@ -53,6 +57,8 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "^5.0.0",
+    "cypress": "^3.8.1",
+    "cypress-firebase": "^0.6.0",
     "firebase-tools": "^7.11.0",
     "husky": "^3.1.0",
     "jasmine-core": "~3.4.0",
