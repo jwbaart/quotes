@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { firestore } from 'firebase';
+// import { firestore } from 'firebase';
+import * as firebase from 'firebase/app';
 import { map, take } from 'rxjs/operators';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { ChildId } from './children.service';
@@ -27,7 +28,7 @@ export interface QuoteFirebase {
   children: {
     [key in ChildId]: boolean;
   };
-  datestamp: firestore.Timestamp;
+  datestamp: firebase.firestore.Timestamp;
 }
 
 @Injectable({
@@ -59,7 +60,7 @@ export class QuotesService {
       title: quote.title || '',
       text: quote.text,
       // Convert JS date to firestore timestamp
-      datestamp: firestore.Timestamp.fromDate(quote.datestamp),
+      datestamp: firebase.firestore.Timestamp.fromDate(quote.datestamp),
       children: quote.children
     };
     this._quotesCollection.add(quoteFirebase);
