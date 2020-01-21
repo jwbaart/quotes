@@ -1,0 +1,26 @@
+name: Firebase deploy
+on:
+  push:
+    branches:
+      - feature/firebase-functions 
+
+jobs:
+  deploy:
+    name: Deploy functions
+#     needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Set prod project
+        uses: w9jds/firebase-action@master
+        with:
+          args: use quotes-553ed
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_API_KEY }}
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_API_KEY }}
