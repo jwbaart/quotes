@@ -12,15 +12,10 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Set prod project
-        uses: w9jds/firebase-action@master
-        with:
-          args: use quotes-553ed
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_API_KEY }}
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_API_KEY }}
+          PROJECT_ID: quotes-553ed
