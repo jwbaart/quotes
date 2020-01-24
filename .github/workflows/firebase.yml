@@ -4,7 +4,7 @@ on:
     paths:
       - 'functions/src/**.ts'
     branches:
-      - feature/firebase-functions 
+      - master 
 
 jobs:
   build and deploy:
