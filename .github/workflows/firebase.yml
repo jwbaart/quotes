@@ -12,8 +12,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
       - working-directory: functions
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - working-directory: functions
         run: yarn build
       - name: Deploy functions to Firebase
