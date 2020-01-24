@@ -20,10 +20,6 @@ jobs:
         run: yarn install --frozen-lockfile
       - working-directory: functions
         run: yarn build
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: functions
       - name: Deploy functions to Firebase
         uses: w9jds/firebase-action@master
         with:
