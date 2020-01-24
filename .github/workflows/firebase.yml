@@ -1,18 +1,30 @@
 name: Firebase deploy
 on:
   push:
+    paths:
+      - 'functions/src/**.ts'
     branches:
-      - feature/firebase-functions 
+      - master 
 
 jobs:
-  deploy:
+  build and deploy:
     name: Deploy functions
-#     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - name: Deploy to Firebase
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - working-directory: functions
+        run: yarn install --frozen-lockfile
+      - working-directory: functions
+        run: yarn build
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: functions
+      - name: Deploy functions to Firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions
