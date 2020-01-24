@@ -1,6 +1,8 @@
 name: Firebase deploy
 on:
   push:
+    paths:
+    - 'functions/src/**.ts'
     branches:
       - feature/firebase-functions 
 
