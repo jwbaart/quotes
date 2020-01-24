@@ -1,6 +1,8 @@
 name: Netlify deploy
 
 on: 
+  paths:
+      - 'src/**/*.ts'
   push:
     branches:
       - master
