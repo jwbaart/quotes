@@ -3,11 +3,14 @@ import * as admin from 'firebase-admin';
 
 const db = admin.firestore();
 
-export const createUserRecord = functions.auth.user().onCreate((user, context) => {
-  const userRef = db.doc(`users/'${user.uid}`);
-  return userRef.set({
-    name: user.displayName,
-    createdAt: context.timestamp,
-    role: 'unknown'
+export const createUserRecord = functions
+  .region('europe-west1')
+  .auth.user()
+  .onCreate((user, context) => {
+    const userRef = db.doc(`users/'${user.uid}`);
+    return userRef.set({
+      name: user.displayName,
+      createdAt: context.timestamp,
+      role: 'unknown'
+    });
   });
-});

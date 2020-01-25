@@ -8,7 +8,6 @@
     "shell": "yarn build && firebase functions:shell",
     "start": "yarn shell",
     "deploy": "firebase deploy -P dev --only functions",
-    "deploy:ci": "firebase deploy -P production --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
