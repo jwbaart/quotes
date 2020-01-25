@@ -11,6 +11,7 @@ export const createUserRecord = functions
     return userRef.set({
       name: user.displayName,
       createdAt: context.timestamp,
+      photoURL: user.photoURL,
       role: 'unknown'
     });
   });
