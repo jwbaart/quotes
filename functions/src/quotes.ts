@@ -8,7 +8,7 @@ export const onQuoteUpdate = functions
     const quote: any = change.after.data();
     const previousQuote: any = change.before.data();
 
-    // TODO: refactor to make use of interface so it doesn't break on quote changes
+    // TODO: refactor to make use of interface so it breaks on quote changes
     if (
       quote.title !== previousQuote.title ||
       quote.text !== previousQuote.text ||
