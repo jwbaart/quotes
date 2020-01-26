@@ -12,6 +12,7 @@ export const createUserRecord = functions
       name: user.displayName,
       createdAt: context.timestamp,
       photoURL: user.photoURL,
-      role: 'unknown'
+      role: 'unknown',
+      uid: user.uid
     });
   });
