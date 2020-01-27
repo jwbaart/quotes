@@ -7,7 +7,7 @@ export const createUserRecord = functions
   .region('europe-west1')
   .auth.user()
   .onCreate((user, context) => {
-    const userRef = db.doc(`users/'${user.uid}`);
+    const userRef = db.doc(`users/${user.uid}`);
     return userRef.set({
       name: user.displayName,
       createdAt: context.timestamp,
