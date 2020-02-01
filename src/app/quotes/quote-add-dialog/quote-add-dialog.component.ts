@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuotesService, Quote } from '../quotes.service';
+import { AuthService } from '@app/core';
 
 @Component({
   selector: 'app-quote-add-dialog',
@@ -12,17 +13,21 @@ export class QuoteAddDialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<QuoteAddDialogComponent>,
     private _quoteService: QuotesService,
+    private _authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: {}
   ) {}
 
   ngOnInit() {
+    const uid = this._authService.user.uid;
+
     this.newQuote = {
       text: '',
       children: {
         ben: false,
         tom: false
       },
-      datestamp: new Date()
+      datestamp: new Date(),
+      uid
     };
   }
 

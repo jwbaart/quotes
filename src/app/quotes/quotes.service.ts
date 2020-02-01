@@ -6,6 +6,7 @@ import { map, take } from 'rxjs/operators';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { ChildId } from './children.service';
 import { MatSnackBarRef, SimpleSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '@app/core';
 
 export interface Quote {
   id?: string;
@@ -15,6 +16,7 @@ export interface Quote {
     [key in ChildId]: boolean;
   };
   datestamp: Date;
+  uid: string;
 }
 
 // TODO: createdAt property?
@@ -28,6 +30,7 @@ export interface QuoteFirebase {
     [key in ChildId]: boolean;
   };
   datestamp: firebase.firestore.Timestamp;
+  uid: string;
 }
 
 @Injectable({
@@ -38,7 +41,11 @@ export class QuotesService {
 
   quotes: Observable<Quote[]>;
 
-  constructor(private db: AngularFirestore, private snackbarService: SnackbarService) {
+  constructor(
+    private db: AngularFirestore,
+    private snackbarService: SnackbarService,
+    private authService: AuthService
+  ) {
     this._quotesCollection = db.collection('quotes', ref => ref.orderBy('datestamp', 'desc'));
 
     this.quotes = this._quotesCollection.snapshotChanges().pipe(
@@ -55,12 +62,15 @@ export class QuotesService {
   }
 
   add(quote: Quote) {
+    const uid = this.authService.user.uid;
+
     const quoteFirebase: QuoteFirebase = {
       title: quote.title || '',
       text: quote.text,
       // Convert JS date to firestore timestamp
       datestamp: firebase.firestore.Timestamp.fromDate(quote.datestamp),
-      children: quote.children
+      children: quote.children,
+      uid
     };
     this._quotesCollection.add(quoteFirebase);
   }
