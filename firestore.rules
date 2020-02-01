@@ -6,15 +6,19 @@ service cloud.firestore {
         return request.auth.uid != null;
       }
       function isJwbaart() {
-      	return request.auth.uid == 'CTsh5nq3UGfyeQni5R2X5hme5FH2';
+      	return request.auth.uid == 'd3tapkDDszU4abf6lKBQu4GNuCq1';
       }
       
-      function isStijnBaart() {
-      return request.auth.uid == '2F6Af4F9HZcHhTVUJpviRIBfhLt1';
+      function isCiUser() {
+     		return request.auth.uid == 'FfaUoGeoFVQvQErTVXCRrTgzCLp2';
+      }
+      
+      function isBenTomUser() {
+     		return request.auth.uid == '7XVgmYTyrshlup04pMTRXOu8Dqh1';
       }
       
       // allow read, write: if false;
-        allow read, write: if (isJwbaart() || isStijnBaart());
+        allow read, write: if (isJwbaart() || isCiUser() || isBenTomUser());
       }
 
       // Alterntatively, for role-based access, assign specific roles to users
