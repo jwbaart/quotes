@@ -4,32 +4,53 @@ import { Observable } from 'rxjs';
 import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { SnackbarService } from './snackbar.service';
+import { AngularFirestore } from '@angular/fire/firestore';
+
+export interface User {
+  name: string;
+  createdAt: firebase.firestore.Timestamp;
+  photoURL: string;
+  role: string;
+  uid: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  public currentUser: firebase.User = null;
+  public user$: Observable<User>;
+  public user: User;
+
   private _authState: Observable<firebase.User>;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private _snackbarService: SnackbarService) {
+  constructor(
+    private afAuth: AngularFireAuth,
+    private router: Router,
+    private _snackbarService: SnackbarService,
+    private db: AngularFirestore
+  ) {
     this._authState = this.afAuth.authState;
 
     this._authState.subscribe(
-      user => {
-        const isPreviousUser = !!this.currentUser;
+      authUser => {
+        const isPreviousUser = !!this.user;
 
-        if (user) {
+        if (authUser) {
           if (!isPreviousUser) {
             this._snackbarService.open('Je bent ingelogd');
           }
-          this.currentUser = user;
+
+          const userDoc = this.db.doc<User>(`users/${authUser.uid}`);
+          userDoc.valueChanges().subscribe(x => (this.user = x));
+          this.user$ = userDoc.valueChanges();
+
           this.router.navigate(['quotes']);
         } else {
           if (isPreviousUser) {
             this._snackbarService.open('Je bent uitgelogd');
           }
-          this.currentUser = null;
+          this.user = null;
+          this.user$ = null;
           this.router.navigate(['home']);
         }
       },
@@ -40,11 +61,11 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return this.currentUser !== null;
+    return this.user !== null;
   }
 
   isLoggedOut(): boolean {
-    return this.currentUser == null;
+    return this.user == null;
   }
 
   login() {
