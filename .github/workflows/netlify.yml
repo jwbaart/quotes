@@ -6,7 +6,6 @@ on:
       - 'src/**/*.ts'
     branches:
       - master
-  pull_request:
     
 jobs:
   build:
@@ -26,21 +25,3 @@ jobs:
         with:
           args: deploy --dir=dist/quotes --prod
           secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
-
-#     steps:
-#     - name: Deploy to Netlify
-#       uses: netlify/actions/cli@master
-#       with:
-#         args: deploy --site ${{ secrets.NETLIFY_SITE_ID }} --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --prod --dir=public
-#       env:
-#         CD: true
-
-# workflow "Publish on Netlify" {
-#   on = "push"
-#   resolves = ["Publish"]
-# }
-
-# action "Publish" {
-#   uses = "netlify/actions/build@master"
-#   secrets = ["GITHUB_TOKEN", "NETLIFY_SITE_ID"]
-# }

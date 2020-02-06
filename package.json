@@ -14,7 +14,8 @@
     "test": "yarn build:testConfig && cypress run",
     "test:open": "yarn build:testConfig && cypress open",
     "test:stage": "yarn test -- --env envName=stage",
-    "test:open:stage": "yarn test:open -- --env envName=stage"
+    "test:open:stage": "yarn test:open -- --env envName=stage",
+    "deploy:firebase:rules": "firebase deploy --only firestore:rules"
   },
   "lint-staged": {
     "src/**/*.{ts}": [

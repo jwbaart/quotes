@@ -1,26 +1,71 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      function isSignedIn() {
-        return request.auth.uid != null;
-      }
-      function isJwbaart() {
-      	return request.auth.uid == 'CTsh5nq3UGfyeQni5R2X5hme5FH2';
-      }
-      
-      function isStijnBaart() {
-      return request.auth.uid == '2F6Af4F9HZcHhTVUJpviRIBfhLt1';
-      }
-      
-      // allow read, write: if false;
-        allow read, write: if (isJwbaart() || isStijnBaart());
-      }
+    function isSignedIn() {
+      return request.auth != null;
+    }
 
-      // Alterntatively, for role-based access, assign specific roles to users
-      // match /quotes/{document} {
-       // allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Reader"
-       // allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Writer" 
-      // }
+    // [READ] Data that exists on the Firestore document
+    function existingData() {
+      return resource.data;
+    }
+
+    // [WRITE] Data that is sent to a Firestore document
+    function incomingData() {
+      return request.resource.data;
+    }
+
+    function isUser(userId) {
+      return request.auth.uid == userId;
+    }
+
+    function isUserVerified() {
+      return isJwbaart() || isCabaart() || isCiUser() || isBenTomUser();
+    }
+    
+    function isJwbaart() {
+      return request.auth.uid == 'd3tapkDDszU4abf6lKBQu4GNuCq1' || 'CTsh5nq3UGfyeQni5R2X5hme5FH2'; // dev || prod
+    }
+    
+    function isBenTomUser() {
+      return request.auth.uid == '7XVgmYTyrshlup04pMTRXOu8Dqh1' || 'A7SSYhwepXXNbTaf9uY1zia23QT2'; // dev || prod
+    }
+
+    function isCabaart() {
+      return request.auth.uid == '2F6Af4F9HZcHhTVUJpviRIBfhLt1'; // prod
+    }
+    
+    function isCiUser() {
+      return request.auth.uid == 'FfaUoGeoFVQvQErTVXCRrTgzCLp2'; // dev
+    }
+
+    function incomingUidMatches() {
+        return isUser(incomingData().uid);
+    }
+
+    function existingUidMatches() {
+        return isUser(existingData().uid);
+    }
+
+    match /quotes/{quoteId} {
+      // TODO: rewrite to specific roles
+      allow create: if isSignedIn() && isUserVerified();
+      allow read: if isSignedIn() && isUserVerified();
+      allow update: if isSignedIn() && isUserVerified() && incomingUidMatches() && existingUidMatches();
+      allow delete: if isSignedIn() && isUserVerified() && existingUidMatches();
+    }
+
+    match /users/{userId} {
+      allow get;
+      allow read: if isSignedIn() && isUserVerified();
+      allow update: if isSignedIn() && isUserVerified() && incomingUidMatches() && existingUidMatches();
+      allow delete: if isSignedIn() && isUserVerified() && existingUidMatches();
+    }
+
+    // Alterntatively, for role-based access, assign specific roles to users
+    // match /quotes/{document} {
+      // allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Reader"
+      // allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Writer" 
+    // }
   }
 }

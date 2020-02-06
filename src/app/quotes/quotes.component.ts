@@ -18,7 +18,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
   isQuotesLoading = true;
   private _ngUnsubscribeQuotes: Subject<void> = new Subject();
 
-  children: Child[] = [];
   isChildrenLoading = true;
 
   constructor(
@@ -38,17 +37,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
         console.log(error);
         this._snackBar.open('Je account is nog niet geactiveerd: ');
         this.isQuotesLoading = false;
-      }
-    );
-
-    this._childrenService.children.pipe(takeUntil(this._ngUnsubscribeQuotes)).subscribe(
-      children => {
-        this.children = children;
-        this.isChildrenLoading = false;
-      },
-      () => {
-        this._snackBar.open('Je account is nog niet geactiveerd');
-        this.isChildrenLoading = false;
       }
     );
   }
