@@ -32,11 +32,15 @@ service cloud.firestore {
     }
     
     function isJwbaart() {
-      return request.auth.uid == 'd3tapkDDszU4abf6lKBQu4GNuCq1' || 'CTsh5nq3UGfyeQni5R2X5hme5FH2'; // dev || prod
+      return request.auth.uid in ['d3tapkDDszU4abf6lKBQu4GNuCq1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2']; // dev || prod
+      // return request.auth.uid == 'd3tapkDDszU4abf6lKBQu4GNuCq1' || 'CTsh5nq3UGfyeQni5R2X5hme5FH2'; // dev || prod
+      // return (['d3tapkDDszU4abf6lKBQu4GNuCq1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2'].indexOf(request.auth.uid) > -1); // dev || prod
     }
     
     function isBenTomUser() {
-      return request.auth.uid == '7XVgmYTyrshlup04pMTRXOu8Dqh1' || 'A7SSYhwepXXNbTaf9uY1zia23QT2'; // dev || prod
+      return request.auth.uid in ['7XVgmYTyrshlup04pMTRXOu8Dqh1', 'A7SSYhwepXXNbTaf9uY1zia23QT2']; // dev || prod
+
+      // return request.auth.uid == '7XVgmYTyrshlup04pMTRXOu8Dqh1' || 'A7SSYhwepXXNbTaf9uY1zia23QT2'; 
     }
 
     function isCabaart() {
