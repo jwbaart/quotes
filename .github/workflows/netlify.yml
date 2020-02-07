@@ -3,7 +3,7 @@ name: Netlify deploy
 on: 
   push:
     paths:
-      - 'src/**/*.ts'
+      - 'src/**/*.*'
     branches:
       - master
     
