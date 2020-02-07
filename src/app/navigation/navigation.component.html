@@ -19,7 +19,6 @@
         *ngIf="!!(authService.user$ | async)?.photoURL"
         [src]="(authService.user$ | async)?.photoURL"
       /> -->
-
       <p class="mat-body">{{ (authService.user$ | async)?.name }}</p>
     </div>
   </button>
