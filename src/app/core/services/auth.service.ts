@@ -41,7 +41,13 @@ export class AuthService {
           }
 
           const userDoc = this.db.doc<User>(`users/${authUser.uid}`);
-          userDoc.valueChanges().subscribe(x => (this.user = x));
+          userDoc.valueChanges().subscribe(x => {
+            if (!x) {
+              // TODO: where to place error handling?
+              console.error('user missing', x);
+            }
+            this.user = x;
+          });
           this.user$ = userDoc.valueChanges();
 
           this.router.navigate(['quotes']);
