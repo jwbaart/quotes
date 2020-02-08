@@ -5,14 +5,7 @@ import { auth } from 'firebase/app';
 import { Router } from '@angular/router';
 import { SnackbarService } from './snackbar.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-
-export interface User {
-  name: string;
-  createdAt: firebase.firestore.Timestamp;
-  photoURL: string;
-  role: string;
-  uid: string;
-}
+import { User, UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +20,8 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private router: Router,
     private _snackbarService: SnackbarService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private userService: UserService
   ) {
     this._authState = this.afAuth.authState;
 
@@ -41,14 +35,14 @@ export class AuthService {
           }
 
           const userDoc = this.db.doc<User>(`users/${authUser.uid}`);
-          userDoc.valueChanges().subscribe(x => {
-            if (!x) {
-              // TODO: where to place error handling?
-              console.error('user missing', x);
-            }
-            this.user = x;
-          });
           this.user$ = userDoc.valueChanges();
+          this.userService.get(authUser.uid).subscribe(user => {
+            if (!user) {
+              this._snackbarService.open('Het aanmaken van je account is niet helemaal goed gegaan.');
+            } else {
+              this.user = user;
+            }
+          });
 
           this.router.navigate(['quotes']);
         } else {
