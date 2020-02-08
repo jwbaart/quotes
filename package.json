@@ -11,6 +11,7 @@
     "build:prod": "ng build --prod",
     "build:testConfig": "cypress-firebase createTestEnvFile",
     "lint": "ng lint",
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "test": "yarn build:testConfig && cypress run",
     "test:open": "yarn build:testConfig && cypress open",
     "test:stage": "yarn test -- --env envName=stage",
