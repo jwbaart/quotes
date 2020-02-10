@@ -1,5 +1,12 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Quote } from '../quotes.service';
+import { Observable } from 'rxjs';
+import { User } from '@app/core';
+
+export interface Author {
+  name: string;
+  photoUrl: string;
+}
 
 @Component({
   selector: 'app-quote-card',
@@ -8,6 +15,7 @@ import { Quote } from '../quotes.service';
 })
 export class QuoteCardComponent implements OnInit {
   @Input() quote: Quote;
+  @Input() user$: Observable<User>;
 
   @Output() editQuote = new EventEmitter<any>();
   @Output() deleteQuote = new EventEmitter<any>();

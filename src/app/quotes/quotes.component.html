@@ -2,7 +2,7 @@
   <mat-spinner *ngIf="isQuotesLoading" class="app-quotes__spinner"></mat-spinner>
   <div *ngIf="quotes.length" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
     <section
-      *ngFor="let quote of quotes; let odd = odd; let even = even"
+      *ngFor="let quote of quotes; let odd = odd; let even = even; trackBy: trackQuotes"
       fxFlex="0 1 100%"
       fxFlex.sm="50%"
       fxFlex.md="calc(100%  /3)"

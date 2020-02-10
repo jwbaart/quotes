@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuotesService, Quote } from './quotes.service';
-import { ChildrenService, Child } from './children.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject, Observable } from 'rxjs';
+import { takeUntil, map } from 'rxjs/operators';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
+import { Author } from './quote-card/quote-card.component';
+import { UserService, User } from '@app/core';
 
 @Component({
   selector: 'app-quotes',
@@ -24,7 +25,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
     public quotesService: QuotesService,
     public dialog: MatDialog,
     private _snackBar: SnackbarService,
-    private _childrenService: ChildrenService
+    private userService: UserService
   ) {}
 
   ngOnInit() {
@@ -61,5 +62,25 @@ export class QuotesComponent implements OnInit, OnDestroy {
 
   onDeleteQuote(quote: Quote) {
     this.quotesService.delete(quote);
+  }
+
+  getUser(uid): Observable<User> {
+    console.log('getUser', uid);
+    // User$ prop in quote-card-highlight renders infinite
+    return this.userService.get(uid);
+    // TODO: remap to author
+    // .pipe(
+    //   map(user => {
+    //     console.log('user', user);
+    //     return {
+    //       name: user.name,
+    //       photoUrl: user.photoURL
+    //     };
+    //   })
+    // );
+  }
+
+  trackQuotes(i, quote: Quote) {
+    return quote.datestamp;
   }
 }
