@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 export interface User extends Entity {
   name: string;
   createdAt: firebase.firestore.Timestamp;
-  photoURL: string;
+  photoUrl: string;
   role: string;
   uid: string;
 }

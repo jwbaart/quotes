@@ -10,15 +10,9 @@
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <img
         class="app-navigation__avatar"
-        *ngIf="!!authService.user && authService.user.photoURL"
-        [src]="authService.user.photoURL"
+        *ngIf="!!(authService.user$ | async)?.photoUrl"
+        [src]="(authService.user$ | async)?.photoUrl"
       />
-      <!-- TODO: photoUrl not received, is null -->
-      <!-- <img
-        class="app-navigation__avatar"
-        *ngIf="!!(authService.user$ | async)?.photoURL"
-        [src]="(authService.user$ | async)?.photoURL"
-      /> -->
       <p class="mat-body">{{ (authService.user$ | async)?.name }}</p>
     </div>
   </button>
