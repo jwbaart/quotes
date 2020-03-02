@@ -5181,6 +5181,20 @@ firebase-admin@^8.8.0, firebase-admin@^8.9.0:
     "@google-cloud/firestore" "^3.0.0"
     "@google-cloud/storage" "^4.1.2"
 
+firebase-admin@^8.9.2:
+  version "8.9.2"
+  resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-8.9.2.tgz#248ba184dc13b4929b043870a2067787a0dd013e"
+  integrity sha512-ix4qcx+hHnr3mnc41Z8EzQa9Mr+2nhogLEv6ktkOCCpdKJ+9HxW9vikRCElSbC8ICHLD0KIH0GVOIZK80vbvqw==
+  dependencies:
+    "@firebase/database" "^0.5.17"
+    "@types/node" "^8.10.59"
+    dicer "^0.3.0"
+    jsonwebtoken "8.1.0"
+    node-forge "0.7.4"
+  optionalDependencies:
+    "@google-cloud/firestore" "^3.0.0"
+    "@google-cloud/storage" "^4.1.2"
+
 firebase-tools-extra@0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/firebase-tools-extra/-/firebase-tools-extra-0.3.0.tgz#8de211806b86325cdc3bddf3611298cf763c8fbe"
