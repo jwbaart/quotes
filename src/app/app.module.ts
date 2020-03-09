@@ -26,7 +26,7 @@ registerLocaleData(localeNl, 'nl');
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase, 'quotes'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
     MaterialModule,
