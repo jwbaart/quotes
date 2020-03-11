@@ -37,6 +37,8 @@ export class AuthService {
           const userDoc = this.db.doc<User>(`users/${authUser.uid}`);
           this.user$ = userDoc.valueChanges();
           this.userService.get(authUser.uid).subscribe(user => {
+            console.log('user', user);
+            console.log('authUser', authUser);
             if (!user) {
               this._snackbarService.open('Het aanmaken van je account is niet helemaal goed gegaan.');
             } else {

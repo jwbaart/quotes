@@ -1,6 +1,6 @@
-<form #quoteForm="ngForm" (ngSubmit)="onSubmitClick(formQuote)" class="app-quote-form">
+<form #quoteForm="ngForm" (ngSubmit)="onSubmitClick(formQuote)" class="app-quote-form" data-test="quote-form">
   <mat-form-field>
-    <input matInput placeholder="Titel" [(ngModel)]="formQuote.title" name="quote-title" />
+    <input matInput placeholder="Titel" [(ngModel)]="formQuote.title" name="quote-title" data-test="quote-form-title" />
   </mat-form-field>
 
   <mat-form-field class="app-quote-form__full-width">
@@ -12,6 +12,7 @@
       required
       class="app-quote-form__text"
       cdkTextareaAutosize
+      data-test="quote-form-textarea"
     ></textarea>
   </mat-form-field>
 
@@ -38,6 +39,6 @@
   </mat-form-field>
 
   <div>
-    <button mat-raised-button color="primary" type="submit" [disabled]="!quoteForm.form.valid">Ok</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!quoteForm.form.valid" data-test="quote-form-submit">Ok</button>
   </div>
 </form>

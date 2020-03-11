@@ -1,6 +1,6 @@
 <mat-card class="app-quote-card--highlight app-quote-card--ben">
   <mat-card-header>
-    <mat-card-title>{{ quote.title }}</mat-card-title>
+    <mat-card-title data-test="quote-card-title">{{ quote.title }}</mat-card-title>
     <mat-card-subtitle *ngIf="quote.datestamp">{{ quote.datestamp | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -8,10 +8,22 @@
   </mat-card-content>
   <mat-divider></mat-divider>
   <mat-card-actions fxLayout fxLayoutAlign="flex-start, center">
-    <button mat-icon-button aria-label="Edit quote" (click)="onQuoteEditClick()" matTooltip="Wijzig">
+    <button
+      mat-icon-button
+      aria-label="Edit quote"
+      (click)="onQuoteEditClick()"
+      matTooltip="Wijzig"
+      data-test="quote-card-edit"
+    >
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Delete quote" (click)="onQuoteDeleteClick()" matTooltip="Verwijder">
+    <button
+      mat-icon-button
+      aria-label="Delete quote"
+      (click)="onQuoteDeleteClick()"
+      matTooltip="Verwijder"
+      data-test="quote-card-delete"
+    >
       <mat-icon>delete</mat-icon>
     </button>
     <span class="app-quote-card__spacer"></span>

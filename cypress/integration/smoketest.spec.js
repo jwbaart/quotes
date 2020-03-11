@@ -5,9 +5,9 @@ context('smoketest', () => {
     it('should load', () => {
       cy.visit('/');
     });
-    it('should load intro component', () => {
+    it('should load navigation component', () => {
       cy.visit('/');
-      cy.get('[data-cy=intro]').should('exist');
+      cy.get('[data-cy=navigation]').should('exist');
     });
   });
 });
