@@ -4,7 +4,7 @@ name: E2E
 on:
   push:
     branches:
-    - feature/cypress-e2e
+    - feature/cypress-e2e-OFFLINE
 
 jobs:
   ui-tests:
