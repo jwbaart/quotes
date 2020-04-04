@@ -5,7 +5,7 @@ on:
       - 'functions/src/**.ts'
       - 'firestore.rules'
     branches:
-      - master 
+      - master-OFFLINE
 
 jobs:
   build-and-deploy-functions:

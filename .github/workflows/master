@@ -1,10 +1,10 @@
-name: E2E
+  
+name: master
 
-# on: [pull_request]
 on:
   push:
     branches:
-    - feature/cypress-e2e-OFFLINE
+    - master
 
 jobs:
   ui-tests:
@@ -27,7 +27,6 @@ jobs:
         with:
           # just perform install
           runTests: false
-
       - name: Build Test Environment Config
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
@@ -35,7 +34,6 @@ jobs:
           SERVICE_ACCOUNT: ${{ secrets.SERVICE_ACCOUNT }}
         run: |
           $(yarn bin)/cypress-firebase createTestEnvFile $TEST_ENV
-
       # Cypress action manages installing/caching npm dependencies and Cypress binary.
       - name: Cypress Run
         uses: cypress-io/github-action@v1
@@ -51,3 +49,23 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+  build-and-deploy-functions:
+    name: Deploy functions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - working-directory: functions
+        run: yarn install --frozen-lockfile
+      - working-directory: functions
+        run: yarn build
+      - name: Deploy functions to Firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions,firestore:rules
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: quotes-553ed
