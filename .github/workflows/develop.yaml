@@ -2,13 +2,13 @@ name: Develop
 on: 
   push:
     branches:
-      - develop-OFFLINE
+      - develop
     
 jobs:
   # build:
   
-  firebase-functinos:
-    name: Deploy firebase functions
+  firebase-staging:
+    name: Deploy firebase to staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -16,16 +16,16 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      - working-directory: functions
-        run: yarn install --frozen-lockfile
-      - working-directory: functions
-        run: yarn build
-      - name: Deploy functions to Firebase
+      # - working-directory: functions
+      #   run: yarn install --frozen-lockfile
+      # - working-directory: functions
+      #   run: yarn build
+      - name: Deploy firebase
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only functions,firestore:rules
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: quotes-553ed
+          PROJECT_ID: quotes-staging-d5139
 
   # integration:
