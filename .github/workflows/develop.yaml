@@ -5,10 +5,8 @@ on:
       - develop
     
 jobs:
-  # build:
-  
-  firebase-staging:
-    name: Deploy firebase to staging
+  build-firebase-staging:
+    name: Build staging firebase
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -20,6 +18,20 @@ jobs:
         run: yarn install --frozen-lockfile
       - working-directory: functions
         run: yarn build
+      - name: Archive firebase functions
+      uses: actions/upload-artifact@master
+      with:
+        name: firebase-functions-staging
+        path: functions/lib
+  
+  firebase-staging:
+    name: Deploy firebase to staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: firebase-functions-staging
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
