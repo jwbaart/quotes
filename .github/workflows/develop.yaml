@@ -19,10 +19,10 @@ jobs:
       - working-directory: functions
         run: yarn build
       - name: Archive firebase functions
-      uses: actions/upload-artifact@master
-      with:
-        name: firebase-functions-staging
-        path: functions/lib
+        uses: actions/upload-artifact@master
+        with:
+          name: firebase-functions-staging
+          path: functions/lib
   
   firebase-staging:
     name: Deploy firebase to staging
