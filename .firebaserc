@@ -1,7 +1,7 @@
 {
   "projects": {
     "prod": "quotes-553ed",
-    "stage": "quotes-dev-802a5",
+    "staging": "quotes-staging-d5139",
     "dev": "quotes-dev-802a5",
     "default": "quotes-dev-802a5"
   }
