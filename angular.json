@@ -94,6 +94,9 @@
           "configurations": {
             "production": {
               "browserTarget": "quotes:build:production"
+            },
+            "staging": {
+              "browserTarget": "quotes:build:staging"
             }
           }
         },
