@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
@@ -29,11 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
+        uses: actions/checkout@v1
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
           name: firebase-functions-staging
+          path: functions/lib
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
