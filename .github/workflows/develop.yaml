@@ -57,6 +57,7 @@ jobs:
 
   ui-tests:
     name: UI Tests
+    needs: firebase-staging
     runs-on: ubuntu-latest
     strategy:
       matrix:
