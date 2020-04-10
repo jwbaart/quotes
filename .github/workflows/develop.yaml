@@ -14,12 +14,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
+      # yarn install with caching
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: functions
-      - working-directory: functions
-        # run: yarn install --frozen-lockfile
-        run: npm t
       - working-directory: functions
         run: yarn build
       - name: Archive firebase functions
@@ -34,17 +32,18 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
           name: firebase-functions-staging
           path: functions/lib
+      # yarn install with caching
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: functions
-      - working-directory: functions
-        # run: yarn install --frozen-lockfile
-        run: npm t
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
