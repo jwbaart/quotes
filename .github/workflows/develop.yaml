@@ -67,7 +67,7 @@ jobs:
       - name: Archive dist:staging
         uses: actions/upload-artifact@master
         with:
-          name: dist:staging
+          name: dist-staging
           path: dist
 
   ui-tests:
@@ -96,7 +96,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: dist:staging
+          name: dist-staging
           path: dist
 
       - name: Build Test Environment Config
