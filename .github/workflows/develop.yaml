@@ -57,7 +57,7 @@ jobs:
 
   build-staging:
     name: Build staging
-    needs: firebase-staging
+    # needs: firebase-staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
