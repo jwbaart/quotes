@@ -55,6 +55,21 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: quotes-staging-d5139
 
+  build-staging:
+    name: Build staging
+    needs: firebase-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - uses: bahmutov/npm-install@v1 
+      - run: yarn build:staging
+      - name: Archive dist:staging
+        uses: actions/upload-artifact@master
+        with:
+          name: dist:staging
+          path: dist
+
   ui-tests:
     name: UI Tests
     needs: firebase-staging
@@ -71,12 +86,18 @@ jobs:
 
       # Install is run separatley from test so that dependencies are available
       # for other steps
-      - name: Install Dependencies
-        uses: cypress-io/github-action@v1
+      # - name: Install Dependencies
+      #   uses: cypress-io/github-action@v1
+      #   with:
+      #     # just perform install
+      #     runTests: false
+      #     build: yarn build:staging
+      - uses: bahmutov/npm-install@v1 
+      - name: Download Artifact
+        uses: actions/download-artifact@master
         with:
-          # just perform install
-          runTests: false
-          build: yarn build:staging
+          name: dist:staging
+          path: dist
 
       - name: Build Test Environment Config
         env:
