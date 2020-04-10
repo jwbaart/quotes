@@ -14,8 +14,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: functions
       - working-directory: functions
-        run: yarn install --frozen-lockfile
+        # run: yarn install --frozen-lockfile
+        run: npm t
       - working-directory: functions
         run: yarn build
       - name: Archive firebase functions
