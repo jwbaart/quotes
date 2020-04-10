@@ -31,6 +31,7 @@ jobs:
     #TODO: only execute when file changes in functions/**/*
     name: Deploy firebase to staging
     runs-on: ubuntu-latest
+    needs: build-firebase-staging
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v1
@@ -54,48 +55,48 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: quotes-staging-d5139
 
-    ui-tests:
-      name: UI Tests
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          # the actual items in the array do not matter,
-          # just the number - to force CI to sping 3 copies
-          # of the current job in parallel
-          machines: [1, 2, 3]
-      steps:
-        - name: Checkout Repo
-          uses: actions/checkout@v1
-  
-        # Install is run separatley from test so that dependencies are available
-        # for other steps
-        - name: Install Dependencies
-          uses: cypress-io/github-action@v1
-          with:
-            # just perform install
-            runTests: false
-            build: yarn build:staging
-  
-        - name: Build Test Environment Config
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-            TEST_UID: ${{ secrets.STAGING_TEST_UID }}
-            SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
-          run: |
-            $(yarn bin)/cypress-firebase createTestEnvFile $TEST_ENV
-  
-        # Cypress action manages installing/caching npm dependencies and Cypress binary.
-        - name: Cypress Run
-          uses: cypress-io/github-action@v1
-          with:
-            # we have already installed all dependencies above
-            install: false
-            start: yarn start:staging
-            group: 'E2E Tests'
-            record: true
-            parallel: true
-          env:
-            # pass the Dashboard record key as an environment variable
-            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-            GITHUB_HEAD_REF: ${{ github.head_ref }}
+  ui-tests:
+    name: UI Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # the actual items in the array do not matter,
+        # just the number - to force CI to sping 3 copies
+        # of the current job in parallel
+        machines: [1, 2, 3]
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+
+      # Install is run separatley from test so that dependencies are available
+      # for other steps
+      - name: Install Dependencies
+        uses: cypress-io/github-action@v1
+        with:
+          # just perform install
+          runTests: false
+          build: yarn build:staging
+
+      - name: Build Test Environment Config
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          TEST_UID: ${{ secrets.STAGING_TEST_UID }}
+          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
+        run: |
+          $(yarn bin)/cypress-firebase createTestEnvFile $TEST_ENV
+
+      # Cypress action manages installing/caching npm dependencies and Cypress binary.
+      - name: Cypress Run
+        uses: cypress-io/github-action@v1
+        with:
+          # we have already installed all dependencies above
+          install: false
+          start: yarn start:staging
+          group: 'E2E Tests'
+          record: true
+          parallel: true
+        env:
+          # pass the Dashboard record key as an environment variable
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
