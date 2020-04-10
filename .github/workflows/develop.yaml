@@ -39,6 +39,12 @@ jobs:
         with:
           name: firebase-functions-staging
           path: functions/lib
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: functions
+      - working-directory: functions
+        # run: yarn install --frozen-lockfile
+        run: npm t
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
