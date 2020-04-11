@@ -85,7 +85,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v1
 
-      # Install is run separatley from test so that dependencies are available
+      # Install is run separately from test so that dependencies are available
       # for other steps
       - name: Install Dependencies
         uses: cypress-io/github-action@v1
@@ -102,14 +102,6 @@ jobs:
       #     name: dist-staging
       #     path: dist
 
-      - name: Build Test Environment Config
-        env:
-          FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
-          TEST_UID: ${{ secrets.STAGING_TEST_UID }}
-          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
-        run: |
-          $(yarn bin)/cypress-firebase createTestEnvFile $TEST_ENV
-
       # Cypress action manages installing/caching npm dependencies and Cypress binary.
       - name: Cypress Run
         uses: cypress-io/github-action@v1
@@ -125,3 +117,5 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+          TEST_UID: ${{ secrets.STAGING_TEST_UID }}
+          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
