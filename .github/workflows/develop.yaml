@@ -73,8 +73,7 @@ jobs:
   ui-tests:
     name: UI Tests
     needs: build-staging
-    # runs-on: ubuntu-latest
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     # strategy:
       # matrix:
         # the actual items in the array do not matter,
