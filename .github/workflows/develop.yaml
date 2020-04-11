@@ -108,7 +108,8 @@ jobs:
         with:
           install: true
           start: yarn start:staging
-          build: yarn build:staging
+          # build: yarn build:staging
+          build: yarn -v # serve already builds
           group: 'E2E Tests'
           record: true
           parallel: true

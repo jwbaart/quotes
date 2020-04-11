@@ -1,12 +1,19 @@
-<mat-toolbar color="primary" role="heading" class="app-navigation"  data-cy="navigation">
+<mat-toolbar color="primary" role="heading" class="app-navigation" data-cy="navigation">
   <div class="app-navigation__quotes-icon" aria-label="Quotes icon" [inlineSVG]="'/assets/quotes.svg'"></div>
+  <p>{{ environmentTitle }}</p>
 
   <span class="app-navigation__spacer"></span>
 
   <button mat-raised-button *ngIf="isLoggedOut()" (click)="authService.login()">
     Login
   </button>
-  <button mat-raised-button *ngIf="isLoggedIn()" (click)="authService.logout()" matTooltip="Logout" aria-label="Logout">
+  <button
+    mat-raised-fbutton
+    *ngIf="isLoggedIn()"
+    (click)="authService.logout()"
+    matTooltip="Logout"
+    aria-label="Logout"
+  >
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <img
         class="app-navigation__avatar"
