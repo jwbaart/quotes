@@ -106,7 +106,7 @@ jobs:
       - name: Cypress Run
         uses: cypress-io/github-action@v1
         with:
-          install: false
+          install: true
           start: yarn start:staging
           build: yarn build:staging
           group: 'E2E Tests'
