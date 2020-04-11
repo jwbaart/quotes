@@ -87,12 +87,12 @@ jobs:
 
       # Install is run separately from test so that dependencies are available
       # for other steps
-      - name: Install Dependencies
-        uses: cypress-io/github-action@v1
-        with:
-          # just perform install
-          runTests: false
-          build: yarn build:staging
+      # - name: Install Dependencies
+      #   uses: cypress-io/github-action@v1
+      #   with:
+      #     # just perform install
+      #     runTests: false
+      #     build: yarn build:staging
       # - uses: bahmutov/npm-install@v1 
       # - run: yarn build:staging
       ## Use 1 job for debug speed
@@ -106,16 +106,16 @@ jobs:
       - name: Cypress Run
         uses: cypress-io/github-action@v1
         with:
-          # we have already installed all dependencies above
           install: false
           start: yarn start:staging
+          build: yarn build:staging
           group: 'E2E Tests'
           record: true
           parallel: true
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
+          CYPRESS_TEST_UID: ${{ secrets.STAGING_TEST_UID }}
+          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
           FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
-          TEST_UID: ${{ secrets.STAGING_TEST_UID }}
-          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
