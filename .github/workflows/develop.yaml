@@ -101,7 +101,7 @@ jobs:
 
       - name: Build Test Environment Config
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           TEST_UID: ${{ secrets.STAGING_TEST_UID }}
           SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
         run: |
@@ -120,5 +120,5 @@ jobs:
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
