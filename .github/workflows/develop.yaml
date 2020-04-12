@@ -5,71 +5,71 @@ on:
       - develop
     
 jobs:
-  # build-firebase-staging:
-  #   #TODO: only execute when file changes in functions/**/*
-  #   name: Build staging firebase
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Repo
-  #       uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '10.x'
-  #     # yarn install with caching
-  #     - uses: bahmutov/npm-install@v1
-  #       with:
-  #         working-directory: functions
-  #     - working-directory: functions
-  #       run: yarn build
-  #     - name: Archive firebase functions
-  #       uses: actions/upload-artifact@master
-  #       with:
-  #         name: firebase-functions-staging
-  #         path: functions/lib
+  build-firebase-staging:
+    #TODO: only execute when file changes in functions/**/*
+    name: Build staging firebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      # yarn install with caching
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: functions
+      - working-directory: functions
+        run: yarn build
+      - name: Archive firebase functions
+        uses: actions/upload-artifact@master
+        with:
+          name: firebase-functions-staging
+          path: functions/lib
   
-  # firebase-staging:
-  #   #TODO: only execute when file changes in functions/**/*
-  #   name: Deploy firebase to staging
-  #   runs-on: ubuntu-latest
-  #   needs: build-firebase-staging
-  #   steps:
-  #     - name: Checkout Repo
-  #       uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '10.x'
-  #     - name: Download Artifact
-  #       uses: actions/download-artifact@master
-  #       with:
-  #         name: firebase-functions-staging
-  #         path: functions/lib
-  #     # yarn install with caching
-  #     - uses: bahmutov/npm-install@v1
-  #       with:
-  #         working-directory: functions
-  #     - name: Deploy to firebase
-  #       uses: w9jds/firebase-action@master
-  #       with:
-  #         args: deploy --only functions,firestore:rules
-  #       env:
-  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-  #         PROJECT_ID: quotes-staging-d5139
+  firebase-staging:
+    #TODO: only execute when file changes in functions/**/*
+    name: Deploy firebase to staging
+    runs-on: ubuntu-latest
+    needs: build-firebase-staging
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: firebase-functions-staging
+          path: functions/lib
+      # yarn install with caching
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: functions
+      - name: Deploy to firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only functions,firestore:rules
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: quotes-staging-d5139
 
-  ## Disabled to use 1 job for debug speed
-  # build-staging:
-  #   name: Build staging
-  #   # needs: firebase-staging
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout Repo
-  #       uses: actions/checkout@v1
-  #     - uses: bahmutov/npm-install@v1 
-  #     - run: yarn build:staging
-  #     - name: Archive dist:staging
-  #       uses: actions/upload-artifact@master
-  #       with:
-  #         name: dist-staging
-  #         path: dist
+  # Disabled to use 1 job for debug speed
+  build-staging:
+    name: Build staging
+    needs: firebase-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - uses: bahmutov/npm-install@v1 
+      - run: yarn build:staging
+      - name: Archive dist:staging
+        uses: actions/upload-artifact@master
+        with:
+          name: dist-staging
+          path: dist
 
   ui-tests:
     name: UI Tests
