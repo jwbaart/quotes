@@ -21,7 +21,7 @@ context('add', () => {
         .contains(testTitle);
     });
 
-    it('should be able to edit quote', () => {
+    xit('should be able to edit quote', () => {
       const editedTitle = 'editedTitle';
       cy.get('[data-test=quote-card]')
         .first()
@@ -40,7 +40,7 @@ context('add', () => {
       //   .contains('testTitle');
     });
 
-    it('should be able to delete quote', () => {
+    xit('should be able to delete quote', () => {
       cy.get('[data-test=quote-card]')
         .first()
         .find('[data-test=quote-card-delete]')
