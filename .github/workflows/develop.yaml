@@ -56,20 +56,20 @@ jobs:
           PROJECT_ID: quotes-staging-d5139
 
   # Disabled to use 1 job for debug speed
-  build-staging:
-    name: Build staging
-    needs: firebase-staging
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v1
-      - uses: bahmutov/npm-install@v1 
-      - run: yarn build:staging
-      - name: Archive dist:staging
-        uses: actions/upload-artifact@master
-        with:
-          name: dist-staging
-          path: dist
+  # build-staging:
+  #   name: Build staging
+  #   needs: firebase-staging
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v1
+  #     - uses: bahmutov/npm-install@v1 
+  #     - run: yarn build:staging
+  #     - name: Archive dist:staging
+  #       uses: actions/upload-artifact@master
+  #       with:
+  #         name: dist-staging
+  #         path: dist
 
   ui-tests:
     name: UI Tests
