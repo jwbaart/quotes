@@ -48,7 +48,8 @@ service cloud.firestore {
     }
     
     function isCiUser() {
-      return request.auth.uid == 'FfaUoGeoFVQvQErTVXCRrTgzCLp2'; // dev
+      return request.auth.uid in ['FfaUoGeoFVQvQErTVXCRrTgzCLp2', 'BfvwTPCoE5N2kPDPXvm68rcEnof2']; // dev || staging
+
     }
 
     match /quotes/{quoteId} {
