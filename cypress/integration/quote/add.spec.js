@@ -19,6 +19,8 @@ context('add', () => {
         .first()
         .find('[data-test=quote-card-title]')
         .contains(testTitle);
+
+      cy.wait(10000);
     });
 
     xit('should be able to edit quote', () => {
@@ -28,12 +30,13 @@ context('add', () => {
         .find('[data-test=quote-card-edit]')
         .click();
 
-      cy.get('[data-test=quote-form-title] ').clear().type(editedTitle);
+      cy.get('[data-test=quote-form-title] ')
+        .clear()
+        .type(editedTitle);
       cy.get('[data-test=quote-form-submit]').click();
       cy.get('[data-test=quote-form]').should('not.exist');
 
-
-      cy.get('[data-test=quote-card]')
+      cy.get('[data-test=quote-card]');
       //   .first()
       //   .find('[data-test=quote-card-title]')
       //   // .contains(editedTitle);
@@ -46,7 +49,7 @@ context('add', () => {
         .find('[data-test=quote-card-delete]')
         .click();
 
-        // should show snackbar
+      // should show snackbar
     });
   });
 });
