@@ -32,7 +32,7 @@ service cloud.firestore {
     }
     
     function isJwbaart() {
-      return request.auth.uid in ['d3tapkDDszU4abf6lKBQu4GNuCq1', 'RVGnzx3yuzg11vls4wBQsN9eYmn1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2']; // dev || staging || prod
+      return request.auth.uid in ['WOZjaqZYFlOT8IXL28NzqLyscUa2', 'RVGnzx3yuzg11vls4wBQsN9eYmn1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2']; // dev || staging || prod
       // return request.auth.uid == 'd3tapkDDszU4abf6lKBQu4GNuCq1' || 'CTsh5nq3UGfyeQni5R2X5hme5FH2'; // dev || prod
       // return (['d3tapkDDszU4abf6lKBQu4GNuCq1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2'].indexOf(request.auth.uid) > -1); // dev || prod
     }
