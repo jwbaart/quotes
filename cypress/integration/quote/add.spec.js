@@ -6,7 +6,7 @@ context('add', () => {
 
   describe('quote page', () => {
     it('should be able to add quote', () => {
-      const testTitle = 'testTitle';
+      const testTitle = 'testTitle'; // TODO: unique title
       cy.get('[data-cy=quote-add]').click();
       cy.get('[data-test=quote-form]').should('exist');
 
@@ -20,6 +20,7 @@ context('add', () => {
         .find('[data-test=quote-card-title]')
         .contains(testTitle);
 
+      // Otherwise quote isn't correctly stored in firebase
       cy.wait(1000);
     });
 
@@ -43,11 +44,13 @@ context('add', () => {
       //   .contains('testTitle');
     });
 
-    xit('should be able to delete quote', () => {
+    it('should be able to delete quote', () => {
       cy.get('[data-test=quote-card]')
         .first()
         .find('[data-test=quote-card-delete]')
         .click();
+
+      cy.get('[data-test=quotes-missing]').should('be.visible');
 
       // should show snackbar
     });
