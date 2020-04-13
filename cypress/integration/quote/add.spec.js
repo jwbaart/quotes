@@ -23,7 +23,7 @@ context('add', () => {
       cy.wait(10000);
     });
 
-    xit('should be able to edit quote', () => {
+    it('should be able to edit quote', () => {
       const editedTitle = 'editedTitle';
       cy.get('[data-test=quote-card]')
         .first()
