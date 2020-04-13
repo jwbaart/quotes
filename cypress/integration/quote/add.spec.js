@@ -20,12 +20,10 @@ context('add', () => {
         .find('[data-test=quote-card-title]')
         .contains(testTitle);
 
-      // cy.wait(10000);
+      cy.wait(1000);
     });
 
     it('should be able to edit quote', () => {
-      cy.wait(10000);
-
       const editedTitle = 'editedTitle';
       cy.get('[data-test=quote-card]')
         .first()
