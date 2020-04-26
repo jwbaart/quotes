@@ -118,9 +118,10 @@ jobs:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           CYPRESS_TEST_UID: ${{ secrets.STAGING_TEST_UID }}
-          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
+          FIREBASE_CONFIG: ${{ secrets.STAGING_FIREBASE_CONFIG }}
           FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
+          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
   deploy-netlify:
     runs-on: ubuntu-latest
     needs: ui-tests
