@@ -1,8 +1,8 @@
-name: Develop
+name: Master
 on: 
   push:
     branches:
-      - develop
+      - master
     
 jobs:
   # build-firebase-staging:
