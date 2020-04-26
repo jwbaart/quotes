@@ -3,7 +3,7 @@ name: master
 on:
   push:
     branches:
-    - master-OFF
+    - master-DISABLED
 
 jobs:
 #   ui-tests:
