@@ -1,5 +1,8 @@
 context('add', () => {
   beforeEach(() => {
+    const firebaseConfig = Cypress.env('FIREBASE_CONFIG');
+    const projectId = firebaseConfig.projectId;
+    cy.log('Trying to login to firebase environment', projectId);
     cy.login();
     cy.visit('/quotes');
   });
