@@ -121,6 +121,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           CYPRESS_TEST_UID: ${{ secrets.STAGING_TEST_UID }}
           FIREBASE_CONFIG: ${{ secrets.STAGING_FIREBASE_CONFIG }}
+          FIREBASE_CONFIG_TEST: ${{ secrets.STAGING_FIREBASE_CONFIG_TEST }}
           FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
           SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
