@@ -37,4 +37,26 @@ describe('NavigationComponent', () => {
   it('should compile', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('isNonProdId', () => {
+    it('should return false on prod', () => {
+      const result = component.isNonProdId('onprod');
+
+      expect(result).toBe(false);
+    });
+
+    describe('should return true', () => {
+      it('when on dev', () => {
+        const result = component.isNonProdId('-dev-');
+
+        expect(result).toBe(true);
+      });
+
+      it('when on staging', () => {
+        const result = component.isNonProdId('-staging-');
+
+        expect(result).toBe(true);
+      });
+    });
+  });
 });

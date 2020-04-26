@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-navigation',
@@ -7,9 +8,12 @@ import { AuthService } from '@app/core';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
+  public projectId: string;
   constructor(public authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.projectId = environment.firebase.projectId;
+  }
 
   isLoggedIn() {
     return this.authService.isLoggedIn();
@@ -17,5 +21,9 @@ export class NavigationComponent implements OnInit {
 
   isLoggedOut() {
     return this.authService.isLoggedOut();
+  }
+
+  isNonProdId(projectId: string): boolean {
+    return projectId.includes('-dev-') || projectId.includes('-staging-');
   }
 }
