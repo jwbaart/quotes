@@ -50,3 +50,5 @@ cypress/config.json
 cypress.env.json
 cypress/videos/
 cypress/screenshots/
+firebase.config.js
+.env
