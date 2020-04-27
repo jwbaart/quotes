@@ -55,7 +55,7 @@ jobs:
   #         args: deploy --only functions,firestore:rules
   #       env:
   #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-  #         PROJECT_ID: quotes-staging-d5139
+  #         PROJECT_ID: ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
 
   # Disabled to use 1 job for debug speed
   # build-staging:
@@ -86,31 +86,12 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v1
-
-      # Install is run separately from test so that dependencies are available
-      # for other steps
-      # - name: Install Dependencies
-      #   uses: cypress-io/github-action@v1
-      #   with:
-      #     # just perform install
-      #     runTests: false
-      #     build: yarn build:staging
-      # - uses: bahmutov/npm-install@v1 
-      # - run: yarn build:staging
-      ## Use 1 job for debug speed
-      # - name: Download Artifact
-      #   uses: actions/download-artifact@master
-      #   with:
-      #     name: dist-staging
-      #     path: dist
-
       # Cypress action manages installing/caching npm dependencies and Cypress binary.
       - name: Cypress Run
         uses: cypress-io/github-action@v1
         with:
           install: true
           start: yarn start
-          # build: yarn build:staging
           build: yarn -v # serve already builds
           group: 'E2E Tests'
           record: true
@@ -121,7 +102,6 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
           CYPRESS_TEST_UID: ${{ secrets.STAGING_TEST_UID }}
           FIREBASE_CONFIG: ${{ secrets.STAGING_FIREBASE_CONFIG }}
-          FIREBASE_CONFIG_TEST: ${{ secrets.STAGING_FIREBASE_CONFIG_TEST }}
           FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
           GITHUB_HEAD_REF: ${{ github.head_ref }}
           SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
