@@ -115,6 +115,11 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
           FIREBASE_MEASUREMENT_ID: ${{ secrets.STAGING_FIREBASE_MEASUREMENT_ID }}
           ANGULAR_PRODUCTION: ${{ secrets.STAGING_ANGULAR_PRODUCTION }}
+  release:  
+    name: Release
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    run: npx semantic-release
   deploy-netlify:
     runs-on: ubuntu-latest
     needs: ui-tests
