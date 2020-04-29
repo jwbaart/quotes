@@ -1,10 +1,10 @@
-<mat-card class="app-quote-card--highlight app-quote-card--ben">
+<mat-card class="app-quote-card--highlight app-quote-card--ben" data-test="quote-card">
   <mat-card-header>
     <mat-card-title data-test="quote-card-title">{{ quote.title }}</mat-card-title>
     <mat-card-subtitle *ngIf="quote.datestamp">{{ quote.datestamp | date: 'dd/MM/yyyy' }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <p>{{ quote.text }}</p>
+    <p data-test="quote-card-text">{{ quote.text }}</p>
   </mat-card-content>
   <mat-divider></mat-divider>
   <mat-card-actions fxLayout fxLayoutAlign="flex-start, center">
