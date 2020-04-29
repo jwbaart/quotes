@@ -34,7 +34,28 @@ class Quote {
       .click();
   }
 
-  update(props) {}
+  update(text, props) {
+    this.get(text)
+      .find(this.selectors.cardEdit)
+      .click();
+
+    if (props.hasOwnProperty('title') && props.title && props.title.length) {
+      cy.get(this.selectors.formTitle)
+        .clear()
+        .type(props.title);
+    }
+
+    if (props.hasOwnProperty('text') && props.text && props.text.length) {
+      cy.get(this.selectors.formText)
+        .clear()
+        .type(props.text);
+    }
+
+    cy.get(this.selectors.formSubmit).click();
+
+    // FIXME: Does not find quote
+    // return this.get(props.text);
+  }
 
   get(text) {
     return cy

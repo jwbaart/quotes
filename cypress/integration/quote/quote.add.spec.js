@@ -1,4 +1,4 @@
-describe.only('Quote add', () => {
+describe('Quote add', () => {
   const quote = require('./quote.page');
   let testTitle;
   let testText;
@@ -18,7 +18,7 @@ describe.only('Quote add', () => {
     quote.get(testText).should('exist');
   });
 
-  afterEach(() => {
+  after(() => {
     quote.delete(testText);
   });
 });
