@@ -52,9 +52,9 @@ class Quote {
     }
 
     cy.get(this.selectors.formSubmit).click();
-
-    // FIXME: Does not find quote
-    // return this.get(props.text);
+    // FIXME: sometimes element is visible but not found in next get
+    cy.wait(500); 
+    return this.get(props.text);
   }
 
   get(text) {
@@ -63,6 +63,8 @@ class Quote {
       .contains(text)
       .parents(this.selectors.card);
   }
+
+  getTitle(card) {}
 }
 
 module.exports = new Quote();
