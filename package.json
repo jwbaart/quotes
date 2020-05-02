@@ -41,6 +41,7 @@
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/router": "~9.0.0",
+    "@semantic-release/git": "^9.0.0",
     "dotenv": "^8.2.0",
     "firebase": "^7.5.2",
     "lodash.clonedeep": "^4.5.0",
