@@ -24,4 +24,8 @@ export class UserService {
   get(uid: string): Observable<User> {
     return this.crudService.get(uid);
   }
+
+  getUsers(): Observable<User[]> {
+    return this.crudService.list();
+  }
 }
