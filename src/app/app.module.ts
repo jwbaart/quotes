@@ -18,11 +18,12 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
+import { UsersComponent } from './users/users.component';
 
 registerLocaleData(localeNl, 'nl');
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, IntroComponent],
+  declarations: [AppComponent, NavigationComponent, IntroComponent, UsersComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
