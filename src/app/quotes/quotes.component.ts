@@ -12,7 +12,7 @@ import { UserService, User } from '@app/core';
 @Component({
   selector: 'app-quotes',
   templateUrl: './quotes.component.html',
-  styleUrls: ['./quotes.component.scss']
+  styleUrls: ['./quotes.component.scss', './../core/page.scss']
 })
 export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
