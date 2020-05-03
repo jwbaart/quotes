@@ -2,8 +2,9 @@ import { QuotesComponent } from './quotes/quotes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IntroComponent } from './intro/intro.component';
-import { AngularFireAuthGuard, redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
 import { UsersComponent } from './users/users.component';
+import { canActivate } from '@angular/fire/auth-guard';
 
 const redirectUnauthorizedToIntro = () => redirectUnauthorizedTo(['intro']);
 const redirectLoggedInToQuotes = () => redirectLoggedInTo(['quotes']);
@@ -15,22 +16,19 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'users',
+    component: UsersComponent,
+    ...canActivate(redirectUnauthorizedToIntro())
+  },
+  {
     path: 'quotes',
     component: QuotesComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToIntro }
+    ...canActivate(redirectUnauthorizedToIntro())
   },
   {
     path: 'intro',
     component: IntroComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectLoggedInToQuotes }
-  },
-  {
-    path: 'users',
-    component: UsersComponent,
-    canActivate: [AngularFireAuthGuard],
-    data: { authGuardPipe: redirectUnauthorizedToIntro }
+    ...canActivate(redirectLoggedInToQuotes())
   },
   {
     path: '**',

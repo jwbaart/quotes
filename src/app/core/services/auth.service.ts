@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 import { auth } from 'firebase/app';
-import { Router } from '@angular/router';
 import { SnackbarService } from './snackbar.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User, UserService } from './user.service';
+import { NavigationService } from './navigation.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +18,10 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
-    private router: Router,
     private _snackbarService: SnackbarService,
     private db: AngularFirestore,
-    private userService: UserService
+    private userService: UserService,
+    private navigationService: NavigationService
   ) {
     this._authState = this.afAuth.authState;
 
@@ -46,14 +46,14 @@ export class AuthService {
             }
           });
 
-          this.router.navigate(['quotes']);
+          this.navigationService.toQuotesIfOnIntro();
         } else {
           if (isPreviousUser) {
             this._snackbarService.open('Je bent uitgelogd');
           }
           this.user = null;
           this.user$ = null;
-          this.router.navigate(['home']);
+          this.navigationService.toIntro();
         }
       },
       err => {
