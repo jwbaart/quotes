@@ -47,6 +47,7 @@
     "lodash.clonedeep": "^4.5.0",
     "ng-inline-svg": "^9.1.0",
     "rxjs": "~6.5.4",
+    "semantic-release": "^17.0.7",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
   },
