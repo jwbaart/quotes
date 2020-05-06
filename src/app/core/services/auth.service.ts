@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { auth } from 'firebase/app';
 import { SnackbarService } from './snackbar.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { User, UserService } from './user.service';
+import { User, UserService } from './user/user.service';
 import { NavigationService } from './navigation.service';
 
 @Injectable({

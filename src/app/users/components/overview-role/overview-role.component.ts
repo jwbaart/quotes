@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { ROLE } from '@app/users/users.interface';
+import { ROLE } from '@app/core/services/user/users.interface';
 
 export interface Role {
   value: string;

@@ -3,7 +3,7 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AuthService } from './services/auth.service';
 import { SnackbarService } from './services/snackbar.service';
 import { FirestoreCrudService } from './services/firestore-crud.service';
-import { UserService } from './services/user.service';
+import { UserService } from './services/user/user.service';
 import { NavigationService } from './services/navigation.service';
 
 @NgModule({
