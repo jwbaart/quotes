@@ -1,1 +1,27 @@
-<p *ngFor="let user of users$ | async">User: {{ user.name }}</p>
+<table mat-table [dataSource]="users$ | async">
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Name</th>
+    <td mat-cell *matCellDef="let element; let i = index">
+      {{ element.name }}
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef>Rol</th>
+    <td mat-cell *matCellDef="let element">
+      <!-- {{ element.role }} -->
+      <app-overview-role [activeRole]="element.role" (activeRoleChange)="roleChange($event)"></app-overview-role>
+    </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="photo">
+    <th mat-header-cell *matHeaderCellDef>Avatar</th>
+    <td mat-cell *matCellDef="let element">{{ element.photo }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

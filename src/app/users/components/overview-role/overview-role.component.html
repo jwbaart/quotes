@@ -1,0 +1,11 @@
+<p *ngIf="!editVisibility" (click)="toggleEditVisibility()">{{ activeRole }}</p>
+<form *ngIf="editVisibility">
+  <mat-form-field required appearance="outline">
+    <mat-label>Rol</mat-label>
+    <mat-select [(ngModel)]="activeRole" name="rol" (selectionChange)="changeActiveRole($event)">
+      <mat-option *ngFor="let role of roles" [value]="role.value">
+        {{ role.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>
