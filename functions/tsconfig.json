@@ -11,6 +11,6 @@
   },
   "compileOnSave": true,
   "skipLibCheck": true,
-  "exclude": ["node_modules", "functions"],
+  "exclude": ["**/node_modules", "node_modules", "functions"],
   "include": ["src/**/*.ts"]
 }
