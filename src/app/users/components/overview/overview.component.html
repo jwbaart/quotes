@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="users$ | async">
+<table mat-table [dataSource]="users$ | async" class="users">
   <ng-container matColumnDef="name">
     <th mat-header-cell *matHeaderCellDef>Name</th>
     <td mat-cell *matCellDef="let element; let i = index">
@@ -17,7 +17,7 @@
   <ng-container matColumnDef="photo">
     <th mat-header-cell *matHeaderCellDef>Avatar</th>
     <td mat-cell *matCellDef="let element">
-      <img *ngIf="element.photoUrl && element.photoUrl.length" [src]="element.photoUrl" />
+      <img *ngIf="element.photoURL && element.photoURL.length" [src]="element.photoURL" class="users__avatar" />
     </td>
   </ng-container>
 
