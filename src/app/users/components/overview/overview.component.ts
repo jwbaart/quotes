@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { User } from '@app/core';
 import { Observable } from 'rxjs';
-import { ROLE } from 'functions/src/auth';
+import { ROLE } from '@app/core/services/user/users.interface';
 
 @Component({
   selector: 'app-users-overview',

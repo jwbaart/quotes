@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as admin from 'firebase-admin';
-import { ROLE } from '../auth';
+import { ROLE } from '../auth-triggers/onCreate';
 
 const app = express();
 
