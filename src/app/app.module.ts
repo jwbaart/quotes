@@ -18,6 +18,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
+import { UsersModule } from './users/users.module';
 
 registerLocaleData(localeNl, 'nl');
 
@@ -32,6 +33,7 @@ registerLocaleData(localeNl, 'nl');
     MaterialModule,
     BrowserAnimationsModule,
     QuotesModule,
+    UsersModule,
     LayoutModule,
     HttpClientModule,
     CoreModule,

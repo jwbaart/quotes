@@ -1,6 +1,13 @@
 <mat-toolbar color="primary" role="heading" class="app-navigation" data-cy="navigation">
-  <div class="app-navigation__quotes-icon" aria-label="Quotes icon" [inlineSVG]="'/assets/quotes.svg'"></div>
-  <p *ngIf="isNonProdId(projectId)">{{projectId}}</p>
+  <a
+    href="#"
+    [routerLink]="['/quotes']"
+    class="app-navigation__quotes-icon"
+    aria-label="Quotes icon"
+    [inlineSVG]="'/assets/quotes.svg'"
+  ></a>
+  <a mat-button href="#" [routerLink]="['/users']" class="app-navigation__menu-item" *ngIf="isLoggedIn()">Gebruikers</a>
+
   <span class="app-navigation__spacer"></span>
 
   <button mat-raised-button *ngIf="isLoggedOut()" (click)="authService.login()">

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { FirestoreCrudService, Entity } from './firestore-crud.service';
+import { FirestoreCrudService, Entity } from '../firestore-crud.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { ROLE } from '@app/core/services/user/users.interface';
 
 export interface User extends Entity {
   name: string;
@@ -23,5 +24,13 @@ export class UserService {
 
   get(uid: string): Observable<User> {
     return this.crudService.get(uid);
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.crudService.list();
+  }
+
+  setUserRole(uid: string, newRole: ROLE) {
+
   }
 }
