@@ -1,20 +1,63 @@
 const ffTest = require('firebase-functions-test')();
-// const functions = require('./../index');
 import { quoteOnCreateFn } from '../index';
 
 describe('setCustomClaim', () => {
-  it('successfully invokes function', async () => {
+  let mockServerTimestamp: jest.Mock;
+  let mockSet: jest.Mock;
+
+  beforeEach(() => {
+    const mockQueryResponse = jest.fn();
+    mockQueryResponse.mockResolvedValue([
+      {
+        id: 1
+      }
+    ]);
+    mockServerTimestamp = jest.fn();
+    mockSet = jest.fn();
+
+    jest.mock('firebase-admin', () => ({
+      initializeApp: jest.fn(),
+      firestore: {
+        FieldValue: {
+          serverTimestamp: mockServerTimestamp
+        }
+        // collection: jest.fn(path => ({
+        //   where: jest.fn(queryString => ({
+        //     get: mockQueryResponse
+        //   }))
+        // }))
+      }
+    }));
+  });
+
+  it('should ignore empty object', async () => {
     const wrapped = ffTest.wrap(quoteOnCreateFn);
-    // const wrapped = ffTest.wrap(functions.quoteOnCreateFn);
-    // const data = { name: 'hello - world', broadcastAt: new Date() };
+    const emptyObject = {};
 
     await wrapped({
-      data: () => ({
-        name: 'hello - world'
-      }),
+      data: () => emptyObject,
       ref: {
-        set: jest.fn()
+        set: mockSet
       }
     });
+
+    expect(mockSet).not.toHaveBeenCalled();
+  });
+
+  it('should add timestamp', async () => {
+    const wrapped = ffTest.wrap(quoteOnCreateFn);
+    const quote = { text: 'quote text' };
+    const timestamp = 'timestamp';
+
+    mockServerTimestamp.mockReturnValue(timestamp);
+
+    await wrapped({
+      data: () => quote,
+      ref: {
+        set: mockSet
+      }
+    });
+
+    expect(mockSet).toHaveBeenCalledWith({ createdAt: timestamp }, { merge: true });
   });
 });

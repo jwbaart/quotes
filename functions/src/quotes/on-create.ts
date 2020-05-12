@@ -13,7 +13,8 @@ admin.initializeApp();
 export default async (snapshot: functions.firestore.DocumentSnapshot, context: functions.EventContext) => {
   const quote: any | undefined = snapshot.data();
 
-  if (quote) {
+  if (!!quote && !!Object.keys(quote).length) {
+    console.log('A');
     return snapshot.ref.set(
       {
         createdAt: admin.firestore.FieldValue.serverTimestamp()
@@ -21,6 +22,7 @@ export default async (snapshot: functions.firestore.DocumentSnapshot, context: f
       { merge: true }
     );
   } else {
-    return false;
+    console.log('B');
+    return;
   }
 };
