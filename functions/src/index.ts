@@ -17,7 +17,7 @@ export const quoteOnCreateFn = functions
   .region('europe-west1')
   .firestore.document('quotes/{quotesId}')
   .onCreate(async (snapshot, context) => {
-    await (await import('./quotes/onCreate')).default(snapshot, context);
+    await (await import('@/quotes/on-create')).default(snapshot, context);
   });
 
 export const quoteOnUpdateFn = functions
