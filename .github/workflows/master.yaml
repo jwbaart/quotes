@@ -21,6 +21,8 @@ jobs:
           working-directory: functions
       - working-directory: functions
         run: yarn build
+      - working-directory: functions
+        run: yarn test
       - name: Archive firebase functions
         uses: actions/upload-artifact@master
         with:
@@ -147,6 +149,8 @@ jobs:
           working-directory: functions
       - working-directory: functions
         run: yarn build
+      - working-directory: functions
+        run: yarn test
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
