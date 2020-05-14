@@ -1,18 +1,14 @@
-const ffTest = require('firebase-functions-test')();
+const fft = require('firebase-functions-test')();
 import { quoteOnCreateFn } from '../index';
 
 describe('setCustomClaim', () => {
   let mockServerTimestamp: jest.Mock;
   let mockSet: jest.Mock;
+  let timestamp: string;
 
   beforeEach(() => {
-    const mockQueryResponse = jest.fn();
-    mockQueryResponse.mockResolvedValue([
-      {
-        id: 1
-      }
-    ]);
-    mockServerTimestamp = jest.fn();
+    timestamp = 'timestamp';
+    mockServerTimestamp = jest.fn().mockReturnValue(timestamp);
     mockSet = jest.fn();
 
     jest.mock('firebase-admin', () => ({
@@ -21,17 +17,12 @@ describe('setCustomClaim', () => {
         FieldValue: {
           serverTimestamp: mockServerTimestamp
         }
-        // collection: jest.fn(path => ({
-        //   where: jest.fn(queryString => ({
-        //     get: mockQueryResponse
-        //   }))
-        // }))
       }
     }));
   });
 
   it('should ignore empty object', async () => {
-    const wrapped = ffTest.wrap(quoteOnCreateFn);
+    const wrapped = fft.wrap(quoteOnCreateFn);
     const emptyObject = {};
 
     await wrapped({
@@ -45,11 +36,8 @@ describe('setCustomClaim', () => {
   });
 
   it('should add timestamp', async () => {
-    const wrapped = ffTest.wrap(quoteOnCreateFn);
+    const wrapped = fft.wrap(quoteOnCreateFn);
     const quote = { text: 'quote text' };
-    const timestamp = 'timestamp';
-
-    mockServerTimestamp.mockReturnValue(timestamp);
 
     await wrapped({
       data: () => quote,
