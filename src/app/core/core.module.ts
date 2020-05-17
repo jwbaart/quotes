@@ -5,9 +5,18 @@ import { SnackbarService } from './services/snackbar.service';
 import { FirestoreCrudService } from './services/firestore-crud.service';
 import { UserService } from './services/user/user.service';
 import { NavigationService } from './services/navigation.service';
+import { RolesService } from './services/roles/roles.service';
 
 @NgModule({
-  providers: [AngularFireAuthGuard, AuthService, SnackbarService, FirestoreCrudService, UserService, NavigationService]
+  providers: [
+    AngularFireAuthGuard,
+    AuthService,
+    SnackbarService,
+    FirestoreCrudService,
+    UserService,
+    NavigationService,
+    RolesService
+  ]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() core: CoreModule) {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User, UserService } from '@app/core';
+import { User, UserService, RolesService } from '@app/core';
+import { UpdateRoleEvent } from '/components/overview';
 
 @Component({
   selector: 'app-users',
@@ -9,9 +10,13 @@ import { User, UserService } from '@app/core';
 })
 export class UsersComponent implements OnInit {
   users$: Observable<User[]>;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private rolesService: RolesService) {}
 
   ngOnInit(): void {
     this.users$ = this.userService.getUsers();
+  }
+
+  updateRole(roleUpdate: UpdateRoleEvent) {
+    this.rolesService.set(roleUpdate.role, roleUpdate.uid);
   }
 }
