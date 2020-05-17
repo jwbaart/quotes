@@ -45,7 +45,7 @@
     "dotenv": "^8.2.0",
     "firebase": "^7.5.2",
     "lodash.clonedeep": "^4.5.0",
-    "ng-inline-svg": "^9.1.0",
+    "ng-inline-svg": "^10.0.0",
     "rxjs": "^6.5.4",
     "semantic-release": "^17.0.7",
     "tslib": "^1.10.0",
@@ -56,7 +56,7 @@
     "@angular/cli": "^9.1.6",
     "@angular/compiler-cli": "^9.1.7",
     "@angular/language-service": "^9.1.7",
-    "@types/node": "^12.11.1",
+    "@types/node": "^14.0.1",
     "@types/jasmine": "^3.5.0",
     "@types/jasminewd2": "^2.0.3",
     "codelyzer": "^5.1.2",
@@ -76,7 +76,7 @@
     "prettier": "1.19.1",
     "pretty-quick": "^2.0.1",
     "ts-node": "^8.9.1",
-    "tslint": "^5.0.0",
+    "tslint": "^6.1.2",
     "typescript": "<3.8",
     "webpack-bundle-analyzer": "^3.6.0"
   }
