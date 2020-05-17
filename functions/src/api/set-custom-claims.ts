@@ -21,25 +21,36 @@ app.post('/setCustomClaims', (req, res) => {
       .then(claims => {
         // const userIsAdmin = claims.hasOwnProperty('admin') && claims.admin === true;
         // if (userIsAdmin) {
-
-        // Add custom claims for additional privileges.
-        admin
-          .auth()
-          .setCustomUserClaims(claims.sub, {
-            [newClaim]: true
-          })
-          .then(function() {
-            // Tell client to refresh token on user.
-            res.end(
-              JSON.stringify({
-                status: 'success'
-              })
-            );
-          })
-          .catch(error => console.error('setCustomClaims - setCustomUserClaims failed', error));
+        // // Add custom claims for additional privileges.
+        // admin
+        //   .auth()
+        //   .setCustomUserClaims(claims.sub, {
+        //     [newClaim]: true
+        //   })
+        //   .then(function() {
+        //     // Tell client to refresh token on user.
+        //     res.end(
+        //       JSON.stringify({
+        //         status: 'success'
+        //       })
+        //     );
+        //   })
+        //   .catch(error => {
+        //     console.error('setCustomClaims - setCustomUserClaims failed', error);
+        //     res.end(JSON.stringify({ status: 'failed' }));
+        //   });
         // }
+        console.log('setCustomClaims - dummy success');
+        res.end(
+          JSON.stringify({
+            status: 'success'
+          })
+        );
       })
-      .catch(error => console.error('setCustomClaims - verifyIdToken failed', error));
+      .catch(error => {
+        console.error('setCustomClaims - verifyIdToken failed', error);
+        res.end(JSON.stringify({ status: 'failed' }));
+      });
   } else {
     console.error('setCustomClaims - unknown claim: ', newClaim);
     res.end(JSON.stringify({ status: 'ineligible' }));

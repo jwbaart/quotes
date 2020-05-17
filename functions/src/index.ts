@@ -10,6 +10,13 @@
 // these functions.
 import * as functions from 'firebase-functions';
 
+// HTTP trigger
+// https://firebase.google.com/docs/functions/http-events
+
+export const httpFn = functions.https.onRequest(async (request, response) => {
+  await (await import('@/api/custom-claims')).default(request, response);
+});
+
 // Firestore triggers
 // https://firebase.google.com/docs/functions/firestore-events
 
