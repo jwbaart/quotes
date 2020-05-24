@@ -1,5 +1,9 @@
 import { Request, Response } from 'express';
 
 export async function customClaim(request: Request, response: Response): Promise<void> {
-  response.send('success 2');
+  response.status(200).send(
+    JSON.stringify({
+      status: 'success'
+    })
+  );
 }
