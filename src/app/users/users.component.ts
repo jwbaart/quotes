@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit {
 
   updateRole(roleUpdate: UpdateRoleEvent) {
     this.rolesService.set(roleUpdate.uid, roleUpdate.role).subscribe(
-      () => {},
+      () => this.snackbarService.open('Het zetten van de rol is gelukt.'),
       () => this.snackbarService.open('Het zetten van de rol is mislukt.')
     );
   }

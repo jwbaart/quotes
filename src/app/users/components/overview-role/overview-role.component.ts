@@ -25,6 +25,10 @@ export class OverviewRoleComponent implements OnInit {
     {
       value: ROLE.EDITOR,
       viewValue: 'Editor'
+    },
+    {
+      value: ROLE.ADMIN,
+      viewValue: 'Admin'
     }
   ];
 

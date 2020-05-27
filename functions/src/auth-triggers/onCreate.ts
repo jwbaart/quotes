@@ -13,7 +13,9 @@ const db = admin.firestore();
 
 export enum ROLE {
   UNKNOWN = 'unknown',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
+  EDITOR = 'editor',
+  VIEWER = 'viewer'
 }
 
 export default async (event: functions.auth.UserRecord, context: functions.EventContext) => {
