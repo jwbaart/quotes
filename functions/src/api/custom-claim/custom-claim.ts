@@ -9,18 +9,20 @@ export enum STATUS {
 }
 
 // TODO: correct HTTP status
+// TODO: set other ROLE claims to false (seperate endpoint?)
 
 export async function customClaim(req: Request, res: Response): Promise<void> {
-  const newClaim = req.body.claim;
-  const isUnknownClaim = !Object.values(ROLE).includes(newClaim);
-  const uid = req.body.uid || '';
-  const isUidInvalid = !(uid && uid.length);
+  const { claim, uid } = req.body;
   const userClaims = req.claims || {};
+
+  // validate input
+  const isUnknownClaim = !Object.values(ROLE).includes(claim);
+  const isUidInvalid = !(uid && uid.length);
   const isUserClaimsMissing = !(!!userClaims && !!Object.keys(userClaims).length);
   const isUserUnauthorized = !(userClaims.hasOwnProperty('admin') && userClaims.admin === true);
 
   if (isUnknownClaim) {
-    console.error('setCustomClaims - unknown claim: ', newClaim);
+    console.error('setCustomClaims - unknown claim: ', claim);
     res.end(JSON.stringify({ status: STATUS.INELIGIBLE }));
     return;
   }
@@ -43,11 +45,9 @@ export async function customClaim(req: Request, res: Response): Promise<void> {
     return;
   }
 
-  admin
-    .auth()
-    .setCustomUserClaims(uid, {
-      [newClaim]: true
-    })
+  setCustomUserClaims(uid, {
+    [claim]: true
+  })
     .then(function() {
       // Tell client to refresh token on user.
       res.end(
@@ -61,3 +61,7 @@ export async function customClaim(req: Request, res: Response): Promise<void> {
       res.end(JSON.stringify({ status: STATUS.FAILED }));
     });
 }
+
+const setCustomUserClaims = (uid: string, claims: { [key: string]: boolean }): Promise<void> => {
+  return admin.auth().setCustomUserClaims(uid, claims);
+};
