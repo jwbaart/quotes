@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { User } from '@app/core';
 import { Observable } from 'rxjs';
-import { ROLE } from '@app/core/services/user/users.interface';
+import { ROLE } from '@app/core/services/user/user.service';
 
 export interface UpdateRoleEvent {
   role: ROLE;

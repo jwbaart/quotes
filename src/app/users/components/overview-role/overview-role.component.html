@@ -1,4 +1,4 @@
-<p *ngIf="!editVisibility" (click)="toggleEditVisibility()">{{ activeRole }}</p>
+<p *ngIf="!editVisibility" (click)="toggleEditVisibility()" data-test="user-role">{{ activeRole }}</p>
 <form *ngIf="editVisibility">
   <mat-form-field required appearance="outline">
     <mat-label>Rol</mat-label>

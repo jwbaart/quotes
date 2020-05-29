@@ -2,13 +2,19 @@ import { Injectable } from '@angular/core';
 import { FirestoreCrudService, Entity } from '../firestore-crud.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { ROLE } from '@app/core/services/user/users.interface';
+
+export enum ROLE {
+  ADMIN = 'admin',
+  EDITOR = 'editor',
+  VIEWER = 'viewer',
+  UNKNOWN = 'unknown'
+}
 
 export interface User extends Entity {
   name: string;
   createdAt: firebase.firestore.Timestamp;
   photoUrl: string;
-  role: string;
+  role: ROLE;
   uid: string;
 }
 
@@ -30,7 +36,5 @@ export class UserService {
     return this.crudService.list();
   }
 
-  setUserRole(uid: string, newRole: ROLE) {
-
-  }
+  setUserRole(uid: string, newRole: ROLE) {}
 }

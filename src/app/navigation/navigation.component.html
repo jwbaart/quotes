@@ -6,7 +6,9 @@
     aria-label="Quotes icon"
     [inlineSVG]="'/assets/quotes.svg'"
   ></a>
-  <a mat-button href="#" [routerLink]="['/users']" class="app-navigation__menu-item" *ngIf="isLoggedIn()">Gebruikers</a>
+  <a mat-button href="#" [routerLink]="['/users']" class="app-navigation__menu-item" *ngIf="isUsersVisible | async"
+    >Gebruikers</a
+  >
 
   <span class="app-navigation__spacer"></span>
 

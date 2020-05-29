@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ROLE } from '../user/users.interface';
+import { ROLE } from '../user/user.service';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { environment } from './../../../../environments/environment';
@@ -15,7 +15,6 @@ export class RolesService {
   constructor(private readonly httpService: HttpClient, private af: AngularFireAuth) {}
 
   set(uid: string, role: ROLE) {
-    console.log('set');
     return this.httpService.post(url, { uid, claim: role });
   }
 }
