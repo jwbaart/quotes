@@ -7,11 +7,16 @@ import { UsersComponent } from './users/users.component';
 import { canActivate } from '@angular/fire/auth-guard';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
+import { ROLE } from './core';
 
 const adminOnly = () =>
   pipe(
     customClaims,
-    map(claims => claims.hasOwnProperty('admin') && claims.admin)
+    map(
+      claims =>
+        (claims.hasOwnProperty('role') && claims.role === ROLE.ADMIN) ||
+        (claims.hasOwnProperty('admin') && claims.admin)
+    )
   );
 const redirectUnauthorizedToIntro = () => redirectUnauthorizedTo(['intro']);
 const redirectLoggedInToQuotes = () => redirectLoggedInTo(['quotes']);
