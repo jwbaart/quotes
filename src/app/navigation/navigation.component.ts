@@ -16,8 +16,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
     this.projectId = environment.firebase.projectId;
-    // FIXME: figure out warning combineLatest
-    this.isUsersVisible = combineLatest(this.authService.isAdmin$, this.authService.isLoggedIn$).pipe(
+    this.isUsersVisible = combineLatest([this.authService.isAdmin$, this.authService.isLoggedIn$]).pipe(
       map(result => result[0] && result[1])
     );
   }
