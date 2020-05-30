@@ -31,7 +31,7 @@ export class NavigationComponent implements OnInit {
   }
 
   isLoggedOut() {
-    return this.authService.isLoggedOut();
+    return this.authService.isLoggedOut$;
   }
 
   isNonProdId(projectId: string): boolean {

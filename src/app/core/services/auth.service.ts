@@ -21,6 +21,9 @@ export class AuthService {
   private _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public readonly isLoggedIn$: Observable<boolean> = this._isLoggedIn$.asObservable();
 
+  private _isLoggedOut$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public readonly isLoggedOut$: Observable<boolean> = this._isLoggedOut$.asObservable();
+
   private _authState: Observable<firebase.User>;
 
   constructor(
@@ -34,6 +37,7 @@ export class AuthService {
 
     this.initIsAdmin();
     this.initIsLoggedIn();
+    this.initIsLoggedOut();
 
     this._authState.subscribe(
       authenticatedUser => {
@@ -87,8 +91,10 @@ export class AuthService {
       .subscribe(isLoggedIn => this._isLoggedIn$.next(isLoggedIn));
   }
 
-  isLoggedOut(): boolean {
-    return this.user == null;
+  initIsLoggedOut() {
+    this._authState
+      .pipe(map(authenticatedUser => authenticatedUser === null))
+      .subscribe(isLoggedOut => this._isLoggedOut$.next(isLoggedOut));
   }
 
   login() {
