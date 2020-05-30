@@ -2,10 +2,17 @@ import { QuotesComponent } from './quotes/quotes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IntroComponent } from './intro/intro.component';
-import { redirectUnauthorizedTo, redirectLoggedInTo } from '@angular/fire/auth-guard';
+import { redirectUnauthorizedTo, redirectLoggedInTo, customClaims } from '@angular/fire/auth-guard';
 import { UsersComponent } from './users/users.component';
 import { canActivate } from '@angular/fire/auth-guard';
+import { map } from 'rxjs/operators';
+import { pipe } from 'rxjs';
 
+const adminOnly = () =>
+  pipe(
+    customClaims,
+    map(claims => claims.hasOwnProperty('admin') && claims.admin)
+  );
 const redirectUnauthorizedToIntro = () => redirectUnauthorizedTo(['intro']);
 const redirectLoggedInToQuotes = () => redirectLoggedInTo(['quotes']);
 
@@ -18,7 +25,7 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-    ...canActivate(redirectUnauthorizedToIntro())
+    ...canActivate(adminOnly())
   },
   {
     path: 'quotes',

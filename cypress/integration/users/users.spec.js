@@ -12,11 +12,15 @@ describe('Users', () => {
     testUserRole = 'unknown';
   });
 
-  it('should show test user name', () => {
+  xit('should show test user name', () => {
     users.getName(testUserName).should('exist');
   });
 
-  it('should show test user role', () => {
+  xit('should show test user role', () => {
     users.getRole(testUserRole).should('exist');
+  });
+
+  it('should hide page for non admins', () => {
+    users.getUsers().should('not.exist');
   });
 });

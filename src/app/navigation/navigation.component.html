@@ -6,16 +6,18 @@
     aria-label="Quotes icon"
     [inlineSVG]="'/assets/quotes.svg'"
   ></a>
-  <a mat-button href="#" [routerLink]="['/users']" class="app-navigation__menu-item" *ngIf="isLoggedIn()">Gebruikers</a>
+  <a mat-button href="#" [routerLink]="['/users']" class="app-navigation__menu-item" *ngIf="isUsersVisible | async"
+    >Gebruikers</a
+  >
 
   <span class="app-navigation__spacer"></span>
 
-  <button mat-raised-button *ngIf="isLoggedOut()" (click)="authService.login()">
+  <button mat-raised-button *ngIf="isLoggedOut() | async" (click)="authService.login()">
     Login
   </button>
   <button
     mat-raised-fbutton
-    *ngIf="isLoggedIn()"
+    *ngIf="isLoggedIn() | async"
     (click)="authService.logout()"
     matTooltip="Logout"
     aria-label="Logout"

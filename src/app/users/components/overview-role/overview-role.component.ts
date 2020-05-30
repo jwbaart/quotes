@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatSelectChange } from '@angular/material/select';
-import { ROLE } from '@app/core/services/user/users.interface';
+import { ROLE } from '@app/core/services/user/user.service';
 
 export interface Role {
   value: string;
@@ -25,6 +25,10 @@ export class OverviewRoleComponent implements OnInit {
     {
       value: ROLE.EDITOR,
       viewValue: 'Editor'
+    },
+    {
+      value: ROLE.ADMIN,
+      viewValue: 'Admin'
     }
   ];
 

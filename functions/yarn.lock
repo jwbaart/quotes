@@ -774,7 +774,7 @@
     "@types/qs" "*"
     "@types/range-parser" "*"
 
-"@types/express@*", "@types/express@^4.17.0", "@types/express@^4.17.1":
+"@types/express@*", "@types/express@^4.17.0", "@types/express@^4.17.6":
   version "4.17.6"
   resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.6.tgz#6bce49e49570507b86ea1b07b806f04697fac45e"
   integrity sha512-n/mr9tZI83kd4azlPG5y997C/M4DNABK9yErhFM6hKdym4kkmd9j0vtsJyjFIwfRBxtrxZtAfGZCNRIBMFLK5w==
@@ -3907,6 +3907,13 @@ jest-environment-node@^26.0.1:
     jest-mock "^26.0.1"
     jest-util "^26.0.1"
 
+jest-express@^1.12.0:
+  version "1.12.0"
+  resolved "https://registry.yarnpkg.com/jest-express/-/jest-express-1.12.0.tgz#d193b4011b67a01ab4b62206d6e28e759cc8bf85"
+  integrity sha512-HVpmEtVLHgT/Wh2bGy3Fy6mXdoS0Clj7d4/cFnptw2JkCVepC3FOiboavqLYZv4x2oytpWgOqikhVr84f9CwZw==
+  dependencies:
+    jest-node-http "1.0.0"
+
 jest-get-type@^25.2.6:
   version "25.2.6"
   resolved "https://registry.yarnpkg.com/jest-get-type/-/jest-get-type-25.2.6.tgz#0b0a32fab8908b44d508be81681487dbabb8d877"
@@ -3998,6 +4005,11 @@ jest-mock@^26.0.1:
   integrity sha512-MpYTBqycuPYSY6xKJognV7Ja46/TeRbAZept987Zp+tuJvMN0YBWyyhG9mXyYQaU3SBI0TUlSaO5L3p49agw7Q==
   dependencies:
     "@jest/types" "^26.0.1"
+
+jest-node-http@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/jest-node-http/-/jest-node-http-1.0.0.tgz#f692b0e3abfafd49b74a1953369478b59c9973b1"
+  integrity sha512-WcO1nqqkgwZ4sHAJ90YGqOiFYFkDm9eP8HsBwadedlJaF2T5JHM1BmnpskHDDlB3B4JzRl6CJgOpSOAOwoRfhQ==
 
 jest-pnp-resolver@^1.2.1:
   version "1.2.1"

@@ -1,8 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { User } from '@app/core';
 import { Observable } from 'rxjs';
-import { ROLE } from '@app/core/services/user/users.interface';
+import { ROLE } from '@app/core/services/user/user.service';
 
+export interface UpdateRoleEvent {
+  role: ROLE;
+  uid: string;
+}
 @Component({
   selector: 'app-users-overview',
   templateUrl: './overview.component.html',
@@ -10,6 +14,7 @@ import { ROLE } from '@app/core/services/user/users.interface';
 })
 export class OverviewComponent implements OnInit {
   @Input() users$: Observable<User[]>;
+  @Output() updateRole = new EventEmitter<UpdateRoleEvent>();
 
   displayedColumns = ['name', 'role', 'photo'];
 
@@ -17,7 +22,7 @@ export class OverviewComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  roleChange(newRole: ROLE) {
-    console.log('newRole', newRole);
+  roleChange(role: ROLE, uid: string) {
+    this.updateRole.emit({ role, uid });
   }
 }

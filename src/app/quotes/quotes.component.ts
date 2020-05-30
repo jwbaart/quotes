@@ -35,7 +35,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
         this.isQuotesLoading = false;
       },
       error => {
-        console.log(error);
         this._snackBar.open('Je account is nog niet geactiveerd: ');
         this.isQuotesLoading = false;
       }

@@ -10,6 +10,13 @@
 // these functions.
 import * as functions from 'firebase-functions';
 
+// HTTP trigger
+// https://firebase.google.com/docs/functions/http-events
+
+export const api = functions.region('europe-west1').https.onRequest(async (request, response) => {
+  await (await import('./api/server')).default(request, response);
+});
+
 // Firestore triggers
 // https://firebase.google.com/docs/functions/firestore-events
 
@@ -17,7 +24,7 @@ export const quoteOnCreateFn = functions
   .region('europe-west1')
   .firestore.document('quotes/{quotesId}')
   .onCreate(async (snapshot, context) => {
-    await (await import('@/quotes/on-create')).default(snapshot, context);
+    await (await import('./quotes/on-create')).default(snapshot, context);
   });
 
 export const quoteOnUpdateFn = functions

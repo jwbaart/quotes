@@ -5,9 +5,21 @@ import { SnackbarService } from './services/snackbar.service';
 import { FirestoreCrudService } from './services/firestore-crud.service';
 import { UserService } from './services/user/user.service';
 import { NavigationService } from './services/navigation.service';
+import { RolesService } from './services/roles/roles.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthTokenHttpInterceptor } from './interceptors/auth-token.interceptor';
 
 @NgModule({
-  providers: [AngularFireAuthGuard, AuthService, SnackbarService, FirestoreCrudService, UserService, NavigationService]
+  providers: [
+    AngularFireAuthGuard,
+    AuthService,
+    SnackbarService,
+    FirestoreCrudService,
+    UserService,
+    NavigationService,
+    RolesService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHttpInterceptor, multi: true }
+  ]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() core: CoreModule) {

@@ -1,9 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-    },
     "module": "commonjs",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
@@ -14,7 +10,6 @@
     "typeRoots": ["node_modules/@types"]
   },
   "compileOnSave": true,
-  "skipLibCheck": true,
-  "exclude": ["**/node_modules"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/node_modules, **/*.spec.ts"]
 }
