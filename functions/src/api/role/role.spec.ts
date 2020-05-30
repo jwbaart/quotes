@@ -1,6 +1,7 @@
 import { userRole, STATUS } from './role';
 import { Request, Response } from 'express';
 import { ROLE } from '../../auth-triggers/onCreate';
+import { generateResponse } from '../helpers/express';
 // import * as admin from 'firebase-admin';
 
 jest.mock('firebase-admin', () => {
@@ -17,15 +18,8 @@ jest.mock('firebase-admin', () => {
 
 describe('user role', () => {
   let mockReq: Request;
-  // let mockRes: Response;
-  let mockResNew: Response;
-  const generateResponse: () => Response = () => {
-    const res: Partial<Response> = {};
-    res.status = jest.fn().mockReturnValue(res);
-    res.json = jest.fn().mockReturnValue(res);
-    res.end = jest.fn().mockReturnValue(res);
-    return res as Response;
-  };
+  let mockRes: Response;
+  
   let role: string;
   let uid: string;
 
@@ -38,10 +32,7 @@ describe('user role', () => {
       },
       body: { role, uid }
     } as unknown) as Request;
-    // mockRes = ({
-    //   end: jest.fn()
-    // } as unknown) as Response;
-    mockResNew = generateResponse();
+    mockRes = generateResponse();
   });
 
   // describe('setCustomUserClaims', () => {
@@ -60,60 +51,60 @@ describe('user role', () => {
   describe('isUnknownRole', () => {
     it('should error on unknown role', async () => {
       mockReq.body.role = 'unknown-role';
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
-      expect(mockResNew.status).toHaveBeenCalledWith(422);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
+      expect(mockRes.status).toHaveBeenCalledWith(422);
     });
 
     it('should error on missing role', async () => {
       delete mockReq.body.role;
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
-      expect(mockResNew.status).toHaveBeenCalledWith(422);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
+      expect(mockRes.status).toHaveBeenCalledWith(422);
     });
 
     it('should error on empty role', async () => {
       mockReq.body.role = '';
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
-      expect(mockResNew.status).toHaveBeenCalledWith(422);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
+      expect(mockRes.status).toHaveBeenCalledWith(422);
     });
   });
 
   describe('isUidInvalid', () => {
     it('should error on missing uid', async () => {
       delete mockReq.body.uid;
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
-      expect(mockResNew.status).toHaveBeenCalledWith(422);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
+      expect(mockRes.status).toHaveBeenCalledWith(422);
     });
 
     it('should error on empty uid', async () => {
       mockReq.body.uid = '';
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
-      expect(mockResNew.status).toHaveBeenCalledWith(422);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.json).toHaveBeenCalledWith({ status: STATUS.INELIGIBLE });
+      expect(mockRes.status).toHaveBeenCalledWith(422);
     });
   });
 
   describe('isUserClaimsMissing', () => {
     it('should error on missing role', async () => {
       delete mockReq.claims;
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.status).toHaveBeenCalledWith(500);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.status).toHaveBeenCalledWith(500);
     });
 
     it('should error on empty role', async () => {
       mockReq.claims = {};
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.status).toHaveBeenCalledWith(500);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.status).toHaveBeenCalledWith(500);
     });
   });
 
@@ -123,18 +114,18 @@ describe('user role', () => {
         mockReq.claims['preventNoClaims'] = false;
         delete mockReq.claims.role;
       }
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.status).toHaveBeenCalledWith(403);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.status).toHaveBeenCalledWith(403);
     });
 
     it('should error on non admin role', async () => {
       if (mockReq.claims) {
         mockReq.claims.role = ROLE.EDITOR;
       }
-      await userRole(mockReq, mockResNew);
-      expect(mockResNew.end).toHaveBeenCalledTimes(1);
-      expect(mockResNew.status).toHaveBeenCalledWith(403);
+      await userRole(mockReq, mockRes);
+      expect(mockRes.end).toHaveBeenCalledTimes(1);
+      expect(mockRes.status).toHaveBeenCalledWith(403);
     });
   });
 });
