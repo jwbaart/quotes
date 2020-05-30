@@ -79,7 +79,8 @@ export class AuthService {
     this.afAuth.idTokenResult
       .pipe(
         map(
-          idTokenResult => idTokenResult && idTokenResult.claims.hasOwnProperty('admin') && idTokenResult.claims.admin
+          idTokenResult =>
+            idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === 'admin'
         )
       )
       .subscribe(isAdmin => this._isAdmin$.next(isAdmin));

@@ -16,7 +16,7 @@ export async function userRole(req: Request, res: Response): Promise<void> {
   const isUnknownRole = !Object.values(ROLE).includes(role);
   const isUidInvalid = !(uid && uid.length);
   const isUserClaimsMissing = !(!!userClaims && !!Object.keys(userClaims).length);
-  const isUserUnauthorized = !(userClaims.hasOwnProperty('admin') && userClaims.admin === true);
+  const isUserUnauthorized = !(userClaims.hasOwnProperty('role') && userClaims.role === 'admin');
 
   if (isUnknownRole) {
     console.error('setRole - unknown role: ', role);
@@ -44,8 +44,8 @@ export async function userRole(req: Request, res: Response): Promise<void> {
 
   if (isUserUnauthorized) {
     console.error('setRole - user not authorized');
-    res.status(403).end();
-    return;
+    // res.status(403).end();
+    // return;
   }
 
   try {

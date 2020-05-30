@@ -28,30 +28,10 @@ service cloud.firestore {
     }
 
     function isUserVerified() {
-      return isJwbaart() || isCabaart() || isCiUser() || isBenTomUser();
+      // return isJwbaart() || isCabaart() || isCiUser() || isBenTomUser();
+      return request.auth.token.role in ['admin', 'editor', 'viewer'] && request.auth.token.role != 'unknown'
     }
     
-    function isJwbaart() {
-      return request.auth.uid in ['WOZjaqZYFlOT8IXL28NzqLyscUa2', 'RVGnzx3yuzg11vls4wBQsN9eYmn1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2']; // dev || staging || prod
-      // return request.auth.uid == 'd3tapkDDszU4abf6lKBQu4GNuCq1' || 'CTsh5nq3UGfyeQni5R2X5hme5FH2'; // dev || prod
-      // return (['d3tapkDDszU4abf6lKBQu4GNuCq1', 'CTsh5nq3UGfyeQni5R2X5hme5FH2'].indexOf(request.auth.uid) > -1); // dev || prod
-    }
-    
-    function isBenTomUser() {
-      return request.auth.uid in ['DLMGSTVbUYNOBnhLeuys4lC0MIB3', 'RVGnzx3yuzg11vls4wBQsN9eYmn1', 'A7SSYhwepXXNbTaf9uY1zia23QT2']; // dev || staging || prod
-
-      // return request.auth.uid == '7XVgmYTyrshlup04pMTRXOu8Dqh1' || 'A7SSYhwepXXNbTaf9uY1zia23QT2'; 
-    }
-
-    function isCabaart() {
-      return request.auth.uid == '2F6Af4F9HZcHhTVUJpviRIBfhLt1'; // prod
-    }
-    
-    function isCiUser() {
-      return request.auth.uid in ['FfaUoGeoFVQvQErTVXCRrTgzCLp2', 'BfvwTPCoE5N2kPDPXvm68rcEnof2']; // dev || staging
-
-    }
-
     match /quotes/{quoteId} {
       // TODO: rewrite to specific roles
       allow create: if isSignedIn() && isUserVerified();
@@ -66,11 +46,5 @@ service cloud.firestore {
       allow update: if isSignedIn() && isUserVerified() && incomingUidMatches() && existingUidMatches();
       allow delete: if isSignedIn() && isUserVerified() && existingUidMatches();
     }
-
-    // Alterntatively, for role-based access, assign specific roles to users
-    // match /quotes/{document} {
-      // allow read: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Reader"
-      // allow write: if get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == "Writer" 
-    // }
   }
 }

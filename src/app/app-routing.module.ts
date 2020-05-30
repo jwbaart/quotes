@@ -12,11 +12,13 @@ import { ROLE } from './core';
 const adminOnly = () =>
   pipe(
     customClaims,
-    map(
-      claims =>
+    map(claims => {
+      console.log('claims', claims);
+      return (
         (claims.hasOwnProperty('role') && claims.role === ROLE.ADMIN) ||
         (claims.hasOwnProperty('admin') && claims.admin)
-    )
+      );
+    })
   );
 const redirectUnauthorizedToIntro = () => redirectUnauthorizedTo(['intro']);
 const redirectLoggedInToQuotes = () => redirectLoggedInTo(['quotes']);
