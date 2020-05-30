@@ -44,8 +44,8 @@ export async function userRole(req: Request, res: Response): Promise<void> {
 
   if (isUserUnauthorized) {
     console.error('setRole - user not authorized');
-    // res.status(403).end();
-    // return;
+    res.status(403).end();
+    return;
   }
 
   try {

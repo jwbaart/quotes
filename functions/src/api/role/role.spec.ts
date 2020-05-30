@@ -108,7 +108,7 @@ describe('user role', () => {
     });
   });
 
-  xdescribe('isUserUnauthorized', () => {
+  describe('isUserUnauthorized', () => {
     it('should error on missing admin role', async () => {
       if (mockReq.claims) {
         mockReq.claims['preventNoClaims'] = false;
