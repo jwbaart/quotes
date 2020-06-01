@@ -18,7 +18,7 @@ export const api = functions.region('europe-west1').https.onRequest(async (reque
 });
 
 export const user = {
-  setRole: functions.https.onCall(async (data, context) => {
+  setRole: functions.region('europe-west1').https.onCall(async (data, context) => {
     return (await import('./user/setRole')).default(data, context);
   })
 };

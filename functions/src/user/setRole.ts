@@ -1,5 +1,4 @@
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
 import { ROLE } from '../auth-triggers/onCreate';
 import { updateUser, setCustomUserClaims } from '../api/helpers/firebase';
 
@@ -7,8 +6,6 @@ export enum STATUS {
   FAILED = 'failed',
   SUCCESS = 'success'
 }
-
-admin.initializeApp();
 
 export default async (data: any, context: functions.https.CallableContext) => {
   console.log(data);
