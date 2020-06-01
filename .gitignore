@@ -56,3 +56,4 @@ firebase.config.js
 # Firebase
 functions/firestore-debug.log
 **/*.log
+emulator-export/
