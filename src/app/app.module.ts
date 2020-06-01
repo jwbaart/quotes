@@ -6,6 +6,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -29,6 +30,7 @@ registerLocaleData(localeNl, 'nl');
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireFunctionsModule,
     MaterialModule,
     BrowserAnimationsModule,
     QuotesModule,
@@ -38,7 +40,10 @@ registerLocaleData(localeNl, 'nl');
     CoreModule,
     SharedModule
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'nl' }],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'nl' },
+    { provide: REGION, useValue: 'europe-west1' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
