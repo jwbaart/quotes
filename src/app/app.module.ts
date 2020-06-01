@@ -6,6 +6,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule, FirestoreSettingsToken } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireFunctionsModule, REGION, ORIGIN } from '@angular/fire/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -29,6 +30,7 @@ registerLocaleData(localeNl, 'nl');
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireFunctionsModule,
     MaterialModule,
     BrowserAnimationsModule,
     QuotesModule,
@@ -40,6 +42,9 @@ registerLocaleData(localeNl, 'nl');
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'nl' },
+    // v6: FirestoreSettingsToken is replaced by FIRESTORE_SETTINGS
+    // const shouldUseEmulator = () => false;
+    // { provide: FIRESTORE_SETTINGS,     useFactory: () => shouldUseEmulator() ? { host: 'localhost:8080', ssl: false } : {} },
     {
       provide: FirestoreSettingsToken,
       useValue: environment.production
@@ -48,7 +53,9 @@ registerLocaleData(localeNl, 'nl');
             host: 'localhost:8080',
             ssl: false
           }
-    }
+    },
+    { provide: REGION, useValue: 'europe-west1' },
+    { provide: ORIGIN, useValue: environment.production ? undefined : 'http://localhost:5001' }
   ],
   bootstrap: [AppComponent]
 })

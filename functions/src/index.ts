@@ -17,6 +17,12 @@ export const api = functions.region('europe-west1').https.onRequest(async (reque
   await (await import('./api/server')).default(request, response);
 });
 
+export const user = {
+  setRole: functions.https.onCall(async (data, context) => {
+    return (await import('./user/setRole')).default(data, context);
+  })
+};
+
 // Firestore triggers
 // https://firebase.google.com/docs/functions/firestore-events
 
