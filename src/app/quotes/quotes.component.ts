@@ -9,6 +9,7 @@ import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.com
 import { Author } from './quote-card/quote-card.component';
 import { EnrichedQuote, EnrichedQuotesService } from './enriched-quotes.service';
 import { UserService, User, AuthService } from '@app/core';
+import { EnrichedQuote, EnrichedQuotesService } from './enriched-quotes.service';
 
 @Component({
   selector: 'app-quotes',
@@ -20,6 +21,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   isQuotesLoading = true;
   enrichedQuotes$: Observable<EnrichedQuote[]>;
   isUserEditor = false;
+  enrichedQuotes$: Observable<EnrichedQuote[]>;
   private _ngUnsubscribeQuotes: Subject<void> = new Subject();
   private _ngUnsubscribeEnrichedQuotes: Subject<void> = new Subject();
 
