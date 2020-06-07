@@ -28,16 +28,19 @@ service cloud.firestore {
     }
 
     function isUserVerified() {
-      // return isJwbaart() || isCabaart() || isCiUser() || isBenTomUser();
       return request.auth.token.role in ['admin', 'editor', 'viewer'] && request.auth.token.role != 'unknown'
+    }
+
+    function hasWriteRole() {
+      return request.auth.token.role in ['admin', 'editor']
     }
     
     match /quotes/{quoteId} {
-      // TODO: rewrite to specific roles
-      allow create: if isSignedIn() && isUserVerified();
+      allow create: if isSignedIn() && isUserVerified() && hasWriteRole();
       allow read: if isSignedIn() && isUserVerified();
-      allow update: if isSignedIn() && isUserVerified() && incomingUidMatches() && existingUidMatches();
-      allow delete: if isSignedIn() && isUserVerified() && existingUidMatches();
+      // allow update: if isSignedIn() && isUserVerified() && incomingUidMatches() && existingUidMatches();
+      allow update: if isSignedIn() && isUserVerified() && hasWriteRole();
+      allow delete: if isSignedIn() && isUserVerified() && hasWriteRole();
     }
 
     match /users/{userId} {
