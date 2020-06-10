@@ -16,6 +16,7 @@ export interface User extends Entity {
   photoUrl: string;
   role: ROLE;
   uid: string;
+  forceRefreshToken: boolean;
 }
 
 @Injectable({
