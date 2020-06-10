@@ -58,9 +58,6 @@ export class AuthService {
               this._snackbarService.open('Het aanmaken van je account is niet helemaal goed gegaan.');
             } else {
               this.user = user;
-              if (this.user && this.user.hasOwnProperty('forceRefreshToken') && this.user.forceRefreshToken) {
-                this.refreshToken();
-              }
             }
           });
 
@@ -106,8 +103,12 @@ export class AuthService {
     if (uid) {
       this.userService
         .get(uid)
-        .pipe(map(user => user))
-        .subscribe(user => this._user$.next(user));
+        .subscribe(user => {
+          this._user$.next(user);
+          if (user.forceRefreshToken) {
+            this.refreshToken(uid);
+          }
+        });
     } else {
       this._user$.next(null);
     }
@@ -123,9 +124,10 @@ export class AuthService {
     this.afAuth.auth.signOut().catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
   }
 
-  private refreshToken() {
+  private refreshToken(uid) {
     return this.afAuth.auth.currentUser.getIdTokenResult(true).finally(() => {
-      // TODO: reset forceRefreshToken trigger to false
+      const forceRefreshToken = false;
+      this.userService.merge(uid, { forceRefreshToken });
     });
   }
 }

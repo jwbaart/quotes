@@ -38,4 +38,8 @@ export class UserService {
   }
 
   setUserRole(uid: string, newRole: ROLE) {}
+
+  merge(uid: string, partialUser: Partial<User>) {
+    return this.crudService.merge(uid, partialUser);
+  }
 }
