@@ -10,6 +10,7 @@ export interface User {
   photoUrl: string;
   role: ROLE;
   uid: string;
+  forceRefreshToken: boolean;
 }
 
 export const setCustomUserClaims = (uid: string, claims: { [key: string]: boolean }): Promise<void> => {

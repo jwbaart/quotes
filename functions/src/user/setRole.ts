@@ -25,7 +25,8 @@ export default async (data: any, context: functions.https.CallableContext) => {
   }
 
   try {
-    await Promise.all([updateUser(uid, { role }), setCustomUserClaims(uid, { role })]);
+    const forceRefreshToken = true;
+    await Promise.all([updateUser(uid, { role, forceRefreshToken }), setCustomUserClaims(uid, { role })]);
 
     return {
       status: STATUS.SUCCESS
