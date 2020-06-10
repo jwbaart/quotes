@@ -56,6 +56,9 @@ export class AuthService {
               this._snackbarService.open('Het aanmaken van je account is niet helemaal goed gegaan.');
             } else {
               this.user = user;
+              if (this.user && this.user.hasOwnProperty('forceRefreshToken') && this.user.forceRefreshToken) {
+                this.refreshToken();
+              }
             }
           });
 
@@ -78,10 +81,10 @@ export class AuthService {
   initIsAdmin() {
     this.afAuth.idTokenResult
       .pipe(
-        map(
-          idTokenResult =>
-            idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === 'admin'
-        )
+        map(idTokenResult => {
+          console.log('refreshed', idTokenResult);
+          return idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === 'admin';
+        })
       )
       .subscribe(isAdmin => this._isAdmin$.next(isAdmin));
   }
@@ -106,5 +109,11 @@ export class AuthService {
 
   logout() {
     this.afAuth.auth.signOut().catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
+  }
+
+  private refreshToken() {
+    return this.afAuth.auth.currentUser.getIdTokenResult(true).finally(() => {
+      // TODO: reset forceRefreshToken trigger to false
+    });
   }
 }
