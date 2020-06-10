@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  public user$: Observable<User>;
+  // public user$: Observable<User>;
   public user: User;
 
   private _isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -23,6 +23,9 @@ export class AuthService {
 
   private _isLoggedOut$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public readonly isLoggedOut$: Observable<boolean> = this._isLoggedOut$.asObservable();
+
+  private _user$: BehaviorSubject<User> = new BehaviorSubject(null);
+  public readonly user$: Observable<User> = this._user$.asObservable();
 
   private _authState: Observable<firebase.User>;
 
@@ -48,8 +51,7 @@ export class AuthService {
             this._snackbarService.open('Je bent ingelogd');
           }
 
-          const userDoc = this.db.doc<User>(`users/${authenticatedUser.uid}`);
-          this.user$ = userDoc.valueChanges();
+          this.initUser(authenticatedUser.uid);
           this.userService.get(authenticatedUser.uid).subscribe(user => {
             console.log(user);
             if (!user) {
@@ -67,8 +69,7 @@ export class AuthService {
           if (isPreviousUser) {
             this._snackbarService.open('Je bent uitgelogd');
           }
-          this.user = null;
-          this.user$ = null;
+          this.initUser(null);
           this.navigationService.toIntro();
         }
       },
@@ -99,6 +100,17 @@ export class AuthService {
     this._authState
       .pipe(map(authenticatedUser => authenticatedUser === null))
       .subscribe(isLoggedOut => this._isLoggedOut$.next(isLoggedOut));
+  }
+
+  initUser(uid = null) {
+    if (uid) {
+      this.userService
+        .get(uid)
+        .pipe(map(user => user))
+        .subscribe(user => this._user$.next(user));
+    } else {
+      this._user$.next(null);
+    }
   }
 
   login() {
