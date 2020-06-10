@@ -116,6 +116,20 @@ export class FirestoreCrudService<T extends Entity> {
     });
   }
 
+  /* Our Merge method takes a partial Entity
+   * Including it's ID property which it will use to find the
+   * Document.
+   */
+  merge(id, partial: Partial<T>): Promise<void> {
+    console.log('merge start');
+    return new Promise<void>((resolve, reject) => {
+      this.collection
+        .doc<T>(id as string)
+        .set(firebaseSerialize(partial), { merge: true })
+        .then(() => resolve());
+    });
+  }
+
   delete(id: string): Promise<void> {
     return new Promise<void>((resolve, reject) => {
       this.collection
