@@ -19,15 +19,17 @@ export class QuoteAddDialogComponent implements OnInit {
 
   ngOnInit() {
     this._authService.user$.subscribe((user: User) => {
-      this.newQuote = {
-        text: '',
-        children: {
-          ben: false,
-          tom: false
-        },
-        datestamp: new Date(),
-        uid: user.uid
-      };
+      if (user) {
+        this.newQuote = {
+          text: '',
+          children: {
+            ben: false,
+            tom: false
+          },
+          datestamp: new Date(),
+          uid: user.uid
+        };
+      }
     });
   }
 
