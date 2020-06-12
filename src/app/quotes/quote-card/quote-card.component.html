@@ -2,15 +2,26 @@
   <mat-card-header>
     <mat-card-title>{{ quote.title }}</mat-card-title>
     <span class="app-quote-card__spacer"></span>
-    <button mat-icon-button aria-label="Edit quote" (click)="onQuoteEditClick()" color="primary">
+    <button
+      mat-icon-button
+      aria-label="Edit quote"
+      (click)="onQuoteEditClick()"
+      color="primary"
+      *ngIf="showEditButtons"
+    >
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-icon-button aria-label="Delete quote" (click)="onQuoteDeleteClick()" color="warn">
+    <button
+      mat-icon-button
+      aria-label="Delete quote"
+      (click)="onQuoteDeleteClick()"
+      color="warn"
+      *ngIf="showEditButtons"
+    >
       <mat-icon>delete</mat-icon>
     </button>
   </mat-card-header>
   <mat-card-content>
-    <p >{{ quote.text }}</p>
     <mat-chip-list>
       <mat-chip *ngIf="quote.children.ben" selectable="false">Ben</mat-chip>
       <mat-chip *ngIf="quote.children.tom" selectable="false">Tom</mat-chip>

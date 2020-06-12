@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import { auth } from 'firebase/app';
 import { SnackbarService } from './snackbar.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { User, UserService } from './user/user.service';
+import { User, UserService, ROLE } from './user/user.service';
 import { NavigationService } from './navigation.service';
 import { map } from 'rxjs/operators';
 
@@ -24,7 +24,10 @@ export class AuthService {
   private _isLoggedOut$: BehaviorSubject<boolean> = new BehaviorSubject(true);
   public readonly isLoggedOut$: Observable<boolean> = this._isLoggedOut$.asObservable();
 
-  private _user$: BehaviorSubject<User> = new BehaviorSubject(null);
+  private _isUserEditor$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public readonly isUserEditor$: Observable<boolean> = this._isUserEditor$.asObservable();
+
+  private _user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
   public readonly user$: Observable<User> = this._user$.asObservable();
 
   private _authState: Observable<firebase.User>;
@@ -41,6 +44,7 @@ export class AuthService {
     this.initIsAdmin();
     this.initIsLoggedIn();
     this.initIsLoggedOut();
+    this.initIsUserEditor();
 
     this._authState.subscribe(
       authenticatedUser => {
@@ -81,7 +85,7 @@ export class AuthService {
       .pipe(
         map(idTokenResult => {
           console.log('refreshed', idTokenResult);
-          return idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === 'admin';
+          return idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === ROLE.ADMIN;
         })
       )
       .subscribe(isAdmin => this._isAdmin$.next(isAdmin));
@@ -99,18 +103,22 @@ export class AuthService {
       .subscribe(isLoggedOut => this._isLoggedOut$.next(isLoggedOut));
   }
 
+  initIsUserEditor() {
+    this.user$
+      .pipe(map(user => user && (user.role === ROLE.EDITOR || user.role === ROLE.ADMIN)))
+      .subscribe(isUserEditor => this._isUserEditor$.next(isUserEditor));
+  }
+
   initUser(uid = null) {
     if (uid) {
-      this.userService
-        .get(uid)
-        .subscribe(user => {
-          this._user$.next(user);
-          if (user.forceRefreshToken) {
-            this.refreshToken(uid);
-          }
-        });
+      this.userService.get(uid).subscribe(user => {
+        this._user$.next(user);
+        if (user.forceRefreshToken) {
+          this.refreshToken(uid);
+        }
+      });
     } else {
-      this._user$.next(null);
+      this._user$.next(undefined);
     }
   }
 
