@@ -16,6 +16,7 @@ export interface Author {
 export class QuoteCardComponent implements OnInit {
   @Input() quote: Quote;
   @Input() user$: Observable<User>;
+  @Input() showEditButtons: Observable<boolean>;
 
   @Output() editQuote = new EventEmitter<any>();
   @Output() deleteQuote = new EventEmitter<any>();

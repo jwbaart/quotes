@@ -7,7 +7,7 @@ import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
 import { Author } from './quote-card/quote-card.component';
-import { UserService, User } from '@app/core';
+import { UserService, User, AuthService } from '@app/core';
 
 @Component({
   selector: 'app-quotes',
@@ -17,12 +17,14 @@ import { UserService, User } from '@app/core';
 export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
   isQuotesLoading = true;
+  isUserEditor = false;
   private _ngUnsubscribeQuotes: Subject<void> = new Subject();
 
   isChildrenLoading = true;
 
   constructor(
     public quotesService: QuotesService,
+    public authService: AuthService,
     public dialog: MatDialog,
     private _snackBar: SnackbarService,
     private userService: UserService
