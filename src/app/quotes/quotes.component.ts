@@ -7,8 +7,8 @@ import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
 import { Author } from './quote-card/quote-card.component';
-import { UserService, User } from '@app/core';
 import { EnrichedQuote, EnrichedQuotesService } from './enriched-quotes.service';
+import { UserService, User, AuthService } from '@app/core';
 
 @Component({
   selector: 'app-quotes',
@@ -19,6 +19,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
   isQuotesLoading = true;
   enrichedQuotes$: Observable<EnrichedQuote[]>;
+  isUserEditor = false;
   private _ngUnsubscribeQuotes: Subject<void> = new Subject();
   private _ngUnsubscribeEnrichedQuotes: Subject<void> = new Subject();
 
@@ -26,6 +27,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
 
   constructor(
     public quotesService: QuotesService,
+    public authService: AuthService,
     public dialog: MatDialog,
     public enrichedQuotesService: EnrichedQuotesService,
     private _snackBar: SnackbarService,

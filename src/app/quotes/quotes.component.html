@@ -11,13 +11,19 @@
     >
       <app-quote-card-highlight
         [quote]="quote"
+        [showEditButtons]="authService.isUserEditor$ | async"
         (editQuote)="onEditQuote($event)"
         (deleteQuote)="onDeleteQuote($event)"
         data-test="quote-card"
       ></app-quote-card-highlight>
     </section>
   </div>
-  <div *ngIf="!quotes.length && !isQuotesLoading" fxLayout="column" fxLayoutAlign="center center" data-test="quotes-missing">
+  <div
+    *ngIf="!quotes.length && !isQuotesLoading"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    data-test="quotes-missing"
+  >
     <div class="app-quotes__quotes-icon" aria-label="Quotes icon" [inlineSVG]="'/assets/quotes.svg'"></div>
 
     <p>Er zijn nog geen uitspraken toegevoegd. Voeg er rechtsonder een toe!</p>
