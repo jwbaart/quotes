@@ -19,7 +19,7 @@ const firebaseConfig = {
 
 const firebaseEnvConfigFile = `module.exports = ${JSON.stringify(firebaseConfig)}`;
 
-const envConfigFile = `(function (window) {
+export const envConfigFile = `(function (window) {
   window.__env = window.__env || {};
 
   window.__env.production = ${process.env.ANGULAR_PRODUCTION};
