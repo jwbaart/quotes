@@ -4,6 +4,12 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist/quotes"
+    "public": "dist/quotes",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }
