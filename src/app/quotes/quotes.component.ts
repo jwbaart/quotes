@@ -2,14 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuotesService, Quote } from './quotes.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil, map, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
-import { Author } from './quote-card/quote-card.component';
 import { EnrichedQuote, EnrichedQuotesService } from './enriched-quotes.service';
 import { UserService, User, AuthService } from '@app/core';
-import { EnrichedQuote, EnrichedQuotesService } from './enriched-quotes.service';
 
 @Component({
   selector: 'app-quotes',
@@ -21,7 +19,6 @@ export class QuotesComponent implements OnInit, OnDestroy {
   isQuotesLoading = true;
   enrichedQuotes$: Observable<EnrichedQuote[]>;
   isUserEditor = false;
-  enrichedQuotes$: Observable<EnrichedQuote[]>;
   private _ngUnsubscribeQuotes: Subject<void> = new Subject();
   private _ngUnsubscribeEnrichedQuotes: Subject<void> = new Subject();
 
