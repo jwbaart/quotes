@@ -25,7 +25,7 @@ jobs:
       - name: Archive firebase functions
         uses: actions/upload-artifact@master
         with:
-          name: quotes-functions-staging
+          name: quotes-functions
           path: functions/lib
       - uses: bahmutov/npm-install@v1
       - run: yarn build --configuration="production"
@@ -35,7 +35,7 @@ jobs:
           name: quotes
           path: dist/quotes/
   
-  deploy-staging:
+  deploy-on-staging:
     #TODO: only execute when file changes in functions/**/*
     name: Deploy firebase to staging
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
-          name: quotes-functions-staging
+          name: quotes-functions
           path: functions/lib
       - uses: bahmutov/npm-install@v1
         with:
@@ -81,7 +81,7 @@ jobs:
 
   ui-tests:
     name: UI Tests
-    needs: firebase-staging
+    needs: deploy-on-staging
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -132,7 +132,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: yarn semantic-release
 
-  firebase-prod:
+  deploy-on-prod:
     #TODO: only execute when file changes in functions/**/*
     name: Deploy firebase to prod
     runs-on: ubuntu-latest
@@ -143,15 +143,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: quotes-functions
+          path: functions/lib
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: functions
-      - working-directory: functions
-        run: yarn build
-      - working-directory: functions
-        run: yarn test
       - uses: bahmutov/npm-install@v1
-      - run: yarn build
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: quotes
+          path: dist/quotes
+      - run: yarn publish-env
         env:
           FIREBASE_API_KEY: ${{ secrets.PROD_FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.PROD_FIREBASE_AUTH_DOMAIN }}
@@ -169,35 +175,73 @@ jobs:
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT_ID }}
+  
+  # firebase-prod:
+  #   #TODO: only execute when file changes in functions/**/*
+  #   name: Deploy firebase to prod
+  #   runs-on: ubuntu-latest
+  #   needs: release
+  #   steps:
+  #     - name: Checkout Repo
+  #       uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '10.x'
+  #     - uses: bahmutov/npm-install@v1
+  #       with:
+  #         working-directory: functions
+  #     - working-directory: functions
+  #       run: yarn build
+  #     - working-directory: functions
+  #       run: yarn test
+  #     - uses: bahmutov/npm-install@v1
+  #     - run: yarn build
+  #       env:
+  #         FIREBASE_API_KEY: ${{ secrets.PROD_FIREBASE_API_KEY }}
+  #         FIREBASE_AUTH_DOMAIN: ${{ secrets.PROD_FIREBASE_AUTH_DOMAIN }}
+  #         FIREBASE_DATABASE_URL: ${{ secrets.PROD_FIREBASE_DATABASE_URL }}
+  #         FIREBASE_PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT_ID }}
+  #         FIREBASE_STORAGE_BUCKET: ${{ secrets.PROD_FIREBASE_STORAGE_BUCKET }}
+  #         FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.PROD_FIREBASE_MESSAGING_SENDER_ID }}
+  #         FIREBASE_APP_ID: ${{ secrets.PROD_FIREBASE_APP_ID }}
+  #         FIREBASE_MEASUREMENT_ID: ${{ secrets.PROD_FIREBASE_MEASUREMENT_ID }}
+  #         ANGULAR_PRODUCTION: ${{ secrets.PROD_ANGULAR_PRODUCTION }}
+  #     - name: Deploy to firebase
+  #       uses: w9jds/firebase-action@master
+  #       with:
+  #         args: deploy
+  #       env:
+  #         FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  #         PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT_ID }}
 
-  release-and-deploy-netlify:
-    runs-on: ubuntu-latest
-    needs: release
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: "12.x"
-      - uses: bahmutov/npm-install@v1
-      - run: yarn build
-        env:
-          FIREBASE_API_KEY: ${{ secrets.PROD_FIREBASE_API_KEY }}
-          FIREBASE_AUTH_DOMAIN: ${{ secrets.PROD_FIREBASE_AUTH_DOMAIN }}
-          FIREBASE_DATABASE_URL: ${{ secrets.PROD_FIREBASE_DATABASE_URL }}
-          FIREBASE_PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT_ID }}
-          FIREBASE_STORAGE_BUCKET: ${{ secrets.PROD_FIREBASE_STORAGE_BUCKET }}
-          FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.PROD_FIREBASE_MESSAGING_SENDER_ID }}
-          FIREBASE_APP_ID: ${{ secrets.PROD_FIREBASE_APP_ID }}
-          FIREBASE_MEASUREMENT_ID: ${{ secrets.PROD_FIREBASE_MEASUREMENT_ID }}
-          ANGULAR_PRODUCTION: ${{ secrets.PROD_ANGULAR_PRODUCTION }}
-      - name: run Lighthouse CI
-        run: |
-          npm install -g @lhci/cli@0.3.x
-          lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
-      - uses: netlify/actions/cli@master
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        with:
-          args: deploy --dir=dist/quotes --prod
-          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+  # release-and-deploy-netlify:
+  #   runs-on: ubuntu-latest
+  #   needs: release
+  #   steps:
+  #     - uses: actions/checkout@v1
+  #     - uses: actions/setup-node@v1
+  #       with:
+  #         node-version: "12.x"
+  #     - uses: bahmutov/npm-install@v1
+  #     - run: yarn build
+  #       env:
+  #         FIREBASE_API_KEY: ${{ secrets.PROD_FIREBASE_API_KEY }}
+  #         FIREBASE_AUTH_DOMAIN: ${{ secrets.PROD_FIREBASE_AUTH_DOMAIN }}
+  #         FIREBASE_DATABASE_URL: ${{ secrets.PROD_FIREBASE_DATABASE_URL }}
+  #         FIREBASE_PROJECT_ID: ${{ secrets.PROD_FIREBASE_PROJECT_ID }}
+  #         FIREBASE_STORAGE_BUCKET: ${{ secrets.PROD_FIREBASE_STORAGE_BUCKET }}
+  #         FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.PROD_FIREBASE_MESSAGING_SENDER_ID }}
+  #         FIREBASE_APP_ID: ${{ secrets.PROD_FIREBASE_APP_ID }}
+  #         FIREBASE_MEASUREMENT_ID: ${{ secrets.PROD_FIREBASE_MEASUREMENT_ID }}
+  #         ANGULAR_PRODUCTION: ${{ secrets.PROD_ANGULAR_PRODUCTION }}
+  #     - name: run Lighthouse CI
+  #       run: |
+  #         npm install -g @lhci/cli@0.3.x
+  #         lhci autorun --upload.target=temporary-public-storage || echo "LHCI failed!"
+  #     - uses: netlify/actions/cli@master
+  #       env:
+  #         NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+  #         NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+  #       with:
+  #         args: deploy --dir=dist/quotes --prod
+  #         secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
