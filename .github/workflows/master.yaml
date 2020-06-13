@@ -5,9 +5,9 @@ on:
       - master
     
 jobs:
-  build:
+  build-quotes:
     #TODO: only execute when file changes in functions/**/*
-    name: Build staging firebase
+    name: Build quotes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -39,7 +39,7 @@ jobs:
     #TODO: only execute when file changes in functions/**/*
     name: Deploy firebase to staging
     runs-on: ubuntu-latest
-    needs: build-firebase-staging
+    needs: build-quotes
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v1
