@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { ROLE } from '../../auth-triggers/onCreate';
-import { setCustomUserClaims, updateUser } from '../helpers/firebase';
+import { updateUser } from '../helpers/firebase';
+import { setCustomUserClaims } from '../helpers/auth';
 
 export enum STATUS {
   FAILED = 'failed',

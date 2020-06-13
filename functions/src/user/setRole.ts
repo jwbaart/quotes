@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import { ROLE } from '../auth-triggers/onCreate';
-import { updateUser, setCustomUserClaims } from '../api/helpers/firebase';
+import { updateUser } from '../api/helpers/firebase';
+import { setCustomUserClaims } from '../api/helpers/auth';
 
 export enum STATUS {
   FAILED = 'failed',
@@ -13,6 +14,7 @@ export default async (data: any, context: functions.https.CallableContext) => {
 
   const isUnknownRole = !Object.values(ROLE).includes(role);
   const isUidInvalid = !(uid && uid.length);
+  const isAdmin = context.auth?.token.role === ROLE.ADMIN;
 
   if (isUnknownRole) {
     console.error('setRole - unknown role: ', role);
@@ -22,6 +24,11 @@ export default async (data: any, context: functions.https.CallableContext) => {
   if (isUidInvalid) {
     console.error('setRole -  missing uid: ', uid);
     throw new functions.https.HttpsError('invalid-argument', 'setRole - missing uid');
+  }
+
+  if (isAdmin) {
+    console.error('setRole -  non admin');
+    throw new functions.https.HttpsError('invalid-argument', 'client has invalid role');
   }
 
   try {
