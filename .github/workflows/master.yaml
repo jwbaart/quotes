@@ -37,7 +37,7 @@ jobs:
   
   deploy-on-staging:
     #TODO: only execute when file changes in functions/**/*
-    name: Deploy firebase to staging
+    name: Deploy quotes to staging
     runs-on: ubuntu-latest
     needs: build-quotes
     steps:
@@ -134,7 +134,7 @@ jobs:
 
   deploy-on-prod:
     #TODO: only execute when file changes in functions/**/*
-    name: Deploy firebase to prod
+    name: Deploy quotes to prod
     runs-on: ubuntu-latest
     needs: release
     steps:
