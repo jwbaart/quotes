@@ -6,7 +6,6 @@
     "cypress": "cypress",
     "webpack-bundle-analyzer": "webpack-bundle-analyzer ./dist/quotes/stats-es2015.json",
     "prebuild": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/write-env-config.ts",
-    "prebuild-new": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/write-env-config-to-window.ts",
     "ng": "ng",
     "start": "yarn prebuild && ng serve",
     "build": "yarn prebuild && ng build",
