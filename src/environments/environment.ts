@@ -1,6 +1,6 @@
-import * as firebase from './../../firebase.config.js';
-
-export const environment = {
-  production: false,
-  firebase
-};
+export const environment = Object.assign(
+  {
+    production: true
+  },
+  (window as any).__env
+);

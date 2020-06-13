@@ -3,7 +3,7 @@ import { writeFile } from 'fs';
 // import { name, version } from '../package.json';
 require('dotenv').config();
 
-const targetEnvironmentPath = './src/environments/environment.ts';
+const targetEnvironmentPath = './src/env.js';
 const targetFirebasePath = './firebase.config.js';
 
 const firebaseConfig = {
@@ -19,12 +19,12 @@ const firebaseConfig = {
 
 const firebaseEnvConfigFile = `module.exports = ${JSON.stringify(firebaseConfig)}`;
 
-const envConfigFile = `import * as firebase from './../../firebase.config.js';
+const envConfigFile = `(function (window) {
+  window.__env = window.__env || {};
 
-export const environment = {
-  production: ${process.env.ANGULAR_PRODUCTION},
-  firebase
-};
+  window.__env.production = ${process.env.ANGULAR_PRODUCTION};
+  window.__env.firebase = ${JSON.stringify(firebaseConfig)}
+}(this));
 `;
 
 // firebase config
