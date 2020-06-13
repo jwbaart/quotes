@@ -13,9 +13,7 @@ export interface User {
   forceRefreshToken: boolean;
 }
 
-export const setCustomUserClaims = (uid: string, claims: { [key: string]: boolean }): Promise<void> => {
-  return admin.auth().setCustomUserClaims(uid, claims);
-};
+
 
 export const updateUser = (uid: string, userData: Partial<User>): Promise<FirebaseFirestore.WriteResult> => {
   const db = admin.firestore();
@@ -23,4 +21,12 @@ export const updateUser = (uid: string, userData: Partial<User>): Promise<Fireba
     .collection('users')
     .doc(uid)
     .set(userData, { merge: true });
+};
+
+export const deleteUser = (uid: string): Promise<FirebaseFirestore.WriteResult> => {
+  const db = admin.firestore();
+  return db
+    .collection('users')
+    .doc(uid)
+    .delete();
 };
