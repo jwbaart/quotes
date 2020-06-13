@@ -64,6 +64,7 @@ jobs:
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: functions
+      - uses: bahmutov/npm-install@v1
       - name: Download Artifact
         uses: actions/download-artifact@master
         with:
@@ -80,7 +81,6 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
           FIREBASE_MEASUREMENT_ID: ${{ secrets.STAGING_FIREBASE_MEASUREMENT_ID }}
           ANGULAR_PRODUCTION: ${{ secrets.STAGING_ANGULAR_PRODUCTION }}
-      - uses: bahmutov/npm-install@v1
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         with:
