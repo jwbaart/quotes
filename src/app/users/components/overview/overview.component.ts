@@ -7,6 +7,10 @@ export interface UpdateRoleEvent {
   role: ROLE;
   uid: string;
 }
+export interface DeleteUserEvent {
+  uid: string;
+}
+
 @Component({
   selector: 'app-users-overview',
   templateUrl: './overview.component.html',
@@ -15,8 +19,9 @@ export interface UpdateRoleEvent {
 export class OverviewComponent implements OnInit {
   @Input() users$: Observable<User[]>;
   @Output() updateRole = new EventEmitter<UpdateRoleEvent>();
+  @Output() deleteUser = new EventEmitter<DeleteUserEvent>();
 
-  displayedColumns = ['name', 'role', 'photo'];
+  displayedColumns = ['name', 'role', 'photo', 'delete'];
 
   constructor() {}
 
@@ -24,5 +29,9 @@ export class OverviewComponent implements OnInit {
 
   roleChange(role: ROLE, uid: string) {
     this.updateRole.emit({ role, uid });
+  }
+
+  onDeleteClick(uid: string) {
+    this.deleteUser.emit({ uid });
   }
 }

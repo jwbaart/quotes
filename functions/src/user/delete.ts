@@ -12,16 +12,16 @@ export default async (data: any, context: functions.https.CallableContext) => {
   const { uid } = data;
 
   const isUidInvalid = !(uid && uid.length);
-  const isAdmin = context.auth?.token.role === ROLE.ADMIN;
+  const isNonAdmin = context.auth?.token.role !== ROLE.ADMIN;
 
   if (isUidInvalid) {
     console.error('user - delete - missing uid: ', uid);
     throw new functions.https.HttpsError('invalid-argument', 'missing uid');
   }
 
-  if (isAdmin) {
+  if (isNonAdmin) {
     console.error('user - delete -  non admin');
-    throw new functions.https.HttpsError('invalid-argument', 'client has invalid role');
+    throw new functions.https.HttpsError('permission-denied', 'client has invalid role');
   }
 
   try {

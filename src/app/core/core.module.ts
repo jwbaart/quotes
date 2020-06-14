@@ -6,6 +6,7 @@ import { FirestoreCrudService } from './services/firestore-crud.service';
 import { UserService } from './services/user/user.service';
 import { NavigationService } from './services/navigation.service';
 import { RolesService } from './services/roles/roles.service';
+import { AdminService } from './services/admin/admin.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenHttpInterceptor } from './interceptors/auth-token.interceptor';
 
@@ -18,6 +19,7 @@ import { AuthTokenHttpInterceptor } from './interceptors/auth-token.interceptor'
     UserService,
     NavigationService,
     RolesService,
+    AdminService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthTokenHttpInterceptor, multi: true }
   ]
 })

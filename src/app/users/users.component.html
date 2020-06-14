@@ -1,3 +1,7 @@
 <section class="page" data-test="users">
-  <app-users-overview [users$]="users$" (updateRole)="updateRole($event)"></app-users-overview>
+  <app-users-overview
+    [users$]="users$"
+    (updateRole)="updateRole($event)"
+    (deleteUser)="deleteUser($event)"
+  ></app-users-overview>
 </section>

@@ -14,7 +14,7 @@ export default async (data: any, context: functions.https.CallableContext) => {
 
   const isUnknownRole = !Object.values(ROLE).includes(role);
   const isUidInvalid = !(uid && uid.length);
-  const isAdmin = context.auth?.token.role === ROLE.ADMIN;
+  const isNonAdmin = context.auth?.token.role !== ROLE.ADMIN;
 
   if (isUnknownRole) {
     console.error('setRole - unknown role: ', role);
@@ -26,9 +26,9 @@ export default async (data: any, context: functions.https.CallableContext) => {
     throw new functions.https.HttpsError('invalid-argument', 'setRole - missing uid');
   }
 
-  if (isAdmin) {
+  if (isNonAdmin) {
     console.error('setRole -  non admin');
-    throw new functions.https.HttpsError('invalid-argument', 'client has invalid role');
+    throw new functions.https.HttpsError('permission-denied', 'client has invalid role');
   }
 
   try {
