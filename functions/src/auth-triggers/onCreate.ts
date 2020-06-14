@@ -22,6 +22,7 @@ export default async (event: functions.auth.UserRecord, context: functions.Event
   const userRef = db.doc(`users/${event.uid}`);
   const role = ROLE.UNKNOWN;
   const uid = event.uid;
+  const forceRefreshToken = false;
 
   return userRef
     .set({
@@ -29,7 +30,8 @@ export default async (event: functions.auth.UserRecord, context: functions.Event
       createdAt: context.timestamp,
       photoURL: event.photoURL,
       role,
-      uid
+      uid,
+      forceRefreshToken
     })
     .then(() => admin.auth().setCustomUserClaims(uid, { role }))
     .then(() => admin.auth().getUser(uid))

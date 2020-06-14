@@ -84,8 +84,9 @@ export class AuthService {
     this.afAuth.idTokenResult
       .pipe(
         map(idTokenResult => {
-          console.log('refreshed', idTokenResult);
-          return idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === ROLE.ADMIN;
+          return (
+            idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === ROLE.ADMIN
+          );
         })
       )
       .subscribe(isAdmin => this._isAdmin$.next(isAdmin));
@@ -112,9 +113,13 @@ export class AuthService {
   initUser(uid = null) {
     if (uid) {
       this.userService.get(uid).subscribe(user => {
-        this._user$.next(user);
-        if (user.forceRefreshToken) {
-          this.refreshToken(uid);
+        if (user) {
+          this._user$.next(user);
+          if (user.forceRefreshToken) {
+            this.refreshToken(uid);
+          }
+        } else {
+          console.log('user not found');
         }
       });
     } else {

@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { OverviewRoleComponent } from './overview-role/overview-role.component';
 import { FormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [OverviewComponent, OverviewRoleComponent],
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatButtonModule,
     MatSelectModule,
+    MatIconModule,
     FormsModule
   ],
   exports: [OverviewComponent]
