@@ -35,7 +35,6 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private _snackbarService: SnackbarService,
-    private db: AngularFirestore,
     private userService: UserService,
     private navigationService: NavigationService
   ) {
@@ -48,26 +47,24 @@ export class AuthService {
 
     this._authState.subscribe(
       authenticatedUser => {
-        const isPreviousUser = !!this.user;
+        const wasLoggedIn = !!this.user;
+        const wasLoggedOut = !wasLoggedIn;
 
         if (authenticatedUser) {
-          if (!isPreviousUser) {
+          if (wasLoggedOut) {
             this._snackbarService.open('Je bent ingelogd');
           }
 
           this.initUser(authenticatedUser.uid);
-          this.userService.get(authenticatedUser.uid).subscribe(user => {
-            console.log(user);
-            if (!user) {
-              this._snackbarService.open('Het aanmaken van je account is niet helemaal goed gegaan.');
-            } else {
+          this.user$.subscribe(user => {
+            if (user) {
               this.user = user;
             }
           });
 
           this.navigationService.toQuotesIfOnIntro();
         } else {
-          if (isPreviousUser) {
+          if (wasLoggedIn) {
             this._snackbarService.open('Je bent uitgelogd');
           }
           this.initUser(null);
@@ -84,6 +81,7 @@ export class AuthService {
     this.afAuth.idTokenResult
       .pipe(
         map(idTokenResult => {
+          console.log('refreshed', idTokenResult);
           return (
             idTokenResult && idTokenResult.claims.hasOwnProperty('role') && idTokenResult.claims.role === ROLE.ADMIN
           );
@@ -118,8 +116,6 @@ export class AuthService {
           if (user.forceRefreshToken) {
             this.refreshToken(uid);
           }
-        } else {
-          console.log('user not found');
         }
       });
     } else {
