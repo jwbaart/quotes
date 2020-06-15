@@ -11,7 +11,7 @@
     "start:prod": "yarn prebuild && ng serve --configuration='production'",
     "build": "yarn prebuild && ng build",
     "build:prod": "yarn prebuild && ng build --configuration='production'",
-    "serve": "lite-server",
+    "serve": "lite-server & wait-on http://localhost:4200",
     "lint": "ng lint",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
     "publish-env": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/publish-env.ts",
@@ -86,6 +86,7 @@
     "ts-node": "^8.9.1",
     "tslint": "^6.1.2",
     "typescript": "<3.8",
+    "wait-on": "^5.0.1",
     "webpack-bundle-analyzer": "^3.6.0"
   }
 }
