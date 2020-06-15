@@ -58,11 +58,16 @@ export class AuthService {
           this.initUser(authenticatedUser.uid);
           this.user$.subscribe(user => {
             if (user) {
+              const isUnknownUser = user.role === ROLE.UNKNOWN;
               this.user = user;
+              if (isUnknownUser) {
+                console.log('a')
+                this.navigationService.toVerification();
+              } else {
+                this.navigationService.toQuotesIfOnIntro();
+              }
             }
           });
-
-          this.navigationService.toQuotesIfOnIntro();
         } else {
           if (wasLoggedIn) {
             this._snackbarService.open('Je bent uitgelogd');

@@ -19,11 +19,13 @@ import { SharedModule } from './shared/shared.module';
 import { registerLocaleData } from '@angular/common';
 import localeNl from '@angular/common/locales/nl';
 import { UsersModule } from './users/users.module';
+import { VerificationComponent } from './verification/verification.component';
+import { VerificationModule } from './verification/verification.module';
 
 registerLocaleData(localeNl, 'nl');
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, IntroComponent],
+  declarations: [AppComponent, NavigationComponent, IntroComponent, VerificationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -35,6 +37,7 @@ registerLocaleData(localeNl, 'nl');
     BrowserAnimationsModule,
     QuotesModule,
     UsersModule,
+    VerificationModule,
     LayoutModule,
     HttpClientModule,
     CoreModule,

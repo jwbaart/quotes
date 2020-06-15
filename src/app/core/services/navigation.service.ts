@@ -4,13 +4,15 @@ import { Router } from '@angular/router';
 export enum ROUTE {
   INTRO = 'intro',
   QUOTES = 'quotes',
-  USERS = 'users'
+  USERS = 'users',
+  VERIFICATION = 'verification'
 }
 
 export enum ROUTE_URL {
   INTRO = '/intro',
   QUOTES = '/quotes',
-  USERS = '/users'
+  USERS = '/users',
+  VERIFICATION = '/verification'
 }
 
 @Injectable({
@@ -33,5 +35,9 @@ export class NavigationService {
     if (isRouteIntro) {
       this.router.navigate([ROUTE.QUOTES]);
     }
+  }
+
+  toVerification() {
+    this.router.navigate([ROUTE.VERIFICATION]);
   }
 }

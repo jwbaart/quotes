@@ -9,10 +9,10 @@ import {
   AngularFireAuthGuard
 } from '@angular/fire/auth-guard';
 import { UsersComponent } from './users/users.component';
-import { canActivate } from '@angular/fire/auth-guard';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import { ROLE } from './core';
+import { VerificationComponent } from './verification/verification.component';
 
 const adminOnly = () =>
   pipe(
@@ -37,24 +37,26 @@ const routes: Routes = [
   {
     path: 'users',
     component: UsersComponent,
-    // ...canActivate(redirectUnauthorizedToIntro)
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToIntro }
   },
   {
     path: 'quotes',
     component: QuotesComponent,
-    // ...canActivate(redirectUnauthorizedToIntro)
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectUnauthorizedToIntro }
   },
   {
     path: 'intro',
     component: IntroComponent,
-    // ...canActivate(redirectLoggedInToQuotes)
-    // ...canActivate(redirectLoggedInTo(['quotes']))
     canActivate: [AngularFireAuthGuard],
     data: { authGuardPipe: redirectLoggedInToQuotes }
+  },
+  {
+    path: 'verification',
+    component: VerificationComponent,
+    canActivate: [AngularFireAuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToIntro }
   },
   {
     path: '**',
