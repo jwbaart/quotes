@@ -1,4 +1,3 @@
-import { QuotesComponent } from './quotes/quotes.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { IntroComponent } from './intro/intro.component';
@@ -8,11 +7,12 @@ import {
   customClaims,
   AngularFireAuthGuard
 } from '@angular/fire/auth-guard';
+import { QuotesComponent } from './quotes/quotes.component';
 import { UsersComponent } from './users/users.component';
+import { VerificationComponent } from './verification/verification.component';
 import { map } from 'rxjs/operators';
 import { pipe } from 'rxjs';
 import { ROLE } from './core';
-import { VerificationComponent } from './verification/verification.component';
 
 const adminOnly = () =>
   pipe(
@@ -27,6 +27,10 @@ const adminOnly = () =>
   );
 const redirectUnauthorizedToIntro = () => redirectUnauthorizedTo(['intro']);
 const redirectLoggedInToQuotes = () => redirectLoggedInTo(['quotes']);
+
+// TODO: Verification, 2 possibles outcomes
+//       https://itnext.io/handle-restricted-routes-in-angular-with-route-guards-95c93be9d05e
+// const redirectNonUknownRolestoQuotesAndUnauthorizedToIntro()
 
 const routes: Routes = [
   {
