@@ -1,0 +1,9 @@
+<h2 mat-dialog-title>Bevestig verwijdering</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Weet je zeker dat je {{ user.name }} wilt verwijderen?</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="close(false)">Annuleer</button>
+  <button mat-raised-button color="warn" (click)="close(true)">Verwijder</button>
+</mat-dialog-actions>

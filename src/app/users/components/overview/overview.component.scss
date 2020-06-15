@@ -6,6 +6,9 @@
   }
 
   &__delete {
-    color: #cc3300;
+    text-align: center;
+    &__icon {
+      color: #f44336;
+    }
   }
 }

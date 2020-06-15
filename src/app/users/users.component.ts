@@ -4,6 +4,8 @@ import { User, UserService, RolesService } from '@app/core';
 import { UpdateRoleEvent, DeleteUserEvent } from './components/overview/overview.component';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { AdminService } from '@app/core/services/admin/admin.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogConfirmUserDeletionComponent } from './components/dialog-confirm-user-deletion/dialog-confirm-user-deletion.component';
 
 @Component({
   selector: 'app-users',
@@ -14,9 +16,9 @@ export class UsersComponent implements OnInit {
   users$: Observable<User[]>;
   constructor(
     private userService: UserService,
-    private rolesService: RolesService,
     private adminService: AdminService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -31,9 +33,18 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(deleteUser: DeleteUserEvent) {
-    console.log('deleteUser', deleteUser);
+    const user = deleteUser.user;
+    const dialogRef = this.dialog.open(DialogConfirmUserDeletionComponent, { data: { user } });
 
-    this.adminService.deleteUser(deleteUser.uid).subscribe(
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._deleteUser(user.uid);
+      }
+    });
+  }
+
+  _deleteUser(uid) {
+    this.adminService.deleteUser(uid).subscribe(
       () => this.snackbarService.open('Het verwijderen van de gebruiker is gelukt.'),
       () => this.snackbarService.open('Het verwijderen van de gebruiker is mislukt.')
     );

@@ -8,7 +8,7 @@ export interface UpdateRoleEvent {
   uid: string;
 }
 export interface DeleteUserEvent {
-  uid: string;
+  user: User;
 }
 
 @Component({
@@ -31,7 +31,7 @@ export class OverviewComponent implements OnInit {
     this.updateRole.emit({ role, uid });
   }
 
-  onDeleteClick(uid: string) {
-    this.deleteUser.emit({ uid });
+  onDeleteClick(user: User) {
+    this.deleteUser.emit({ user });
   }
 }
