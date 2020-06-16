@@ -20,7 +20,8 @@
     "test:ci": "cypress run --record",
     "deploy:rules": "firebase deploy --only firestore:rules",
     "deploy:hosting": "firebase deploy --only firestore:hosting",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "generate-manifest-assets": "npx pwa-asset-generator ./src/assets/quotes.svg ./src/assets/icons -m ./src/manifest.webmanifest -i ./src/index.html"
   },
   "lint-staged": {
     "src/**/*.{ts}": [
