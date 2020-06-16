@@ -6,6 +6,7 @@ import { SnackbarService } from '@app/core/services/snackbar.service';
 import { AdminService } from '@app/core/services/admin/admin.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogConfirmUserDeletionComponent } from './components/dialog-confirm-user-deletion/dialog-confirm-user-deletion.component';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-users',
@@ -26,27 +27,36 @@ export class UsersComponent implements OnInit {
   }
 
   updateRole(roleUpdate: UpdateRoleEvent) {
-    this.adminService.setRole(roleUpdate.uid, roleUpdate.role).subscribe(
-      () => this.snackbarService.open('Het zetten van de rol is gelukt.'),
-      () => this.snackbarService.open('Het zetten van de rol is mislukt.')
-    );
+    this.adminService
+      .setRole(roleUpdate.uid, roleUpdate.role)
+      .pipe(take(1))
+      .subscribe(
+        () => this.snackbarService.open('Het zetten van de rol is gelukt.'),
+        () => this.snackbarService.open('Het zetten van de rol is mislukt.')
+      );
   }
 
   deleteUser(deleteUser: DeleteUserEvent) {
     const user = deleteUser.user;
     const dialogRef = this.dialog.open(DialogConfirmUserDeletionComponent, { data: { user } });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this._deleteUser(user.uid);
-      }
-    });
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(result => {
+        if (result) {
+          this._deleteUser(user.uid);
+        }
+      });
   }
 
   _deleteUser(uid) {
-    this.adminService.deleteUser(uid).subscribe(
-      () => this.snackbarService.open('Het verwijderen van de gebruiker is gelukt.'),
-      () => this.snackbarService.open('Het verwijderen van de gebruiker is mislukt.')
-    );
+    this.adminService
+      .deleteUser(uid)
+      .pipe(take(1))
+      .subscribe(
+        () => this.snackbarService.open('Het verwijderen van de gebruiker is gelukt.'),
+        () => this.snackbarService.open('Het verwijderen van de gebruiker is mislukt.')
+      );
   }
 }

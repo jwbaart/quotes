@@ -6,7 +6,6 @@ import { takeUntil, map } from 'rxjs/operators';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
-import { Author } from './quote-card/quote-card.component';
 import { UserService, User, AuthService } from '@app/core';
 
 @Component({
@@ -18,7 +17,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
   isQuotesLoading = true;
   isUserEditor = false;
-  private _ngUnsubscribeQuotes: Subject<void> = new Subject();
+  private destroy$: Subject<void> = new Subject();
 
   isChildrenLoading = true;
 
@@ -31,7 +30,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.quotesService.quotes.pipe(takeUntil(this._ngUnsubscribeQuotes)).subscribe(
+    this.quotesService.quotes.pipe(takeUntil(this.destroy$)).subscribe(
       quotes => {
         this.quotes = quotes;
         this.isQuotesLoading = false;
@@ -44,8 +43,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._ngUnsubscribeQuotes.next();
-    this._ngUnsubscribeQuotes.complete();
+    this.destroy$.complete();
   }
 
   onAddQuoteButtonClick() {
