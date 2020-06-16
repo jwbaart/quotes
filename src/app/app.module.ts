@@ -21,6 +21,7 @@ import localeNl from '@angular/common/locales/nl';
 import { UsersModule } from './users/users.module';
 import { VerificationComponent } from './verification/verification.component';
 import { VerificationModule } from './verification/verification.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 registerLocaleData(localeNl, 'nl');
 
@@ -41,7 +42,8 @@ registerLocaleData(localeNl, 'nl');
     LayoutModule,
     HttpClientModule,
     CoreModule,
-    SharedModule
+    SharedModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'nl' },
