@@ -3,9 +3,8 @@ on:
   pull_request
     
 jobs:
-  firebase-staging:
-    #TODO: only execute when file changes in functions/**/*
-    name: Deploy firebase to staging
+  build-quotes:
+    name: Build artifact
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
@@ -13,7 +12,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '10.x'
-      # yarn install with caching
       - uses: bahmutov/npm-install@v1
         with:
           working-directory: functions
@@ -21,38 +19,46 @@ jobs:
         run: yarn build
       - working-directory: functions
         run: yarn test
-      - name: Deploy to firebase
-        uses: w9jds/firebase-action@master
+      - name: Archive firebase functions
+        uses: actions/upload-artifact@master
         with:
-          args: deploy --only functions,firestore:rules -f
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
+          name: quotes-functions
+          path: functions/lib
+      - uses: bahmutov/npm-install@v1
+      - run: yarn prebuild
+      - run: yarn build --configuration="production"
+      - name: Archive quotes
+        uses: actions/upload-artifact@master
+        with:
+          name: quotes
+          path: dist/quotes/
 
-  ui-tests:
-    name: UI Tests
-    needs: firebase-staging
+  deploy-on-staging:
+    name: Deploy quotes to staging
     runs-on: ubuntu-latest
+    needs: build-quotes
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v1
-      # Cypress action manages installing/caching npm dependencies and Cypress binary.
-      - name: Cypress Run
-        uses: cypress-io/github-action@v1
+      - uses: actions/setup-node@v1
         with:
-          install: true
-          start: yarn start
-          build: yarn -v # serve already builds
-          group: 'E2E Tests'
-          record: true
-          parallel: true
-          wait-on: 'http://localhost:4200'
+          node-version: '10.x'
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: quotes-functions
+          path: functions/lib
+      - uses: bahmutov/npm-install@v1
+        with:
+          working-directory: functions
+      - uses: bahmutov/npm-install@v1
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: quotes
+          path: dist/quotes
+      - run: yarn publish-env
         env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
-          CYPRESS_TEST_UID: ${{ secrets.STAGING_TEST_UID }}
-          FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
-          GITHUB_HEAD_REF: ${{ github.head_ref }}
-          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
           FIREBASE_API_KEY: ${{ secrets.STAGING_FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.STAGING_FIREBASE_AUTH_DOMAIN }}
           FIREBASE_DATABASE_URL: ${{ secrets.STAGING_FIREBASE_DATABASE_URL }}
@@ -62,3 +68,43 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
           FIREBASE_MEASUREMENT_ID: ${{ secrets.STAGING_FIREBASE_MEASUREMENT_ID }}
           ANGULAR_PRODUCTION: ${{ secrets.STAGING_ANGULAR_PRODUCTION }}
+      - name: Deploy to firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          PROJECT_ID: ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
+
+  ui-tests:
+    name: UI Tests
+    needs: deploy-on-staging
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v1
+      - uses: bahmutov/npm-install@v1
+      - name: Download Artifact
+        uses: actions/download-artifact@master
+        with:
+          name: quotes
+          path: dist/quotes
+      - run: yarn publish-env
+        env:
+          FIREBASE_API_KEY: ${{ secrets.STAGING_FIREBASE_API_KEY }}
+          FIREBASE_AUTH_DOMAIN: ${{ secrets.STAGING_FIREBASE_AUTH_DOMAIN }}
+          FIREBASE_DATABASE_URL: ${{ secrets.STAGING_FIREBASE_DATABASE_URL }}
+          FIREBASE_PROJECT_ID: ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.STAGING_FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.STAGING_FIREBASE_MESSAGING_SENDER_ID }}
+          FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
+          FIREBASE_MEASUREMENT_ID: ${{ secrets.STAGING_FIREBASE_MEASUREMENT_ID }}
+          ANGULAR_PRODUCTION: ${{ secrets.STAGING_ANGULAR_PRODUCTION }}
+      - run: yarn serve
+      - run: yarn test:ci
+        env: 
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_KEY }}
+          CYPRESS_TEST_UID: ${{ secrets.STAGING_TEST_UID }}
+          FIREBASE_TOKEN: ${{ secrets.STAGING_FIREBASE_TOKEN }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
+          SERVICE_ACCOUNT: ${{ secrets.STAGING_SERVICE_ACCOUNT }}
