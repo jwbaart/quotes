@@ -9478,6 +9478,11 @@ ng-inline-svg@^10.0.0:
   resolved "https://registry.yarnpkg.com/ng-inline-svg/-/ng-inline-svg-10.0.0.tgz#f8211ed04073a61ffd8428d811924446597b4921"
   integrity sha512-gyTOWmVT2F/l6vBMEcqVwebd9dTdGTxdiyVhmo9omRA2PuCjpfdeiNDM6txGEMfMElZy5zygxgTQJzpbJk4GPA==
 
+ng-navigator-share@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/ng-navigator-share/-/ng-navigator-share-1.0.4.tgz#737b3e41a42433fb3fa0a812785ab5975ade794b"
+  integrity sha512-Gj/YWA8PuZ8ArZ6et8zCr/qkZfDtylcoUZ/XabWyIHrWOaBamtBlvxxsZ5yy9e+LNAqb8isEmS4IdZWwa6aEDw==
+
 nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
