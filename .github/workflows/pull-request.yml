@@ -26,7 +26,7 @@ jobs:
           path: functions/lib
       - uses: bahmutov/npm-install@v1
       - run: yarn ngcc
-      - run: yarn build --configuration="production"
+      - run: yarn build:prod
       - name: Archive quotes
         uses: actions/upload-artifact@master
         with:
@@ -68,13 +68,17 @@ jobs:
           FIREBASE_APP_ID: ${{ secrets.STAGING_FIREBASE_APP_ID }}
           FIREBASE_MEASUREMENT_ID: ${{ secrets.STAGING_FIREBASE_MEASUREMENT_ID }}
           ANGULAR_PRODUCTION: ${{ secrets.STAGING_ANGULAR_PRODUCTION }}
-      - name: Deploy to firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy
+      - run: yarn firebase use ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
+      - run: yarn deploy
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      # - name: Deploy to firebase
+      #   uses: w9jds/firebase-action@master
+      #   with:
+      #     args: deploy
+      #   env:
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      #     PROJECT_ID: ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
 
   ui-tests:
     name: UI Tests
