@@ -16,7 +16,6 @@ import { UserService, User, AuthService } from '@app/core';
 export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
   isQuotesLoading = true;
-  isUserEditor = false;
   private destroy$: Subject<void> = new Subject();
 
   isChildrenLoading = true;

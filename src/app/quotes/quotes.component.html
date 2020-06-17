@@ -36,6 +36,7 @@
     class="app-quotes__add-quote-button"
     (click)="onAddQuoteButtonClick()"
     data-cy="quote-add"
+    *ngIf="authService.isUserEditor$ | async"
     ><mat-icon>add</mat-icon></a
   >
 </section>
