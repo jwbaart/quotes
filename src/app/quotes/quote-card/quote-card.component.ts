@@ -17,9 +17,11 @@ export class QuoteCardComponent implements OnInit {
   @Input() quote: Quote;
   @Input() user$: Observable<User>;
   @Input() showEditButtons: Observable<boolean>;
+  @Input() canShare: boolean;
 
   @Output() editQuote = new EventEmitter<any>();
   @Output() deleteQuote = new EventEmitter<any>();
+  @Output() shareQuote = new EventEmitter<any>();
 
   constructor() {}
 
@@ -30,6 +32,10 @@ export class QuoteCardComponent implements OnInit {
   }
 
   onQuoteDeleteClick() {
+    this.deleteQuote.emit(this.quote);
+  }
+
+  onQuoteShareClick() {
     this.deleteQuote.emit(this.quote);
   }
 }

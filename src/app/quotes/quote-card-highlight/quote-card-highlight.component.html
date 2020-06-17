@@ -28,6 +28,16 @@
     >
       <mat-icon>delete</mat-icon>
     </button>
+    <button
+      mat-icon-button
+      aria-label="Share quote"
+      (click)="onQuoteShareClick()"
+      matTooltip="Share"
+      data-test="quote-card-share"
+      *ngIf="canShare"
+    >
+      <mat-icon>share</mat-icon>
+    </button>
     <span class="app-quote-card__spacer"></span>
     <mat-chip-list>
       <mat-chip *ngIf="quote.children.ben" selectable="false">Ben</mat-chip>
