@@ -12,8 +12,10 @@
       <app-quote-card-highlight
         [quote]="quote"
         [showEditButtons]="authService.isUserEditor$ | async"
+        [canShare]="canShare"
         (editQuote)="onEditQuote($event)"
         (deleteQuote)="onDeleteQuote($event)"
+        (shareQuote)="onShareQuote($event)"
         data-test="quote-card"
       ></app-quote-card-highlight>
     </section>

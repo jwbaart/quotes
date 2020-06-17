@@ -2,11 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuotesService, Quote } from './quotes.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subject, Observable } from 'rxjs';
-import { takeUntil, map } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
 import { UserService, User, AuthService } from '@app/core';
+import { NgNavigatorShareService } from 'ng-navigator-share';
 
 @Component({
   selector: 'app-quotes',
@@ -20,13 +21,15 @@ export class QuotesComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject();
 
   isChildrenLoading = true;
+  canShare = false;
 
   constructor(
     public quotesService: QuotesService,
     public authService: AuthService,
     public dialog: MatDialog,
     private _snackBar: SnackbarService,
-    private userService: UserService
+    private userService: UserService,
+    private shareService: NgNavigatorShareService
   ) {}
 
   ngOnInit() {
@@ -40,6 +43,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
         this.isQuotesLoading = false;
       }
     );
+
+    this.canShare = this.shareService.canShare();
   }
 
   ngOnDestroy() {
@@ -61,6 +66,16 @@ export class QuotesComponent implements OnInit, OnDestroy {
 
   onDeleteQuote(quote: Quote) {
     this.quotesService.delete(quote);
+  }
+
+  onShareQuote(quote: Quote) {
+    const title = quote.title;
+    const text = quote.text;
+
+    this.shareService.share({
+      title,
+      text
+    });
   }
 
   getUser(uid): Observable<User> {

@@ -24,6 +24,8 @@ import { QuoteFormComponent } from './quote-form/quote-form.component';
 import { QuoteEditDialogComponent } from './quote-edit-dialog/quote-edit-dialog.component';
 import { QuoteAddDialogComponent } from './quote-add-dialog/quote-add-dialog.component';
 import { QuoteCardHighlightComponent } from './quote-card-highlight/quote-card-highlight.component';
+import { NgNavigatorShareService } from 'ng-navigator-share';
+
 
 @NgModule({
   declarations: [
@@ -55,6 +57,7 @@ import { QuoteCardHighlightComponent } from './quote-card-highlight/quote-card-h
     MatTooltipModule,
     MatDividerModule
   ],
+  providers: [NgNavigatorShareService],
   entryComponents: [QuoteEditDialogComponent, QuoteAddDialogComponent]
 })
 export class QuotesModule {}
