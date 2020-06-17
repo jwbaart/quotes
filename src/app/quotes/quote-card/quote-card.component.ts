@@ -36,6 +36,6 @@ export class QuoteCardComponent implements OnInit {
   }
 
   onQuoteShareClick() {
-    this.deleteQuote.emit(this.quote);
+    this.shareQuote.emit(this.quote);
   }
 }
