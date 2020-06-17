@@ -6,6 +6,7 @@
     "cypress": "cypress",
     "webpack-bundle-analyzer": "webpack-bundle-analyzer ./dist/quotes/stats-es2015.json",
     "prebuild": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/write-env-config.ts",
+    "add-inline-env": "ts-node -O '{\"module\": \"commonjs\"}' ./scripts/add-inline-env-script.ts",
     "ng": "ng",
     "start": "yarn prebuild && ng serve",
     "start:prod": "yarn prebuild && ng serve --configuration='production'",
