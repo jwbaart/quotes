@@ -69,6 +69,8 @@ jobs:
           FIREBASE_MEASUREMENT_ID: ${{ secrets.STAGING_FIREBASE_MEASUREMENT_ID }}
           ANGULAR_PRODUCTION: ${{ secrets.STAGING_ANGULAR_PRODUCTION }}
       - run: yarn firebase use ${{ secrets.STAGING_FIREBASE_PROJECT_ID }}
+        env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
       - run: yarn deploy
         env:
             FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
