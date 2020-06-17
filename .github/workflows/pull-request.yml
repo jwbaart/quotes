@@ -25,7 +25,7 @@ jobs:
           name: quotes-functions
           path: functions/lib
       - uses: bahmutov/npm-install@v1
-      - run: yarn prebuild
+      - run: yarn ngcc
       - run: yarn build --configuration="production"
       - name: Archive quotes
         uses: actions/upload-artifact@master
