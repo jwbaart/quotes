@@ -1,5 +1,5 @@
 import { writeFile } from 'fs';
-import { envConfigFile } from './write-env-config';
+import { envConfigFile } from './write-angular-env';
 
 const targetEnvironmentPath = './dist/quotes/env.js';
 
