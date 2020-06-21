@@ -1,6 +1,15 @@
 <h2 mat-dialog-title>Wijzig gegevens</h2>
-<mat-dialog-content class="mat-typography"> 
-    <p>asdf</p>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="authenticatedUserForm" (submit)="submit()">
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Naam</mat-label>
+      <input matInput formControlName="email" required />
+      <mat-error *ngIf="authenticatedUserForm.controls.name.touched && authenticatedUserForm.controls.name.invalid">
+        <span *ngIf="authenticatedUserForm.controls.name.errors.required">This field is mandatory.</span>
+        <span *ngIf="authenticatedUserForm.controls.name.errors.pattern">This field is invalid.</span>
+      </mat-error>
+    </mat-form-field>
+  </form>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">

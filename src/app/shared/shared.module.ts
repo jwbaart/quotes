@@ -6,6 +6,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [],
@@ -17,7 +20,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatToolbarModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   exports: [
     CommonModule,
@@ -27,7 +34,11 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatToolbarModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ]
 })
 export class SharedModule {}
