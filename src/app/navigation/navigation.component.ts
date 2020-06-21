@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@app/core';
 import { environment } from 'src/environments/environment';
 import { Observable, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { EditAuthenticatedUserDialogComponent } from './components/edit-authenticated-user-dialog/edit-authenticated-user-dialog.component';
 
 @Component({
   selector: 'app-navigation',
@@ -12,13 +14,14 @@ import { map } from 'rxjs/operators';
 export class NavigationComponent implements OnInit {
   public projectId: string;
   public isUsersVisible: Observable<boolean>;
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.projectId = environment.firebase.projectId;
     this.isUsersVisible = combineLatest([this.authService.isAdmin$, this.authService.isLoggedIn$]).pipe(
       map(result => result[0] && result[1])
     );
+    this.onEditUserClick();
   }
 
   resultSelector(idTokenResult, isLoggedIn) {
@@ -38,7 +41,14 @@ export class NavigationComponent implements OnInit {
   }
 
   onEditUserClick() {
-    console.log('onEditUserClick');
+    const dialogRef = this.dialog.open(EditAuthenticatedUserDialogComponent, { data: {} });
+
+    dialogRef
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(result => {
+        console.log('closed dialog');
+      });
   }
 
   onLogoutClick() {

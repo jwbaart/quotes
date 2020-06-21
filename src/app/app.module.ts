@@ -8,7 +8,6 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NavigationComponent } from './navigation/navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MaterialModule } from './material-module';
 import { IntroComponent } from './intro/intro.component';
@@ -22,12 +21,12 @@ import { UsersModule } from './users/users.module';
 import { VerificationComponent } from './verification/verification.component';
 import { VerificationModule } from './verification/verification.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
+import { NavigationModule } from './navigation/navigation.module';
 
 registerLocaleData(localeNl, 'nl');
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, IntroComponent, VerificationComponent, AuthenticatedUserComponent],
+  declarations: [AppComponent, IntroComponent, VerificationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,6 +39,7 @@ registerLocaleData(localeNl, 'nl');
     QuotesModule,
     UsersModule,
     VerificationModule,
+    NavigationModule,
     LayoutModule,
     HttpClientModule,
     CoreModule,
