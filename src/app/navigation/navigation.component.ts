@@ -21,6 +21,7 @@ export class NavigationComponent implements OnInit {
     this.isUsersVisible = combineLatest([this.authService.isAdmin$, this.authService.isLoggedIn$]).pipe(
       map(result => result[0] && result[1])
     );
+    this.onEditUserClick();
   }
 
   resultSelector(idTokenResult, isLoggedIn) {

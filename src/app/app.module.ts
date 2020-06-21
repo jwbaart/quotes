@@ -22,13 +22,11 @@ import { VerificationComponent } from './verification/verification.component';
 import { VerificationModule } from './verification/verification.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { NavigationModule } from './navigation/navigation.module';
-import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
-import { NavigationComponent } from './navigation/navigation.component';
 
 registerLocaleData(localeNl, 'nl');
 
 @NgModule({
-  declarations: [AppComponent, NavigationComponent, IntroComponent, VerificationComponent, AuthenticatedUserComponent],
+  declarations: [AppComponent, IntroComponent, VerificationComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
