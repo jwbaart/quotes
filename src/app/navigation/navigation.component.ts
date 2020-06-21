@@ -36,4 +36,12 @@ export class NavigationComponent implements OnInit {
   isNonProdId(projectId: string): boolean {
     return projectId.includes('-dev-') || projectId.includes('-staging-');
   }
+
+  onEditUserClick() {
+    console.log('onEditUserClick');
+  }
+
+  onLogoutClick() {
+    this.authService.logout();
+  }
 }
