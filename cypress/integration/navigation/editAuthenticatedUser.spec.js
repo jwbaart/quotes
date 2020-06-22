@@ -34,10 +34,15 @@ describe('Edit authenticatd user', () => {
 
     it('should change name to editable field', () => {
       editAuthenticatdUser.openDialog();
-      editAuthenticatdUser.getName().click();
+      editAuthenticatdUser.getNameEditButton().click();
       editAuthenticatdUser.getNameEditable().should('be.visible');
     });
 
-    it('should store name change', () => {});
+    it('should change name to fixed view from editable field', () => {
+      editAuthenticatdUser.openDialog();
+      editAuthenticatdUser.getNameEditButton().click();
+      editAuthenticatdUser.getNameSaveButton().click();
+      editAuthenticatdUser.getName().should('be.visible');
+    });
   });
 });

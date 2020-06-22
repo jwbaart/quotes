@@ -17,6 +17,8 @@ export class EditAuthenticatedUserComponent implements OnInit, OnDestroy {
   @Input() user$: Observable<EditAuthenticatedUser>;
 
   isLoading = true;
+  isNameVisible = true;
+  isNameHidden = false;
   destroy$: Subject<null> = new Subject();
 
   constructor() {}
@@ -24,6 +26,19 @@ export class EditAuthenticatedUserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user$.pipe(takeUntil(this.destroy$)).subscribe(user => (this.isLoading = !user));
   }
+  onNameClick() {
+    this._toggleNameVisibility();
+  }
+
+  onNameEditSave() {
+    this._toggleNameVisibility();
+  }
+
+  _toggleNameVisibility() {
+    this.isNameVisible = !this.isNameVisible;
+    this.isNameHidden = !this.isNameVisible;
+  }
+
   ngOnDestroy() {
     this.destroy$.next(null);
   }
