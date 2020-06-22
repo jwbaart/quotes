@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { User, ROLE } from '@app/core';
+import { takeUntil } from 'rxjs/operators';
 
 export interface EditAuthenticatedUser {
   name: string;
@@ -12,12 +13,18 @@ export interface EditAuthenticatedUser {
   templateUrl: './edit-authenticated-user.component.html',
   styleUrls: ['./edit-authenticated-user.component.scss']
 })
-export class EditAuthenticatedUserComponent implements OnInit {
-  @Input() name;
-  @Input() role;
-  @Input() photoUrl;
+export class EditAuthenticatedUserComponent implements OnInit, OnDestroy {
+  @Input() user$: Observable<EditAuthenticatedUser>;
+
+  isLoading = true;
+  destroy$: Subject<null> = new Subject();
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.user$.pipe(takeUntil(this.destroy$)).subscribe(user => (this.isLoading = !user));
+  }
+  ngOnDestroy() {
+    this.destroy$.next(null);
+  }
 }
