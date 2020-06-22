@@ -4,9 +4,21 @@
   &__row {
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 3rem;
     & > * {
       flex: 50%;
     }
+  }
+
+  &__value {
+    &--editable {
+      cursor: pointer;
+    }
+  }
+
+  &__edit-button {
+    margin-left: 1rem;
   }
 
   &__photo {
