@@ -52,7 +52,6 @@ import { NgNavigatorShareService } from 'ng-navigator-share';
     MatCheckboxModule,
     MatCardModule,
     MatChipsModule,
-    MatProgressSpinnerModule,
     MatSnackBarModule,
     MatTooltipModule,
     MatDividerModule

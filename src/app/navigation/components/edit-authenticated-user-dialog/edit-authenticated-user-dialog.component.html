@@ -1,10 +1,6 @@
-<h2 mat-dialog-title>Wijzig je gegevens</h2>
+<h2 mat-dialog-title>Je gegevens</h2>
 <mat-dialog-content class="mat-typography">
-  <app-edit-authenticated-user
-    [name]="(user$ | async)?.name"
-    [role]="(user$ | async)?.role"
-    [photoUrl]="(user$ | async)?.photoURL"
-  ></app-edit-authenticated-user>
+  <app-edit-authenticated-user [user$]="user$"></app-edit-authenticated-user>
   <!-- <form [formGroup]="authenticatedUserForm" (submit)="submit()">
     <mat-form-field class="form-field" appearance="outline">
       <mat-label>Naam</mat-label>
