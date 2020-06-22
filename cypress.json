@@ -1,4 +1,5 @@
 {
   "baseUrl": "http://localhost:4200",
-  "projectId": "ws9hzi"
+  "projectId": "ws9hzi",
+  "testFiles": "**/*.spec.*"
 }
