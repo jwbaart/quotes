@@ -3,7 +3,7 @@
   <ng-container *ngIf="!isLoading">
     <div class="edit-authenticated-user__row">
       <p class="edit-authenticated-user__title">Naam:</p>
-      <p class="edit-authenticated-user__value">{{ (user$ | async)?.name }}</p>
+      <p class="edit-authenticated-user__value" data-test="edit-authenticated-user-name">{{ (user$ | async)?.name }}</p>
     </div>
     <div class="edit-authenticated-user__row">
       <p class="edit-authenticated-user__title">Rol:</p>

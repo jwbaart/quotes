@@ -31,5 +31,13 @@ describe('Edit authenticatd user', () => {
           expect(hasRoleText).to.be.true;
         });
     });
+
+    it('should change name to editable field', () => {
+      editAuthenticatdUser.openDialog();
+      editAuthenticatdUser.getName().click();
+      editAuthenticatdUser.getNameEditable().should('be.visible');
+    });
+
+    it('should store name change', () => {});
   });
 });
