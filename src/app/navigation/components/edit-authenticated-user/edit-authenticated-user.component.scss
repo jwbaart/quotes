@@ -1,0 +1,15 @@
+.edit-authenticated-user {
+  min-width: 50vw;
+
+  &__row {
+    display: flex;
+    justify-content: center;
+    & > * {
+      flex: 50%;
+    }
+  }
+
+  &__photo {
+    width: 5rem;
+  }
+}

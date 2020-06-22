@@ -1,1 +1,14 @@
-<p>edit-authenticated-user works!</p>
+<section class="edit-authenticated-user">
+  <div class="edit-authenticated-user__row">
+    <p class="edit-authenticated-user__title">name:</p>
+    <p class="edit-authenticated-user__value">{{ name }}</p>
+  </div>
+  <div class="edit-authenticated-user__row">
+    <p class="edit-authenticated-user__title">role:</p>
+    <p class="edit-authenticated-user__value">{{ role }}</p>
+  </div>
+  <div class="edit-authenticated-user__row">
+    <p class="edit-authenticated-user__title">photoUrl:</p>
+    <img [src]="photoUrl" class="edit-authenticated-user__value" />
+  </div>
+</section>

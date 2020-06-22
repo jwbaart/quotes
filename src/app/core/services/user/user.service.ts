@@ -13,7 +13,7 @@ export enum ROLE {
 export interface User extends Entity {
   name: string;
   createdAt: firebase.firestore.Timestamp;
-  photoUrl: string;
+  photoURL: string;
   role: ROLE;
   uid: string;
   forceRefreshToken: boolean;
