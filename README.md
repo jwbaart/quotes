@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/jwbaart/quotes)
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ba558947-1bd1-4893-854e-5fa5102e27ef/deploy-status)](https://app.netlify.com/sites/peaceful-engelbart-78fa2d/deploys)
 <a href="https://david-dm.org/jwbaart/quotes?type=dev" title="devDependencies status"><img src="https://david-dm.org/jwbaart/quotes/dev-status.svg"/></a>
 
