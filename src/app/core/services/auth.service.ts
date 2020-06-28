@@ -3,7 +3,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, BehaviorSubject, partition } from 'rxjs';
 import { auth } from 'firebase/app';
 import { SnackbarService } from './snackbar.service';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { User, UserService, ROLE } from './user/user.service';
 import { NavigationService } from './navigation.service';
 import { map, tap } from 'rxjs/operators';
@@ -12,27 +11,29 @@ import { map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  // public user$: Observable<User>;
   public user: User;
 
   private _isAdmin$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public readonly isAdmin$: Observable<boolean> = this._isAdmin$.asObservable();
-
   private _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public readonly isLoggedIn$: Observable<boolean> = this._isLoggedIn$.asObservable();
-
   private _isLoggedOut$: BehaviorSubject<boolean> = new BehaviorSubject(true);
-  public readonly isLoggedOut$: Observable<boolean> = this._isLoggedOut$.asObservable();
-
   private _isUserEditor$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  public readonly isUserEditor$: Observable<boolean> = this._isUserEditor$.asObservable();
-
   private _user$: BehaviorSubject<User> = new BehaviorSubject(undefined);
+
+  public readonly isAdmin$: Observable<boolean> = this._isAdmin$.asObservable();
+  public readonly isLoggedIn$: Observable<boolean> = this._isLoggedIn$.asObservable();
+  public readonly isLoggedOut$: Observable<boolean> = this._isLoggedOut$.asObservable();
+  public readonly isUserEditor$: Observable<boolean> = this._isUserEditor$.asObservable();
   public readonly user$: Observable<User> = this._user$.asObservable();
 
   private _authState: Observable<firebase.User>;
   private _userLoggedIn$: Observable<firebase.User>;
   private _userLoggedOut$: Observable<firebase.User>;
+
+  /*
+   * TODO:
+   * - Write test to check login and logout message(to check authservice)
+   * - rewrite was logged in & out snackbar messages
+   */
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -54,12 +55,12 @@ export class AuthService {
 
     this._userLoggedIn$.pipe(tap(() => console.log('userLoggedIn$'))).subscribe(authenticatedUser => {
       this.initUser(authenticatedUser.uid);
+
       this.user$.subscribe(user => {
         if (user) {
           const isUnknownUser = user.role === ROLE.UNKNOWN;
           this.user = user;
           if (isUnknownUser) {
-            console.log('a');
             this.navigationService.toVerification();
           } else {
             this.navigationService.toQuotesIfOnIntro();
@@ -67,7 +68,7 @@ export class AuthService {
         }
       });
     });
-    this._userLoggedOut$.pipe(tap(() => console.log('userLoggedIn$'))).subscribe(() => {
+    this._userLoggedOut$.pipe(tap(() => console.log('userLoggedOut$'))).subscribe(() => {
       this.initUser(null);
       this.navigationService.toIntro();
     });
