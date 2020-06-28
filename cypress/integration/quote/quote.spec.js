@@ -1,4 +1,5 @@
 describe('Quote', () => {
+  const router = require('../page-objects/router.page');
   const quote = require('./quote.page');
   let testTitle;
   let testTitleUpdated;
@@ -7,7 +8,7 @@ describe('Quote', () => {
 
   beforeEach(() => {
     cy.login();
-    cy.visit('/quotes');
+    router.toQuotes();
     testTitle = '[test] Title ' + new Date().getTime();
     testText = '[test] Text ' + new Date().getTime();
   });

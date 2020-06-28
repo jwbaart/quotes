@@ -1,7 +1,8 @@
 class Navigation {
   selectors = {
     dropdown: '[data-test=navigation-dropdown-button]',
-    editUser: '[data-test=navigation-edit-user]'
+    editUser: '[data-test=navigation-edit-user]',
+    logOut: '[data-test=navigation-log-out]'
   };
   getDropDownMenu() {
     return cy.get(this.selectors.dropdown);
@@ -12,6 +13,10 @@ class Navigation {
 
   selectEditUser() {
     return cy.get(this.selectors.editUser).click();
+  }
+
+  selectLogOut() {
+    return cy.get(this.selectors.logOut).click();
   }
 }
 
