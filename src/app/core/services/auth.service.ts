@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, partition } from 'rxjs';
 import { auth } from 'firebase/app';
 import { SnackbarService } from './snackbar.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { User, UserService, ROLE } from './user/user.service';
 import { NavigationService } from './navigation.service';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,8 @@ export class AuthService {
   public readonly user$: Observable<User> = this._user$.asObservable();
 
   private _authState: Observable<firebase.User>;
+  private _userLoggedIn$: Observable<firebase.User>;
+  private _userLoggedOut$: Observable<firebase.User>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -45,6 +47,31 @@ export class AuthService {
     this.initIsLoggedOut();
     this.initIsUserEditor();
 
+    [this._userLoggedIn$, this._userLoggedOut$] = partition(
+      this.afAuth.authState,
+      authenticatedUser => !!authenticatedUser
+    );
+
+    this._userLoggedIn$.pipe(tap(() => console.log('userLoggedIn$'))).subscribe(authenticatedUser => {
+      this.initUser(authenticatedUser.uid);
+      this.user$.subscribe(user => {
+        if (user) {
+          const isUnknownUser = user.role === ROLE.UNKNOWN;
+          this.user = user;
+          if (isUnknownUser) {
+            console.log('a');
+            this.navigationService.toVerification();
+          } else {
+            this.navigationService.toQuotesIfOnIntro();
+          }
+        }
+      });
+    });
+    this._userLoggedOut$.pipe(tap(() => console.log('userLoggedIn$'))).subscribe(() => {
+      this.initUser(null);
+      this.navigationService.toIntro();
+    });
+
     this._authState.subscribe(
       authenticatedUser => {
         const wasLoggedIn = !!this.user;
@@ -54,26 +81,10 @@ export class AuthService {
           if (wasLoggedOut) {
             this._snackbarService.open('Je bent ingelogd');
           }
-
-          this.initUser(authenticatedUser.uid);
-          this.user$.subscribe(user => {
-            if (user) {
-              const isUnknownUser = user.role === ROLE.UNKNOWN;
-              this.user = user;
-              if (isUnknownUser) {
-                console.log('a')
-                this.navigationService.toVerification();
-              } else {
-                this.navigationService.toQuotesIfOnIntro();
-              }
-            }
-          });
         } else {
           if (wasLoggedIn) {
             this._snackbarService.open('Je bent uitgelogd');
           }
-          this.initUser(null);
-          this.navigationService.toIntro();
         }
       },
       err => {
