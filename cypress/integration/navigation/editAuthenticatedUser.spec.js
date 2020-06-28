@@ -1,9 +1,11 @@
+
 describe('Edit authenticatd user', () => {
+  const router = require('../page-objects/router.page');
   const editAuthenticatdUser = require('./editAuthenticatdUser.page');
 
   beforeEach(() => {
     cy.login();
-    cy.visit('/quotes');
+    router.toQuotes();
   });
 
   describe('User details', () => {

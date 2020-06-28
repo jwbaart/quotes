@@ -1,4 +1,5 @@
 describe('Users', () => {
+  const router = require('../page-objects/router.page');
   const users = require('./users.page');
 
   let testUserName;
@@ -6,7 +7,7 @@ describe('Users', () => {
 
   beforeEach(() => {
     cy.login();
-    cy.visit('/users');
+    router.toQuotes();
 
     testUserName = 'CI user';
     testUserRole = 'unknown';
