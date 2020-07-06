@@ -16,6 +16,7 @@ import { NgNavigatorShareService } from 'ng-navigator-share';
 })
 export class QuotesComponent implements OnInit, OnDestroy {
   quotes: Quote[] = [];
+  quotes$: Observable<Quote[]>;
   isQuotesLoading = true;
   private destroy$: Subject<void> = new Subject();
 
@@ -32,7 +33,8 @@ export class QuotesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.quotesService.quotes.pipe(takeUntil(this.destroy$)).subscribe(
+    this.quotes$ = this.quotesService.quotes;
+    this.quotes$.pipe(takeUntil(this.destroy$)).subscribe(
       quotes => {
         this.quotes = quotes;
         this.isQuotesLoading = false;
@@ -47,6 +49,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.destroy$.next();
     this.destroy$.complete();
   }
 
