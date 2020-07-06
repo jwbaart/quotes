@@ -39,7 +39,7 @@ export interface QuoteFirebase {
 export class QuotesService {
   private _quotesCollection: AngularFirestoreCollection<QuoteFirebase>;
 
-  quotes: Observable<Quote[]>;
+  quotes$: Observable<Quote[]>;
 
   constructor(
     private db: AngularFirestore,
@@ -48,7 +48,7 @@ export class QuotesService {
   ) {
     this._quotesCollection = db.collection('quotes', ref => ref.orderBy('datestamp', 'desc'));
 
-    this.quotes = this._quotesCollection.snapshotChanges().pipe(
+    this.quotes$ = this._quotesCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const firebaseQuote: QuoteFirebase = a.payload.doc.data() as QuoteFirebase;

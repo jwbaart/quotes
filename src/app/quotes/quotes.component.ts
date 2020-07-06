@@ -33,7 +33,7 @@ export class QuotesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.quotes$ = this.quotesService.quotes;
+    this.quotes$ = this.quotesService.quotes$;
     this.quotes$.pipe(takeUntil(this.destroy$)).subscribe(
       quotes => {
         this.quotes = quotes;
