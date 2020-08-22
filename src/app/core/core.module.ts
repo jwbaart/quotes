@@ -9,6 +9,7 @@ import { RolesService } from './services/roles/roles.service';
 import { AdminService } from './services/admin/admin.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenHttpInterceptor } from './interceptors/auth-token.interceptor';
+import { StorageService } from './services/storage/storage.service';
 
 @NgModule({
   providers: [
@@ -16,6 +17,7 @@ import { AuthTokenHttpInterceptor } from './interceptors/auth-token.interceptor'
     AuthService,
     SnackbarService,
     FirestoreCrudService,
+    StorageService,
     UserService,
     NavigationService,
     RolesService,
