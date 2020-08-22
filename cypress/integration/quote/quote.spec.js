@@ -1,4 +1,5 @@
 describe('Quote', () => {
+  const router = require('../page-objects/router.page');
   const quote = require('./quote.page');
   let testTitle;
   let testTitleUpdated;
@@ -6,10 +7,12 @@ describe('Quote', () => {
   let testTextUpdated;
 
   beforeEach(() => {
+    const currentTime = new Date().getTime();
+
     cy.login();
-    cy.visit('/quotes');
-    testTitle = '[test] Title ' + new Date().getTime();
-    testText = '[test] Text ' + new Date().getTime();
+    router.toQuotes();
+    testTitle = '[test] Title ' + currentTime;
+    testText = '[test] Text ' + currentTime;
   });
 
   describe('add', () => {
@@ -26,16 +29,14 @@ describe('Quote', () => {
   });
 
   describe('edit', () => {
-    before(() => {
+    beforeEach(() => {
       testTitleUpdated = testTitle + ' [updated]';
       testTextUpdated = testText + ' [updated]';
-    });
 
-    beforeEach(() => {
       quote.add({ title: testTitle, text: testText });
     });
 
-    it('should be able to edit quote', () => {
+    it('should be able to edit quote text', () => {
       // TODO: extend to all quote properties
       quote
         .update(testText, { title: testTitleUpdated, text: testTextUpdated })

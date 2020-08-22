@@ -1,0 +1,31 @@
+.edit-authenticated-user {
+  min-width: 50vw;
+
+  &__row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 3rem;
+    & > * {
+      flex: 50%;
+    }
+  }
+
+  &__value {
+    &--editable {
+      cursor: pointer;
+    }
+  }
+
+  &__edit-button {
+    margin-left: 1rem;
+  }
+
+  &__photo {
+    width: 5rem;
+  }
+
+  &__spinner {
+    margin: 2rem auto;
+  }
+}

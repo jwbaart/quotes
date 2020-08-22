@@ -1,11 +1,11 @@
 <section class="app-quotes page">
   <mat-spinner *ngIf="isQuotesLoading" class="app-quotes__spinner"></mat-spinner>
-  <div *ngIf="quotes.length" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
+  <div *ngIf="(quotes$ | async)?.length" fxLayout="row wrap" fxLayoutAlign="start stretch" fxLayoutGap="1rem grid">
     <section
-      *ngFor="let quote of quotes; let odd = odd; let even = even; trackBy: trackQuotes"
+      *ngFor="let quote of quotes$ | async; let odd = odd; let even = even; trackBy: trackQuotes"
       fxFlex="0 1 100%"
       fxFlex.sm="50%"
-      fxFlex.md="calc(100%  /3)"
+      fxFlex.md="calc(100% / 3)"
       fxFlex.lg="25%"
       fxFlex.xl="20%"
     >
@@ -21,7 +21,7 @@
     </section>
   </div>
   <div
-    *ngIf="!quotes.length && !isQuotesLoading"
+    *ngIf="!(quotes$ | async)?.length && !isQuotesLoading"
     fxLayout="column"
     fxLayoutAlign="center center"
     data-test="quotes-missing"

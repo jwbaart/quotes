@@ -14,12 +14,14 @@ class Quote {
 
   add(props) {
     cy.get(this.selectors.add).click();
+    const isTitlePresent = props.hasOwnProperty('title') && props.title && props.title.length;
+    const isTextPresent = props.hasOwnProperty('text') && props.text && props.text.length;
 
-    if (props.hasOwnProperty('title') && props.title && props.title.length) {
+    if (isTitlePresent) {
       cy.get(this.selectors.formTitle).type(props.title);
     }
 
-    if (props.hasOwnProperty('text') && props.text && props.text.length) {
+    if (isTextPresent) {
       cy.get(this.selectors.formText).type(props.text);
     }
 
@@ -35,25 +37,31 @@ class Quote {
   }
 
   update(text, props) {
+    const isTitlePresent = props.hasOwnProperty('title') && props.title && props.title.length;
+    const isTextPresent = props.hasOwnProperty('text') && props.text && props.text.length;
+
     this.get(text)
       .find(this.selectors.cardEdit)
       .click();
 
-    if (props.hasOwnProperty('title') && props.title && props.title.length) {
+    if (isTitlePresent) {
       cy.get(this.selectors.formTitle)
         .clear()
         .type(props.title);
     }
 
-    if (props.hasOwnProperty('text') && props.text && props.text.length) {
+    if (isTextPresent) {
       cy.get(this.selectors.formText)
         .clear()
         .type(props.text);
     }
 
     cy.get(this.selectors.formSubmit).click();
+    cy.get(this.selectors.form).should('not.exist');
+
     // FIXME: sometimes element is visible but not found in next get
-    cy.wait(500); 
+    //        The '[updated]' postfix is not seen. Update not properly propogated until out of wait?
+    cy.wait(500);
     return this.get(props.text);
   }
 

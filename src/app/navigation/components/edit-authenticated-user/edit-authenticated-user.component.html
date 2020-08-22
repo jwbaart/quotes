@@ -1,0 +1,35 @@
+<section class="edit-authenticated-user">
+  <mat-spinner *ngIf="isLoading" class="edit-authenticated-user__spinner"></mat-spinner>
+  <ng-container *ngIf="!isLoading">
+    <div class="edit-authenticated-user__row">
+      <p class="edit-authenticated-user__title">Naam:</p>
+      <p class="edit-authenticated-user__value" *ngIf="isNameVisible">
+        <span data-test="edit-authenticated-user-name">{{ (user$ | async)?.name }}</span>
+        <button
+          mat-mini-fab
+          class="edit-authenticated-user__edit-button"
+          data-test="edit-authenticated-user-edit-name-button"
+          (click)="onNameClick()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </p>
+      <div class="edit-authenticated-user__edit" data-test="edit-authenticated-user-name-editable" *ngIf="isNameHidden">
+        <mat-form-field class="example-form-field">
+          <input matInput type="text" [ngModel]="(user$ | async)?.name" />
+        </mat-form-field>
+        <button mat-raised-button (click)="onNameEditSave()" data-test="edit-authenticated-user-save-name-button">
+          Sla op
+        </button>
+      </div>
+    </div>
+    <div class="edit-authenticated-user__row">
+      <p class="edit-authenticated-user__title">Rol:</p>
+      <p class="edit-authenticated-user__value" data-test="edit-authenticated-user-role">{{ (user$ | async)?.role }}</p>
+    </div>
+    <div class="edit-authenticated-user__row">
+      <p class="edit-authenticated-user__title">Avatar:</p>
+      <img [src]="(user$ | async)?.photoUrl" class="edit-authenticated-user__photo" />
+    </div>
+  </ng-container>
+</section>

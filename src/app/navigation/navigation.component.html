@@ -18,17 +18,36 @@
   <button
     mat-raised-fbutton
     *ngIf="isLoggedIn() | async"
-    (click)="authService.logout()"
+    (click)="onLogoutClick()"
     matTooltip="Logout"
     aria-label="Logout"
   >
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <img
         class="app-navigation__avatar"
-        *ngIf="!!(authService.user$ | async)?.photoUrl"
-        [src]="(authService.user$ | async)?.photoUrl"
+        *ngIf="!!(authService.user$ | async)?.photoURL"
+        [src]="(authService.user$ | async)?.photoURL"
       />
       <p class="mat-body">{{ (authService.user$ | async)?.name }}</p>
     </div>
   </button>
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    *ngIf="isLoggedIn() | async"
+    aria-label="Example icon-button with a menu"
+    data-test="navigation-dropdown-button"
+  >
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onEditUserClick()" data-test="navigation-edit-user">
+      <mat-icon>edit</mat-icon>
+      <span>Wijzig gegevens</span>
+    </button>
+    <button mat-menu-item (click)="onLogoutClick()" data-test="navigation-log-out">
+      <mat-icon>exit_to_app</mat-icon>
+      <span>Log uit</span>
+    </button>
+  </mat-menu>
 </mat-toolbar>
