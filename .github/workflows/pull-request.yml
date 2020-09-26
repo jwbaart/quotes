@@ -57,7 +57,7 @@ jobs:
         with:
           name: quotes
           path: dist/quotes
-      - run: yarn publish-env
+      - run: yarn add-angular-env-to-dist
         env:
           FIREBASE_API_KEY: ${{ secrets.STAGING_FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.STAGING_FIREBASE_AUTH_DOMAIN }}
@@ -88,7 +88,7 @@ jobs:
         with:
           name: quotes
           path: dist/quotes
-      - run: yarn publish-env
+      - run: yarn add-angular-env-to-dist
         env:
           FIREBASE_API_KEY: ${{ secrets.STAGING_FIREBASE_API_KEY }}
           FIREBASE_AUTH_DOMAIN: ${{ secrets.STAGING_FIREBASE_AUTH_DOMAIN }}
