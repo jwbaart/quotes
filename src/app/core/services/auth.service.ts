@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Observable, BehaviorSubject, partition } from 'rxjs';
-import { auth } from 'firebase/app';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { SnackbarService } from './snackbar.service';
 import { User, UserService, ROLE } from './user/user.service';
 import { NavigationService } from './navigation.service';
@@ -141,19 +142,21 @@ export class AuthService {
   }
 
   login() {
-    this.afAuth.auth
-      .signInWithPopup(new auth.GoogleAuthProvider())
+    this.afAuth
+      .signInWithPopup(new firebase.auth.GoogleAuthProvider())
       .catch(error => this._snackbarService.open('Fout tijdens het inloggen: ' + error));
   }
 
   logout() {
-    this.afAuth.auth.signOut().catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
+    this.afAuth.signOut().catch(error => this._snackbarService.open('Fout tijdens het uitloggen: ' + error));
   }
 
   private refreshToken(uid) {
-    return this.afAuth.auth.currentUser.getIdTokenResult(true).finally(() => {
-      const forceRefreshToken = false;
-      this.userService.merge(uid, { forceRefreshToken });
-    });
+    return this.afAuth.currentUser
+      .then(user => user.getIdTokenResult(true))
+      .finally(() => {
+        const forceRefreshToken = false;
+        this.userService.merge(uid, { forceRefreshToken });
+      });
   }
 }
