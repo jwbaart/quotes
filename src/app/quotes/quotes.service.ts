@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { map, take } from 'rxjs/operators';
 import { SnackbarService } from '@app/core/services/snackbar.service';
 import { ChildId } from './children.service';

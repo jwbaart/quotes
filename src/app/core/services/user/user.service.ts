@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirestoreCrudService, Entity } from '../firestore-crud.service';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import firebase from 'firebase/app';
 
 export enum ROLE {
   ADMIN = 'admin',
