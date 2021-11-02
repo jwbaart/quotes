@@ -11,9 +11,6 @@
     "logs": "firebase functions:log",
     "test": "jest "
   },
-  "engines": {
-    "node": "10"
-  },
   "main": "lib/index.js",
   "dependencies": {
     "@types/cors": "^2.8.5",
